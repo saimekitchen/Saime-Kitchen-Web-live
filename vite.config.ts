@@ -2,6 +2,28 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import {defineConfig} from 'vite';
+import fs from 'fs';
+
+// Automatically sync images from src/assets/images to public/src/assets/images 
+// so that absolute paths like /src/assets/images/... work seamlessly in the production build.
+const srcDir = path.resolve(__dirname, 'src/assets/images');
+const destDir = path.resolve(__dirname, 'public/src/assets/images');
+
+try {
+  if (fs.existsSync(srcDir)) {
+    fs.mkdirSync(destDir, { recursive: true });
+    const files = fs.readdirSync(srcDir);
+    for (const file of files) {
+      const srcFile = path.join(srcDir, file);
+      const destFile = path.join(destDir, file);
+      if (fs.statSync(srcFile).isFile()) {
+        fs.copyFileSync(srcFile, destFile);
+      }
+    }
+  }
+} catch (err) {
+  console.error('Failed to sync assets:', err);
+}
 
 export default defineConfig(() => {
   return {
