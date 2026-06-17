@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Poppins", "Inter", system-ui, sans-serif;
+  --font-display: "Poppins", sans-serif;
+  --font-serif: "Poppins", sans-serif;
+  --font-logo: "DM Serif Display", serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-primary: #c20800;
+  --color-primary-dark: #a00600;
+  --color-primary-light: #ffd9d7;
+  --color-tropical: #0d5c3a;
+  --color-tropical-dark: #083f27;
+  --color-tropical-light: #e0f2f1;
+  --color-neutral-dark: #121212;
+  --color-neutral-muted: #4a4a4a;
+  --color-neutral-light: #fefcf9;
+  --color-sand: #f4efe6;
+  --color-sand-dark: #e8ded2;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-neutral-light);
+    color: var(--color-neutral-dark);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+}
+
+/* Polycarbonate physical material styles */
+.polycarbonate {
+  background: rgba(254, 252, 249, 0.45);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-top-color: rgba(255, 255, 255, 0.85);
+  border-left-color: rgba(255, 255, 255, 0.65);
+  box-shadow: 
+    inset 0 1.5px 2.5px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1.5px 1.5px 0 rgba(0, 0, 0, 0.03),
+    0 4px 10px -2px rgba(84, 76, 59, 0.06),
+    0 16px 36px -8px rgba(84, 76, 59, 0.1);
+}
+
+.polycarbonate-dark {
+  background: rgba(18, 18, 18, 0.55);
+  backdrop-filter: blur(16px) saturate(130%);
+  -webkit-backdrop-filter: blur(16px) saturate(130%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-top-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 
+    inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.2),
+    0 16px 36px -8px rgba(0, 0, 0, 0.35);
+}
+
+.polycarbonate-tab {
+  background: rgba(254, 252, 249, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.8), 0 2px 5px rgba(0, 0, 0, 0.02);
+}
+
+/* Custom scrollbar for beautiful presentation */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-neutral-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-sand-dark);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c20800;
+}
+
