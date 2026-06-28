@@ -1,4 +1,5 @@
-import { ArrowDown, Compass } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ArrowDown, Compass, Clock, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 import { translations } from '../translations';
 
@@ -11,6 +12,28 @@ interface HeroProps {
 
 export default function Hero({ onGoToMenu, onGoToBooking, onNavigate, lang }: HeroProps) {
   const t = translations[lang];
+  const [isOpenNow, setIsOpenNow] = useState<boolean>(true);
+
+  useEffect(() => {
+    const checkStatus = () => {
+      const now = new Date();
+      const day = now.getDay(); // 0 = Sunday, ..., 6 = Saturday
+      const hours = now.getHours();
+      
+      const isWeekendSchedule = day === 5 || day === 6; // Friday & Saturday
+      const closeHour = isWeekendSchedule ? 24 : 23;
+      
+      if (hours >= 8 && hours < closeHour) {
+        setIsOpenNow(true);
+      } else {
+        setIsOpenNow(false);
+      }
+    };
+
+    checkStatus();
+    const interval = setInterval(checkStatus, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section id="hero" className="relative pt-24 pb-16 sm:pb-24 overflow-hidden bg-[#FCFCFA] select-none text-neutral-dark">
@@ -27,17 +50,39 @@ export default function Hero({ onGoToMenu, onGoToBooking, onNavigate, lang }: He
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
             
             {/* Soft Airbnb-style organic tag */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-rose-50 text-rose-700 border border-rose-100/50"
-            >
-              <Compass className="w-3.5 h-3.5" />
-              <span className="font-mono text-[10px] font-bold uppercase tracking-wider">
-                {lang === 'en' ? 'Saime Hoi An' : 'Saime Hội An'}
-              </span>
-            </motion.div>
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-rose-50 text-rose-700 border border-rose-100/50"
+              >
+                <Compass className="w-3.5 h-3.5" />
+                <span className="font-mono text-[10px] font-bold uppercase tracking-wider">
+                  {lang === 'en' ? 'Saime Hoi An' : 'Saime Hội An'}
+                </span>
+              </motion.div>
+
+              {/* High-impact Open/Closed Live Status Tag */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.15 }}
+                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-[11px] font-sans font-bold shadow-xs ${
+                  isOpenNow 
+                    ? 'bg-emerald-50 text-emerald-800 border-emerald-200/60 animate-pulse duration-[3000ms]' 
+                    : 'bg-rose-50 text-rose-800 border-rose-100'
+                }`}
+              >
+                <Clock className={`w-3.5 h-3.5 ${isOpenNow ? 'text-emerald-600' : 'text-rose-500'}`} />
+                <span>
+                  {isOpenNow 
+                    ? (lang === 'en' ? '🟢 OPEN NOW • Tap to join the cozy vibes!' : '🟢 ĐANG MỞ CỬA • Ghé tụi mình chơi ngay nha!')
+                    : (lang === 'en' ? '🔴 CLOSED NOW • Reopens 8 AM tomorrow! See you soon!' : '🔴 ĐÃ ĐÓNG CỬA • Sáng mai 8h tụi mình mở cửa nhé!')
+                  }
+                </span>
+              </motion.div>
+            </div>
 
             {/* Premium Header Styling */}
             <motion.div
