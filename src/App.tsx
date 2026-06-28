@@ -10,7 +10,7 @@ import { MenuItem } from './types';
 import { MENU_ITEMS } from './data';
 import { translations } from './translations';
 import { motion, AnimatePresence } from 'motion/react';
-import { Volume2, Instagram, Facebook, MapPin } from 'lucide-react';
+import { Volume2, Instagram, Facebook, MapPin, Utensils, Film, Dices, Puzzle, Sparkles } from 'lucide-react';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState<string>('hero');
@@ -370,107 +370,133 @@ export default function App() {
         </AnimatePresence>
       </main>
 
-
-
-      {/* Persistent Desktop Floating Social Bar */}
-      <div className="fixed right-5 top-1/2 -translate-y-1/2 z-50 hidden xl:flex flex-col items-center gap-3 bg-white/95 backdrop-blur-md border-2 border-rose-600/30 p-2.5 rounded-full shadow-[0_15px_40px_rgba(225,29,72,0.18)] hover:border-rose-600/60 transition-all duration-300 animate-in fade-in slide-in-from-right-4 duration-500">
-        <div className="w-2 h-2 bg-rose-600 rounded-full animate-pulse" />
-        <span className="font-mono text-[10px] font-black uppercase tracking-widest text-rose-600 [writing-mode:vertical-lr] select-none py-1">
-          {lang === 'en' ? 'Socials' : 'Kết Nối'}
-        </span>
-        <a
-          href="https://www.google.com/maps/search/?api=1&query=Saime+Kitchen+%26+Bar+144+Ly+Thai+To+Hoi+An"
-          target="_blank"
-          rel="noreferrer"
-          className="p-2.5 bg-sand hover:bg-rose-600 hover:scale-115 text-neutral-dark hover:text-white rounded-full transition-all cursor-pointer flex items-center justify-center shadow-xs hover:shadow-lg hover:shadow-rose-600/30"
-          title={lang === 'en' ? 'Google Maps Location' : 'Vị Trí Google Maps'}
-        >
-          <MapPin className="w-4 h-4" />
-        </a>
-        <a
-          href="https://www.instagram.com/saime_kitchen.bar/"
-          target="_blank"
-          rel="noreferrer"
-          className="p-2.5 bg-sand hover:bg-rose-600 hover:scale-115 text-neutral-dark hover:text-white rounded-full transition-all cursor-pointer flex items-center justify-center shadow-xs hover:shadow-lg hover:shadow-rose-600/30"
-          title="Instagram @saime_kitchen.bar"
-        >
-          <Instagram className="w-4 h-4" />
-        </a>
-        <a
-          href="https://www.facebook.com/profile.php?id=61589897489896"
-          target="_blank"
-          rel="noreferrer"
-          className="p-2.5 bg-sand hover:bg-rose-600 hover:scale-115 text-neutral-dark hover:text-white rounded-full transition-all cursor-pointer flex items-center justify-center shadow-xs hover:shadow-lg hover:shadow-rose-600/30"
-          title="Facebook Page"
-        >
-          <Facebook className="w-4 h-4" />
-        </a>
-        <a
-          href="https://www.tiktok.com/@saime.kitchen.bar?lang=en"
-          target="_blank"
-          rel="noreferrer"
-          className="p-2.5 bg-sand hover:bg-rose-600 hover:scale-115 text-neutral-dark hover:text-white rounded-full transition-all cursor-pointer flex items-center justify-center shadow-xs hover:shadow-lg hover:shadow-rose-600/30"
-          title="TikTok @saime.kitchen.bar"
-        >
-          <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.86-.74-3.94-1.74-.22-.22-.44-.45-.63-.7-.01 2.05-.01 4.11-.01 6.16 0 1.54-.31 3.14-1.12 4.46-1.15 1.98-3.32 3.32-5.61 3.49-1.99.18-4.14-.35-5.63-1.75-1.92-1.72-2.58-4.66-1.56-7.07.82-1.99 2.76-3.48 4.9-3.76.21-.03.43-.04.64-.05v4.06c-1.1.26-2.11 1.09-2.38 2.24-.39 1.56.49 3.33 2.01 3.79 1.15.35 2.5-.04 3.17-1.02.44-.64.55-1.44.53-2.22.02-3.83.01-7.66.01-11.49z"/>
-          </svg>
-        </a>
-      </div>
-
-      {/* Mobile Sticky Floating Bottom Social Bar */}
+      {/* Sticky Floating Bottom Activities Navigation Bar (All Platforms) */}
       <div 
-        className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 xl:hidden flex items-center gap-4 bg-[#18181c]/80 backdrop-blur-xl border border-rose-500/25 px-5 py-2.5 rounded-full shadow-[0_12px_40px_rgba(0,0,0,0.3)] transition-all duration-500 ease-in-out ${
-          showMobileSocial 
-            ? 'translate-y-0 opacity-100 scale-100' 
-            : 'translate-y-20 opacity-0 scale-95 pointer-events-none'
-        }`}
+        className="fixed bottom-4 left-4 right-4 md:left-1/2 md:right-auto md:w-[500px] md:-translate-x-1/2 z-50 bg-[#121214]/95 backdrop-blur-md border border-white/15 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.6)] flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300"
       >
-        <div className="flex items-center gap-1.5 pr-3 border-r border-white/10 select-none">
-          <span className="w-1.5 h-1.5 bg-rose-500 rounded-full animate-pulse" />
-          <span className="font-display font-black text-[9px] tracking-widest text-[#FAF6F0] uppercase">
-            {lang === 'en' ? 'Socials' : 'Kết Nối'}
-          </span>
-        </div>
-        <div className="flex items-center gap-3">
-          <a
+        {/* Map & Social Utilities Strip */}
+        <div className="flex items-center justify-between px-4 py-2 border-b border-white/5 bg-white/[0.02]">
+          {/* Google Map Link */}
+          <a 
             href="https://www.google.com/maps/search/?api=1&query=Saime+Kitchen+%26+Bar+144+Ly+Thai+To+Hoi+An"
             target="_blank"
             rel="noreferrer"
-            className="p-1.5 bg-rose-600/25 border border-rose-500/20 hover:bg-rose-600 hover:scale-110 text-white rounded-full transition-all cursor-pointer flex items-center justify-center shadow-xs"
-            title={lang === 'en' ? 'Location' : 'Bản Đồ'}
+            className="flex items-center gap-1.5 text-[11px] font-sans font-bold text-rose-400 hover:text-rose-300 transition-colors"
           >
-            <MapPin className="w-4.5 h-4.5" />
+            <MapPin className="w-3.5 h-3.5 shrink-0 text-rose-500 animate-pulse" />
+            <span>{lang === 'en' ? 'Directions (Map)' : 'Chỉ đường (Bản Đồ)'}</span>
           </a>
-          <a
-            href="https://www.instagram.com/saime_kitchen.bar/"
-            target="_blank"
-            rel="noreferrer"
-            className="p-1.5 bg-white/10 hover:bg-rose-600 hover:scale-110 text-white rounded-full transition-all cursor-pointer flex items-center justify-center shadow-xs"
-            title="Instagram"
+
+          {/* Social Links */}
+          <div className="flex items-center gap-3">
+            <a 
+              href="https://www.instagram.com/saime_kitchen.bar/" 
+              target="_blank" 
+              rel="noreferrer" 
+              className="p-1 text-white/60 hover:text-rose-400 transition-colors"
+              title="Instagram"
+            >
+              <Instagram className="w-4 h-4" />
+            </a>
+            <a 
+              href="https://www.facebook.com/profile.php?id=61589897489896" 
+              target="_blank" 
+              rel="noreferrer" 
+              className="p-1 text-white/60 hover:text-rose-400 transition-colors"
+              title="Facebook"
+            >
+              <Facebook className="w-4 h-4" />
+            </a>
+            <a 
+              href="https://www.tiktok.com/@saime.kitchen.bar?lang=en" 
+              target="_blank" 
+              rel="noreferrer" 
+              className="p-1 text-white/60 hover:text-rose-400 transition-colors"
+              title="TikTok"
+            >
+              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.86-.74-3.94-1.74-.22-.22-.44-.45-.63-.7-.01 2.05-.01 4.11-.01 6.16 0 1.54-.31 3.14-1.12 4.46-1.15 1.98-3.32 3.32-5.61 3.49-1.99.18-4.14-.35-5.63-1.75-1.92-1.72-2.58-4.66-1.56-7.07.82-1.99 2.76-3.48 4.9-3.76.21-.03.43-.04.64-.05v4.06c-1.1.26-2.11 1.09-2.38 2.24-.39 1.56.49 3.33 2.01 3.79 1.15.35 2.5-.04 3.17-1.02.44-.64.55-1.44.53-2.22.02-3.83.01-7.66.01-11.49z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        {/* Main Core Activities Tabs */}
+        <div className="grid grid-cols-5 py-2 px-1 text-center select-none bg-black/40">
+          {/* Tab 1: Menu */}
+          <button
+            onClick={() => handleNav('menu')}
+            className={`flex flex-col items-center justify-center py-1 rounded-xl transition-all cursor-pointer ${
+              activeSection === 'hero' 
+                ? 'text-rose-400 font-bold bg-white/[0.04]' 
+                : 'text-white/50 hover:text-white/80'
+            }`}
           >
-            <Instagram className="w-4.5 h-4.5" />
-          </a>
-          <a
-            href="https://www.facebook.com/profile.php?id=61589897489896"
-            target="_blank"
-            rel="noreferrer"
-            className="p-1.5 bg-white/10 hover:bg-rose-600 hover:scale-110 text-white rounded-full transition-all cursor-pointer flex items-center justify-center shadow-xs"
-            title="Facebook"
+            <Utensils className={`w-4.5 h-4.5 mb-1 transition-transform duration-300 ${activeSection === 'hero' ? 'scale-110 text-rose-400' : ''}`} />
+            <span className="text-[9px] tracking-tight truncate max-w-full px-1">
+              {lang === 'en' ? 'Menu' : 'Thực Đơn'}
+            </span>
+          </button>
+
+          {/* Tab 2: Movie Nights */}
+          <button
+            onClick={() => handleNav('movie-night')}
+            className={`flex flex-col items-center justify-center py-1 rounded-xl transition-all cursor-pointer ${
+              activeSection === 'movie-night' 
+                ? 'text-rose-400 font-bold bg-white/[0.04]' 
+                : 'text-white/50 hover:text-white/80'
+            }`}
           >
-            <Facebook className="w-4.5 h-4.5" />
-          </a>
-          <a
-            href="https://www.tiktok.com/@saime.kitchen.bar?lang=en"
-            target="_blank"
-            rel="noreferrer"
-            className="p-1.5 bg-white/10 hover:bg-rose-600 hover:scale-110 text-white rounded-full transition-all cursor-pointer flex items-center justify-center shadow-xs"
-            title="TikTok"
+            <Film className={`w-4.5 h-4.5 mb-1 transition-transform duration-300 ${activeSection === 'movie-night' ? 'scale-110 text-rose-400' : ''}`} />
+            <span className="text-[9px] tracking-tight truncate max-w-full px-1">
+              {lang === 'en' ? 'Cinema' : 'Phim Ảnh'}
+            </span>
+          </button>
+
+          {/* Tab 3: Boardgames */}
+          <button
+            onClick={() => handleNav('board-games')}
+            className={`flex flex-col items-center justify-center py-1 rounded-xl transition-all cursor-pointer ${
+              activeSection === 'board-games' 
+                ? 'text-rose-400 font-bold bg-white/[0.04]' 
+                : 'text-white/50 hover:text-white/80'
+            }`}
           >
-            <svg className="w-4 h-4 fill-current text-white" viewBox="0 0 24 24">
-              <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.86-.74-3.94-1.74-.22-.22-.44-.45-.63-.7-.01 2.05-.01 4.11-.01 6.16 0 1.54-.31 3.14-1.12 4.46-1.15 1.98-3.32 3.32-5.61 3.49-1.99.18-4.14-.35-5.63-1.75-1.92-1.72-2.58-4.66-1.56-7.07.82-1.99 2.76-3.48 4.9-3.76.21-.03.43-.04.64-.05v4.06c-1.1.26-2.11 1.09-2.38 2.24-.39 1.56.49 3.33 2.01 3.79 1.15.35 2.5-.04 3.17-1.02.44-.64.55-1.44.53-2.22.02-3.83.01-7.66.01-11.49z"/>
-            </svg>
-          </a>
+            <Dices className={`w-4.5 h-4.5 mb-1 transition-transform duration-300 ${activeSection === 'board-games' ? 'scale-110 text-rose-400' : ''}`} />
+            <span className="text-[9px] tracking-tight truncate max-w-full px-1">
+              {lang === 'en' ? 'Games' : 'Trò Chơi'}
+            </span>
+          </button>
+
+          {/* Tab 4: Puzzles */}
+          <button
+            onClick={() => handleNav('day-puzzles')}
+            className={`flex flex-col items-center justify-center py-1 rounded-xl transition-all cursor-pointer ${
+              activeSection === 'day-puzzles' 
+                ? 'text-rose-400 font-bold bg-white/[0.04]' 
+                : 'text-white/50 hover:text-white/80'
+            }`}
+          >
+            <Puzzle className={`w-4.5 h-4.5 mb-1 transition-transform duration-300 ${activeSection === 'day-puzzles' ? 'scale-110 text-rose-400' : ''}`} />
+            <span className="text-[9px] tracking-tight truncate max-w-full px-1">
+              {lang === 'en' ? 'Puzzles' : 'Trí Tuệ'}
+            </span>
+          </button>
+
+          {/* Tab 5: Tasting Experience */}
+          <button
+            onClick={() => handleNav('tasting')}
+            className={`flex flex-col items-center justify-center py-1 rounded-xl transition-all cursor-pointer ${
+              activeSection === 'tasting' 
+                ? 'text-rose-400 font-bold bg-white/[0.04]' 
+                : 'text-white/50 hover:text-white/80'
+            }`}
+          >
+            <Sparkles className={`w-4.5 h-4.5 mb-1 transition-transform duration-300 ${activeSection === 'tasting' ? 'scale-110 text-rose-400' : ''}`} />
+            <span className="text-[9px] tracking-tight truncate max-w-full px-1">
+              {lang === 'en' ? 'Tastings' : 'Trải Nghiệm'}
+            </span>
+          </button>
         </div>
       </div>
 
