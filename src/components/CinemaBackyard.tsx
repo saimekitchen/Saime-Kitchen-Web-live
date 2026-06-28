@@ -381,13 +381,6 @@ export default function CinemaBackyard({ lang, onNavigate }: CinemaBackyardProps
 
         {/* Entry and Warning Info Block */}
         <div className="pt-4 space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs sm:text-sm font-mono text-white/60 gap-2 border-t border-white/10 pt-4">
-            <span>{lang === 'en' ? 'Admission Entry' : 'Giá Vé Vào Cổng'}</span>
-            <span className="text-emerald-400 font-bold">
-              {lang === 'en' ? 'COMPLIMENTARY for our dining guests' : 'HOÀN TOÀN MIỄN PHÍ cho khách dùng nước/bữa'}
-            </span>
-          </div>
-          
           <div className="p-4 bg-rose-500/10 border border-rose-500/20 rounded-xl text-rose-200 text-xs leading-relaxed font-semibold">
             {lang === 'en'
               ? 'Due to our cozy backyard layout, seating is highly limited. We recommend making an advance table reservation to ensure we can perfectly arrange your seating and overall evening experience.'
