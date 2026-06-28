@@ -467,7 +467,7 @@ export default function ExperienceHub({ lang, activeTab, setActiveTab, onGoToBoo
                             : 'text-neutral-400 hover:text-neutral-700'
                         }`}
                       >
-                        {sub === 'picture' && (lang === 'en' ? 'Picture Puzzle' : 'Tranh Ghép Gỗ')}
+                        {sub === 'picture' && (lang === 'en' ? 'Jigsaw Puzzle' : 'Xếp Hình Jigsaw')}
                         {sub === 'crossword' && (lang === 'en' ? 'Crossword' : 'Giải Ô Chữ')}
                         {sub === 'sudoku' && (lang === 'en' ? 'Mini Sudoku' : 'Mini Sudoku')}
                       </button>
@@ -526,8 +526,8 @@ export default function ExperienceHub({ lang, activeTab, setActiveTab, onGoToBoo
                         </h4>
                         <p className="font-sans text-neutral-500 text-xs sm:text-sm leading-relaxed mt-1">
                           {lang === 'en'
-                            ? 'Our custom physical wooden box is ready in the lounge. Piecing together is incredibly relaxing under the warm lights. Feel free to simulate your run below against the stopwatch.'
-                            : 'Mô hình tranh ghép gỗ thực tế tinh tế sẵn sàng phục vụ tại quầy. Rất thư thái để nhâm nhi tách trà và ghép tranh. Hãy thử ghép thử nghiệm nhanh trực tuyến dưới đây.'}
+                            ? 'Our beautiful physical jigsaw puzzles and custom board games are fully available on-site! Come by anytime, sit back in our cozy space, and enjoy solving puzzles or playing games at your own pace.'
+                            : 'Các bộ tranh ghép hình (jigsaw puzzles) thực tế và nhiều cờ bàn thú vị luôn sẵn sàng tại quán! Bạn có thể ghé bất cứ lúc nào, chọn một góc ngồi thật chill để cùng bạn bè thư giãn giải đố.'}
                         </p>
                       </div>
 
