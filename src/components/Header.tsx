@@ -89,10 +89,6 @@ export default function Header({
 
   const navItems = [
     { label: lang === 'en' ? 'Menu' : 'Thực Đơn', value: 'menu' },
-    { label: lang === 'en' ? 'Tastings' : 'Trải Nghiệm', value: 'tasting' },
-    { label: lang === 'en' ? 'Cinema' : 'Phim Ảnh', value: 'movie-night' },
-    { label: lang === 'en' ? 'Games' : 'Trò Chơi', value: 'board-games' },
-    { label: lang === 'en' ? 'Puzzles' : 'Trí Tuệ', value: 'day-puzzles' },
   ];
 
   const handleItemClick = (sectionValue: string) => {
@@ -109,48 +105,6 @@ export default function Header({
       id="main-header"
       className="fixed top-0 left-0 right-0 z-50 flex flex-col transition-all duration-300 select-none"
     >
-      {/* Dynamic Announcement & Location Bar (Airbnb Style) */}
-      <div className="w-full text-white py-2 px-4 sm:px-6 lg:px-8 bg-[#121212] border-b border-neutral-800 select-none">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-[11px] font-sans font-medium tracking-wide">
-          
-          {/* Left: Dynamic Open / Close Badge */}
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isOpenNow ? 'bg-emerald-400' : 'bg-rose-400'}`}></span>
-              <span className={`relative inline-flex rounded-full h-2 w-2 ${isOpenNow ? 'bg-emerald-500' : 'bg-rose-500'}`}></span>
-            </span>
-            <span className="text-white/90 font-semibold">{statusText}</span>
-          </div>
-
-          {/* Center: Address Link */}
-          <a 
-            href="https://www.google.com/maps/search/?api=1&query=Saime+Kitchen+%26+Bar+144+Ly+Thai+To+Hoi+An"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-white/70 hover:text-white transition-colors underline decoration-dotted"
-          >
-            <MapPin className="w-3.5 h-3.5 text-rose-500 shrink-0" />
-            <span>144 Ly Thai To, Hoi An</span>
-          </a>
-
-          {/* Right: Social & Phone Links */}
-          <div className="flex items-center gap-4 text-white/70">
-            <a href="tel:+84389446975" className="hover:text-white transition-colors flex items-center gap-1">
-              <Phone className="w-3.5 h-3.5 text-emerald-500" />
-              <span>+84 389 446 975</span>
-            </a>
-            <div className="hidden sm:flex items-center gap-2 border-l border-white/10 pl-4">
-              <a href="https://www.instagram.com/saime_kitchen.bar/" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
-                <Instagram className="w-3.5 h-3.5" />
-              </a>
-              <a href="https://www.facebook.com/profile.php?id=61589897489896" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
-                <Facebook className="w-3.5 h-3.5" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Main Navbar */}
       <div
         className={`w-full bg-white/95 backdrop-blur-md transition-all duration-300 border-b ${
@@ -167,15 +121,28 @@ export default function Header({
                 id="brand-logo"
                 onClick={() => handleItemClick('hero')}
                 className="flex items-center gap-2 cursor-pointer group shrink-0"
+                title={statusText}
               >
                 <LogoIcon className="w-8 h-8 sm:w-9 sm:h-9 text-rose-600 shrink-0 transition-transform group-hover:scale-105" />
                 <div className="flex flex-col">
                   <span className="font-logo text-lg sm:text-2xl text-neutral-dark font-black tracking-tight leading-none group-hover:text-rose-600 transition-colors">
                     Saime <span className="text-rose-600">Kitchen & Bar</span>
                   </span>
-                  <span className="text-[9px] font-sans text-neutral-500 font-bold uppercase tracking-widest mt-0.5 leading-none">
-                    Hoi An Gathering
-                  </span>
+                  <div className="flex items-center gap-2 mt-0.5 leading-none">
+                    <span className="text-[9px] font-sans text-neutral-500 font-bold uppercase tracking-widest shrink-0">
+                      Hoi An Gathering
+                    </span>
+                    <span className="text-[9px] text-neutral-300 shrink-0">•</span>
+                    <div className="flex items-center gap-1 shrink-0">
+                      <span className="relative flex h-1.5 w-1.5">
+                        <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isOpenNow ? 'bg-emerald-400' : 'bg-rose-400'}`}></span>
+                        <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${isOpenNow ? 'bg-emerald-500' : 'bg-rose-500'}`}></span>
+                      </span>
+                      <span className={`text-[9px] font-sans font-extrabold uppercase tracking-wider ${isOpenNow ? 'text-emerald-600' : 'text-rose-600'}`}>
+                        {isOpenNow ? (lang === 'en' ? 'Open' : 'Mở cửa') : (lang === 'en' ? 'Closed' : 'Đóng cửa')}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -200,8 +167,30 @@ export default function Header({
               })}
             </nav>
 
-            {/* Action Buttons (Language, Reservation) */}
+            {/* Action Buttons (Language, Reservation, and dynamic open status) */}
             <div className="hidden md:flex items-center gap-3">
+              {/* Dynamic live indicator badge */}
+              {isOpenNow ? (
+                <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/60 text-emerald-800 animate-pulse duration-[3500ms] shadow-xs">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                  <span className="text-[10px] font-black uppercase tracking-wider">
+                    {lang === 'en' ? '🟢 Open Now • Cozy vibes are waiting!' : '🟢 Đang Mở Cửa • Ghé chơi ngay bạn ơi!'}
+                  </span>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-100 text-rose-700 shadow-xs">
+                  <span className="relative flex h-2 w-2">
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+                  </span>
+                  <span className="text-[10px] font-black uppercase tracking-wider">
+                    {lang === 'en' ? '🔴 Closed • Opens at 8 AM tomorrow!' : '🔴 Đã Đóng Cửa • 8h sáng mai mở nha!'}
+                  </span>
+                </div>
+              )}
+
               {/* Language Switcher */}
               <button
                 id="lang-switcher-btn"
