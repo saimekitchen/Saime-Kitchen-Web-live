@@ -13,19 +13,21 @@ export default function ReservationSection({ lang, onNavigate }: ReservationSect
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [step, setStep] = useState<'form' | 'ticket' | 'list'>('form');
   const [selectedTicket, setSelectedTicket] = useState<Reservation | null>(null);
+  const [activeFormType, setActiveFormType] = useState<'table' | 'partnership'>('table');
 
-  // Form Fields State for Event Partnership Inquiry
+  // Form Fields State for Table Reservation & Partnership Inquiry
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     date: '2026-06-18', // Near future date relative to Jun 2026
-    time: '14:00',
-    guests: 20,
+    time: '18:30',
+    guests: 2, // 2 is perfect default for table reservation
     zone: 'The Long Table' as 'The Long Table' | 'Tropical Patio' | 'Cozy Corner' | 'Chef\'s Counter',
-    seatsCount: 20,
-    tablesCount: 4,
+    seatsCount: 2,
+    tablesCount: 1,
     needAirCon: false,
+    eventType: '',
     specialRequests: ''
   });
 
@@ -45,6 +47,10 @@ export default function ReservationSection({ lang, onNavigate }: ReservationSect
           const active = parsed.filter((r: Reservation) => r.status !== 'Cancelled');
           if (active.length > 0) {
             setSelectedTicket(active[active.length - 1]);
+            // Restore activeFormType from the latest ticket
+            if (active[active.length - 1].type) {
+              setActiveFormType(active[active.length - 1].type);
+            }
             setStep('ticket');
           } else {
             setStep('form');
@@ -66,14 +72,54 @@ export default function ReservationSection({ lang, onNavigate }: ReservationSect
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: name === 'guests' ? parseInt(value) || 10 : value
+      [name]: name === 'guests' ? parseInt(value) || 2 : value
     }));
   };
 
+  const handleFormTypeChange = (type: 'table' | 'partnership') => {
+    setActiveFormType(type);
+    setFormData(prev => ({
+      ...prev,
+      guests: type === 'partnership' ? 15 : 2,
+    }));
+    setFormError(null);
+  };
+
   const validateForm = () => {
-    if (!formData.name.trim()) return lang === 'en' ? 'Full name or organization name is required.' : 'Vui lòng cung cấp họ tên hoặc đơn vị tổ chức.';
-    if (!formData.phone.trim()) return lang === 'en' ? 'Contact phone number is required.' : 'Vui lòng cung cấp số điện thoại liên lạc.';
-    if (!formData.date) return lang === 'en' ? 'Inquiry date is required.' : 'Vui lòng chọn ngày dự kiến.';
+    if (!formData.name.trim()) {
+      return lang === 'en' ? 'Full name is required.' : 'Vui lòng cung cấp họ tên.';
+    }
+    if (!formData.phone.trim()) {
+      return lang === 'en' ? 'Contact phone number is required.' : 'Vui lòng cung cấp số điện thoại liên lạc.';
+    }
+    if (activeFormType === 'partnership') {
+      if (!formData.email.trim()) {
+        return lang === 'en' ? 'Email address is required for partnership inquiries.' : 'Vui lòng cung cấp địa chỉ email liên hệ.';
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email.trim())) {
+        return lang === 'en' ? 'Please enter a valid email address.' : 'Địa chỉ email không hợp lệ.';
+      }
+      if (!formData.eventType.trim()) {
+        return lang === 'en' ? 'Please specify what kind of event or activity you would like to host.' : 'Vui lòng ghi rõ loại hình sự kiện hoặc hoạt động bạn muốn tổ chức.';
+      }
+      if (!formData.guests || formData.guests <= 0) {
+        return lang === 'en' ? 'Estimated attendance is required.' : 'Vui lòng điền số lượng khách dự kiến.';
+      }
+      if (formData.guests > 30) {
+        return lang === 'en' ? 'Estimated attendance for partnership inquiries is capped at 30 people.' : 'Số lượng khách cho yêu cầu hợp tác giới hạn tối đa 30 người.';
+      }
+    } else {
+      if (!formData.guests || formData.guests <= 0) {
+        return lang === 'en' ? 'Number of guests is required.' : 'Vui lòng điền số lượng khách.';
+      }
+    }
+    if (!formData.date) {
+      return lang === 'en' ? 'Proposed date is required.' : 'Vui lòng chọn ngày dự kiến.';
+    }
+    if (!formData.time) {
+      return lang === 'en' ? 'Proposed time is required.' : 'Vui lòng chọn giờ dự kiến.';
+    }
     return null;
   };
 
@@ -88,16 +134,14 @@ export default function ReservationSection({ lang, onNavigate }: ReservationSect
 
     const newBooking: Reservation = {
       id: `SAIME-${Math.random().toString(36).substr(2, 6).toUpperCase()}`,
+      type: activeFormType,
       name: formData.name.trim(),
       email: formData.email.trim(),
       phone: formData.phone.trim(),
       date: formData.date,
       time: formData.time,
       guests: formData.guests,
-      zone: formData.zone,
-      seatsCount: formData.seatsCount,
-      tablesCount: formData.tablesCount,
-      needAirCon: formData.needAirCon,
+      eventType: activeFormType === 'partnership' ? formData.eventType.trim() : undefined,
       specialRequests: formData.specialRequests.trim(),
       status: 'Confirmed',
       createdAt: new Date().toISOString()
@@ -108,72 +152,88 @@ export default function ReservationSection({ lang, onNavigate }: ReservationSect
     setSelectedTicket(newBooking);
     setStep('ticket');
 
-    // Compose pre-filled email template for the partnership inquiry
-    const mailToAddress = 'admin@saimekb.com';
-    const emailSubject = lang === 'en' 
-      ? `[Saime Partnership Inquiry] ${newBooking.name} - ${newBooking.id}`
-      : `[Yêu cầu Hợp tác Saime] ${newBooking.name} - ${newBooking.id}`;
+    // Compose pre-filled WhatsApp text based on selected form type
+    const whatsappBaseUrl = 'https://wa.me/84964023683';
+    let whatsappText = '';
 
-    const emailBody = lang === 'en'
-      ? `Hello Saime Team,
+    if (activeFormType === 'partnership') {
+      whatsappText = lang === 'en'
+        ? `*Saime Kitchen & Bar - Event Venue & Partnership Inquiry*
 
-You have received a new Event Venue & Partnership Inquiry:
+- *Inquiry ID*: ${newBooking.id}
+- *Name / Organization*: ${newBooking.name}
+- *Contact Email*: ${newBooking.email}
+- *Contact Phone*: ${newBooking.phone}
+- *Proposed Date*: ${newBooking.date}
+- *Proposed Time*: ${newBooking.time}
+- *Estimated Attendance*: ${newBooking.guests} (Max 30)
+- *Event / Activity Type*: ${newBooking.eventType || 'N/A'}
 
-- Inquiry ID: ${newBooking.id}
-- Name / Organization: ${newBooking.name}
-- Contact Email: ${newBooking.email || 'N/A'}
-- Contact Phone: ${newBooking.phone}
-- Proposed Date: ${newBooking.date}
-- Proposed Time: ${newBooking.time}
-- Estimated Guests: ${newBooking.guests}
-- Preferred Zone: ${newBooking.zone}
-- Seats Needed: ${newBooking.seatsCount}
-- Tables Needed: ${newBooking.tablesCount}
-- Air-Conditioning Required: ${newBooking.needAirCon ? 'Yes' : 'No'}
-
---- Event Details & Collaboration Ideas ---
+*--- Event Details & Collaboration Ideas ---*
 ${newBooking.specialRequests || 'No details provided.'}
 
-----------------------------------------
-Submitted via Saime Web Portal on ${new Date(newBooking.createdAt).toLocaleString()}
-`
-      : `Kính gửi Saime Team,
+*Submitted via Saime Web Portal on ${new Date(newBooking.createdAt).toLocaleString()}*`
+        : `*Saime Kitchen & Bar - Yêu cầu Hợp tác & Tổ chức Sự kiện*
 
-Bạn vừa nhận được một yêu cầu hợp tác và tổ chức sự kiện mới:
+- *Mã Yêu Cầu*: ${newBooking.id}
+- *Họ Tên / Đơn Vị*: ${newBooking.name}
+- *Địa Chỉ Email*: ${newBooking.email}
+- *Số Điện Thoại*: ${newBooking.phone}
+- *Ngày Đề Xuất*: ${newBooking.date}
+- *Giờ Dự Kiến*: ${newBooking.time}
+- *Số Khách Dự Kiến*: ${newBooking.guests} (Tối đa 30 người)
+- *Loại hình Sự kiện / Hoạt động*: ${newBooking.eventType || 'Không có'}
 
-- Mã Yêu Cầu: ${newBooking.id}
-- Họ Tên / Đơn Vị: ${newBooking.name}
-- Email Liên Hệ: ${newBooking.email || 'Không có'}
-- Số Điện Thoại: ${newBooking.phone}
-- Ngày Đề Xuất: ${newBooking.date}
-- Giờ Dự Kiến: ${newBooking.time}
-- Số Lượng Khách: ${newBooking.guests}
-- Khu Vực Ưu Tiên: ${newBooking.zone}
-- Số Ghế Cần Thiết: ${newBooking.seatsCount}
-- Số Bàn Cần Thiết: ${newBooking.tablesCount}
-- Yêu Cầu Điều Hòa: ${newBooking.needAirCon ? 'Có' : 'Không'}
-
---- Chi Tiết Sự Kiện & Ý Tưởng Hợp Tác ---
+*--- Chi Tiết Sự Kiện & Ý Tưởng Hợp Tác ---*
 ${newBooking.specialRequests || 'Không có mô tả chi tiết.'}
 
-----------------------------------------
-Được gửi qua Trang Web Saime lúc ${new Date(newBooking.createdAt).toLocaleString()}
-`;
+*Được gửi qua Trang Web Saime lúc ${new Date(newBooking.createdAt).toLocaleString()}*`;
+    } else {
+      // Table Reservation
+      whatsappText = lang === 'en'
+        ? `*Saime Kitchen & Bar - Table Reservation Inquiry*
 
-    const mailtoUrl = `mailto:${mailToAddress}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+- *Reservation ID*: ${newBooking.id}
+- *Guest Name*: ${newBooking.name}
+- *Phone Number*: ${newBooking.phone}
+- *Number of Guests*: ${newBooking.guests} PPL
+- *Date*: ${newBooking.date}
+- *Time*: ${newBooking.time}
+
+*--- Special Notes / Requests ---*
+${newBooking.specialRequests || 'No special requests.'}
+
+*Submitted via Saime Web Portal on ${new Date(newBooking.createdAt).toLocaleString()}*`
+        : `*Saime Kitchen & Bar - Yêu cầu Đặt Bàn Trước*
+
+- *Mã Đặt Bàn*: ${newBooking.id}
+- *Họ Tên Khách*: ${newBooking.name}
+- *Số Điện Thoại*: ${newBooking.phone}
+- *Số Lượng Khách*: ${newBooking.guests} người
+- *Ngày Đặt*: ${newBooking.date}
+- *Giờ Đặt*: ${newBooking.time}
+
+*--- Ghi Chú Đặc Biệt ---*
+${newBooking.specialRequests || 'Không có ghi chú thêm.'}
+
+*Được gửi qua Trang Web Saime lúc ${new Date(newBooking.createdAt).toLocaleString()}*`;
+    }
+
+    const whatsappUrl = `${whatsappBaseUrl}?text=${encodeURIComponent(whatsappText)}`;
     
-    // Redirect to open default email client with pre-filled details
-    window.location.href = mailtoUrl;
+    // Redirect to WhatsApp (open in a new tab)
+    window.open(whatsappUrl, '_blank');
 
     // Reset fields except contact to make subsequent booking easy
     setFormData(prev => ({
       ...prev,
+      eventType: '',
       specialRequests: ''
     }));
   };
 
   const handleCancelBooking = (id: string) => {
-    const msg = lang === 'en' ? 'Are you sure you want to cancel this partnership inquiry?' : 'Bạn muốn hủy bỏ yêu cầu hợp tác này không?';
+    const msg = lang === 'en' ? 'Are you sure you want to cancel this inquiry?' : 'Bạn muốn hủy bỏ yêu cầu này không?';
     if (window.confirm(msg)) {
       const updatedList = reservations.map(r => r.id === id ? { ...r, status: 'Cancelled' as const } : r);
       saveToStorage(updatedList);
@@ -268,11 +328,33 @@ ${newBooking.specialRequests || 'Không có mô tả chi tiết.'}
                   </div>
                 )}
 
+                {/* Form type toggles */}
+                <div className="flex bg-neutral-light border border-sand-dark/60 rounded-xl p-1 mb-8 max-w-md mx-auto select-none shadow-sm">
+                  <button
+                    type="button"
+                    onClick={() => handleFormTypeChange('table')}
+                    className={`flex-1 py-2 rounded-lg font-display font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${
+                      activeFormType === 'table' ? 'bg-primary text-white shadow-sm' : 'text-neutral-dark hover:bg-sand/35'
+                    }`}
+                  >
+                    🍽️ {lang === 'en' ? 'Table Reservation' : 'Đặt Bàn Trước'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleFormTypeChange('partnership')}
+                    className={`flex-1 py-2 rounded-lg font-display font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${
+                      activeFormType === 'partnership' ? 'bg-primary text-white shadow-sm' : 'text-neutral-dark hover:bg-sand/35'
+                    }`}
+                  >
+                    🤝 {lang === 'en' ? 'Partnerships' : 'Hợp Tác Sự Kiện'}
+                  </button>
+                </div>
+
                 <form onSubmit={handleBookTable} className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
                   {/* Name field */}
                   <div>
                     <label className="block text-xs font-display font-bold uppercase tracking-wider text-neutral-muted mb-2">
-                      {t.resLabelName} *
+                      {activeFormType === 'partnership' ? (lang === 'en' ? 'Your Name / Organization' : 'Họ tên / Đơn vị tổ chức') : (lang === 'en' ? 'Your Name' : 'Tên của bạn')} *
                     </label>
                     <input
                       type="text"
@@ -280,7 +362,7 @@ ${newBooking.specialRequests || 'Không có mô tả chi tiết.'}
                       required
                       value={formData.name}
                       onChange={handleInputChange}
-                      placeholder="e.g. Liam Nguyen"
+                      placeholder={activeFormType === 'partnership' ? "e.g. Liam Nguyen / Art Collective" : "e.g. Liam Nguyen"}
                       className="w-full px-4 py-3 rounded-xl bg-neutral-light border border-sand-dark text-neutral-dark focus:outline-none focus:border-primary text-sm font-sans font-medium"
                     />
                   </div>
@@ -301,118 +383,89 @@ ${newBooking.specialRequests || 'Không có mô tả chi tiết.'}
                     />
                   </div>
 
-                  {/* Email field */}
-                  <div>
-                    <label className="block text-xs font-display font-bold uppercase tracking-wider text-neutral-muted mb-2">
-                      {t.resLabelEmail}
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      placeholder="e.g. liam@example.com"
-                      className="w-full px-4 py-3 rounded-xl bg-neutral-light border border-sand-dark text-neutral-dark focus:outline-none focus:border-primary text-sm font-sans"
-                    />
-                  </div>
+                  {/* Email field (Only rendered or required for Partnership) */}
+                  {activeFormType === 'partnership' && (
+                    <div>
+                      <label className="block text-xs font-display font-bold uppercase tracking-wider text-neutral-muted mb-2">
+                        {t.resLabelEmail} *
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        required
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        placeholder="e.g. liam@example.com"
+                        className="w-full px-4 py-3 rounded-xl bg-neutral-light border border-sand-dark text-neutral-dark focus:outline-none focus:border-primary text-sm font-sans"
+                      />
+                    </div>
+                  )}
 
                   {/* Number of Guests / Attendees */}
                   <div>
                     <label className="block text-xs font-display font-bold uppercase tracking-wider text-neutral-muted mb-2">
-                      {t.resLabelGuests}
+                      {activeFormType === 'partnership' ? (lang === 'en' ? 'Estimated Attendance (Max 30)' : 'Số Khách Dự Kiến (Tối đa 30)') : (lang === 'en' ? 'Number of Guests' : 'Số Lượng Khách')} *
                     </label>
-                    <div className="flex gap-2 select-none">
-                      {[10, 20, 40, 60, 100].map(num => (
+                    <div className="flex gap-2 mb-3 select-none">
+                      {(activeFormType === 'partnership' ? [5, 10, 15, 20, 25, 30] : [2, 4, 6, 8, 10]).map(num => (
                         <button
                           key={num}
                           type="button"
                           onClick={() => setFormData(f => ({ ...f, guests: num }))}
-                          className={`flex-1 py-2.5 rounded-xl border text-xs font-mono font-black tracking-wider cursor-pointer transition-all ${
+                          className={`flex-1 py-2 rounded-xl border text-xs font-mono font-black tracking-wider cursor-pointer transition-all ${
                             formData.guests === num
                               ? 'bg-primary border-primary text-white scale-103'
                               : 'bg-neutral-light border-sand-dark text-neutral-dark hover:border-neutral-muted'
                           }`}
                         >
-                          {num === 100 ? '100+' : num}
+                          {num}
                         </button>
                       ))}
                     </div>
-                  </div>
-
-                  {/* Preferred Venue Zone */}
-                  <div>
-                    <label className="block text-xs font-display font-bold uppercase tracking-wider text-neutral-muted mb-2">
-                      {t.resLabelZone}
-                    </label>
-                    <select
-                      name="zone"
-                      value={formData.zone}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-2.5 rounded-xl bg-neutral-light border border-sand-dark text-neutral-dark focus:outline-none focus:border-primary text-sm font-sans font-medium"
-                    >
-                      <option value="The Long Table">{lang === 'en' ? 'The Long Table (Shared Inside)' : 'Bàn Dài Gặp Gỡ (Trong Nhà)'}</option>
-                      <option value="Tropical Patio">{lang === 'en' ? 'Tropical Patio (Garden Air)' : 'Tropical Patio (Sân Vườn)'}</option>
-                      <option value="Cozy Corner">{lang === 'en' ? 'Cozy Corner (Chilled Acoustic)' : 'Cozy Corner (Góc Lá Bình Yên)'}</option>
-                      <option value="Chef\'s Counter">{lang === 'en' ? 'Chef\'s Counter (Kitchen Stage)' : 'Chef\'s Counter (Bàn Bếp Trực Diện)'}</option>
-                    </select>
-                  </div>
-
-                  {/* Number of Seats & Tables Requested */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-display font-bold uppercase tracking-wider text-neutral-muted mb-2">
-                        {lang === 'en' ? 'Seats Needed 🪑' : 'Số Ghế Yêu Cầu 🪑'}
-                      </label>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-sans text-neutral-muted">{lang === 'en' ? 'Or enter custom count:' : 'Hoặc tự nhập số khách:'}</span>
                       <input
                         type="number"
-                        name="seatsCount"
+                        name="guests"
                         min={1}
-                        max={150}
-                        value={formData.seatsCount}
-                        onChange={(e) => setFormData(f => ({ ...f, seatsCount: parseInt(e.target.value) || 0 }))}
-                        className="w-full px-4 py-2.5 rounded-xl bg-neutral-light border border-sand-dark text-neutral-dark focus:outline-none focus:border-primary text-sm font-mono font-bold"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-display font-bold uppercase tracking-wider text-neutral-muted mb-2">
-                        {lang === 'en' ? 'Tables Needed 🪵' : 'Số Bàn Yêu Cầu 🪵'}
-                      </label>
-                      <input
-                        type="number"
-                        name="tablesCount"
-                        min={1}
-                        max={40}
-                        value={formData.tablesCount}
-                        onChange={(e) => setFormData(f => ({ ...f, tablesCount: parseInt(e.target.value) || 0 }))}
-                        className="w-full px-4 py-2.5 rounded-xl bg-neutral-light border border-sand-dark text-neutral-dark focus:outline-none focus:border-primary text-sm font-mono font-bold"
+                        max={activeFormType === 'partnership' ? 30 : 150}
+                        value={formData.guests}
+                        onChange={(e) => {
+                          let val = parseInt(e.target.value) || 1;
+                          if (activeFormType === 'partnership' && val > 30) {
+                            val = 30;
+                          }
+                          setFormData(f => ({ ...f, guests: val }));
+                        }}
+                        className="w-24 px-2 py-1 rounded-lg bg-neutral-light border border-sand-dark text-neutral-dark focus:outline-none focus:border-primary text-xs font-mono font-bold text-center"
                       />
                     </div>
                   </div>
 
-                  {/* Air Conditioning Option toggle */}
-                  <div className="flex items-center gap-3 bg-[#FAF6F0]/65 border border-sand-dark p-3 rounded-xl select-none">
-                    <input
-                      type="checkbox"
-                      id="needAirCon"
-                      name="needAirCon"
-                      checked={formData.needAirCon}
-                      onChange={(e) => setFormData(f => ({ ...f, needAirCon: e.target.checked }))}
-                      className="w-4 h-4 text-primary bg-gray-100 border-gray-300 rounded focus:ring-primary focus:ring-2 accent-primary cursor-pointer"
-                    />
-                    <label htmlFor="needAirCon" className="text-xs font-display font-bold uppercase tracking-wide text-neutral-dark flex flex-col cursor-pointer">
-                      <span className="flex items-center gap-1">❄️ {lang === 'en' ? 'Require Air-Conditioning?' : 'Yêu cầu mở Điều Hòa?'}</span>
-                      <span className="text-[10px] text-neutral-muted font-normal uppercase tracking-wide mt-0.5">
-                        {formData.needAirCon 
-                          ? (lang === 'en' ? 'Yes, glass/enclosed room temperature control' : 'Có, điều hòa phòng kín mát mẻ') 
-                          : (lang === 'en' ? 'No, standard natural garden air/ceiling fans is fine' : 'Không cần, đón gió trời hoặc quạt trần thường')}
-                      </span>
-                    </label>
-                  </div>
+                  {/* Event or Activity Type field (Only rendered for Partnership) */}
+                  {activeFormType === 'partnership' && (
+                    <div className="md:col-span-2">
+                      <label className="block text-xs font-display font-bold uppercase tracking-wider text-neutral-muted mb-2">
+                        {lang === 'en' ? 'Event or Activity Type *' : 'Loại hình Sự kiện / Hoạt động *'}
+                      </label>
+                      <input
+                        type="text"
+                        name="eventType"
+                        required
+                        value={formData.eventType}
+                        onChange={handleInputChange}
+                        placeholder={lang === 'en' 
+                          ? "e.g. Acoustic mini-show, Candle-making workshop, Art exhibition, Birthday bash" 
+                          : "Ví dụ: Đêm nhạc mini acoustic, Workshop làm nến thơm, Triển lãm tranh vẽ, Tiệc sinh nhật"}
+                        className="w-full px-4 py-3 rounded-xl bg-neutral-light border border-sand-dark text-neutral-dark focus:outline-none focus:border-primary text-sm font-sans font-medium"
+                      />
+                    </div>
+                  )}
 
                   {/* Date Picker */}
                   <div>
                     <label className="block text-xs font-display font-bold uppercase tracking-wider text-neutral-muted mb-2">
-                      {t.resLabelDate} *
+                      {activeFormType === 'partnership' ? (lang === 'en' ? 'Event Date *' : 'Ngày Tổ Chức Sự Kiện *') : (lang === 'en' ? 'Reservation Date *' : 'Ngày Đặt Bàn *')}
                     </label>
                     <input
                       type="date"
@@ -427,7 +480,7 @@ ${newBooking.specialRequests || 'Không có mô tả chi tiết.'}
                   {/* Time Slots */}
                   <div>
                     <label className="block text-xs font-display font-bold uppercase tracking-wider text-neutral-muted mb-2">
-                      {t.resLabelTime}
+                      {activeFormType === 'partnership' ? (lang === 'en' ? 'Event Time *' : 'Giờ Tổ Chức Sự Kiện *') : (lang === 'en' ? 'Reservation Time *' : 'Giờ Đặt Bàn *')}
                     </label>
                     <select
                       name="time"
@@ -541,28 +594,37 @@ ${newBooking.specialRequests || 'Không có mô tả chi tiết.'}
                       </div>
                     </div>
 
-                    <div>
-                      <span className="block text-[8px] font-mono text-neutral-muted uppercase tracking-wider">GATHERING ALCOVE ZONE</span>
-                      <span className="text-xs font-display font-bold text-neutral-dark flex items-center gap-1">
-                        <MapPin className="w-3.5 h-3.5 text-primary" />
-                        {selectedTicket.zone}
-                      </span>
-                    </div>
-
-                    <div className="grid grid-cols-3 gap-2 py-2.5 border-y border-dashed border-sand">
-                      <div>
-                        <span className="block text-[8px] font-mono text-neutral-muted uppercase tracking-wider">SEATS REQ.</span>
-                        <span className="text-[11px] font-mono font-bold text-neutral-dark block">🪑 {selectedTicket.seatsCount ?? selectedTicket.guests} seats</span>
+                    {selectedTicket.type === 'partnership' ? (
+                      <div className="space-y-3">
+                        <div>
+                          <span className="block text-[8px] font-mono text-neutral-muted uppercase tracking-wider">CONTACT EMAIL</span>
+                          <span className="text-xs font-mono font-bold text-neutral-dark block truncate">{selectedTicket.email || 'N/A'}</span>
+                        </div>
+                        {selectedTicket.eventType && (
+                          <div>
+                            <span className="block text-[8px] font-mono text-neutral-muted uppercase tracking-wider">EVENT / ACTIVITY TYPE</span>
+                            <span className="text-xs font-display font-bold text-neutral-dark block uppercase truncate">{selectedTicket.eventType}</span>
+                          </div>
+                        )}
+                        <div className="p-3 bg-primary/5 rounded-xl border border-primary/15 select-none">
+                          <span className="block text-[8px] font-mono text-primary-dark uppercase tracking-wider font-bold">COLLABORATION INQUIRY</span>
+                          <p className="text-[10px] text-neutral-dark font-sans leading-relaxed mt-0.5">
+                            {lang === 'en' 
+                              ? 'Our representative will reach out to you via Email or WhatsApp shortly.' 
+                              : 'Đại diện của chúng tôi sẽ liên hệ lại với bạn qua Email hoặc WhatsApp sớm.'}
+                          </p>
+                        </div>
                       </div>
-                      <div>
-                        <span className="block text-[8px] font-mono text-neutral-muted uppercase tracking-wider">TABLES REQ.</span>
-                        <span className="text-[11px] font-mono font-bold text-neutral-dark block">🪵 {selectedTicket.tablesCount ?? Math.max(1, Math.round((selectedTicket.seatsCount ?? selectedTicket.guests) / 4))} tables</span>
+                    ) : (
+                      <div className="p-3 bg-[#FAF6F0]/60 rounded-xl border border-sand-dark/20 select-none">
+                        <span className="block text-[8px] font-mono text-neutral-muted uppercase tracking-wider font-bold">RESERVATION</span>
+                        <p className="text-[10px] text-neutral-dark font-sans leading-relaxed mt-0.5">
+                          {lang === 'en' 
+                            ? 'Your table is confirmed! Please present this boarding pass upon arrival.' 
+                            : 'Bàn của bạn đã được xác nhận! Vui lòng xuất trình thẻ này khi đến quán.'}
+                        </p>
                       </div>
-                      <div>
-                        <span className="block text-[8px] font-mono text-neutral-muted uppercase tracking-wider">AIR-CON</span>
-                        <span className="text-[11px] font-mono font-bold text-neutral-dark block">{selectedTicket.needAirCon ? '❄️ Required' : '🌬️ Fan ok'}</span>
-                      </div>
-                    </div>
+                    )}
 
                     {selectedTicket.specialRequests && (
                       <div className="p-3 bg-sand/30 rounded-xl border border-sand-dark/20">
@@ -612,7 +674,9 @@ ${newBooking.specialRequests || 'Không có mô tả chi tiết.'}
                     onClick={() => setStep('form')}
                     className="px-5 py-2.5 rounded-full bg-sand hover:bg-sand-dark text-neutral-dark font-display font-bold text-xs cursor-pointer"
                   >
-                    {lang === 'en' ? 'Book Another Table' : 'Đặt Thêm Bàn Khác'}
+                    {selectedTicket.type === 'partnership' 
+                      ? (lang === 'en' ? 'New Partnership Inquiry' : 'Gửi Yêu Cầu Hợp Tác Mới')
+                      : (lang === 'en' ? 'Book Another Table' : 'Đặt Thêm Bàn Khác')}
                   </button>
                 </div>
               </motion.div>
@@ -662,7 +726,11 @@ ${newBooking.specialRequests || 'Không có mô tả chi tiết.'}
                       </div>
 
                       <div className="flex items-center gap-3 shrink-0">
-                        <span className="font-mono text-[10px] text-tropical font-bold">{ticket.zone}</span>
+                        <span className="font-mono text-[10px] text-tropical font-bold">
+                          {ticket.type === 'partnership' 
+                            ? (lang === 'en' ? 'Partnership 🤝' : 'Hợp tác 🤝') 
+                            : (lang === 'en' ? 'Table Reservation 🍽️' : 'Đặt bàn 🍽️')}
+                        </span>
                         {ticket.status !== 'Cancelled' && (
                           <button
                             onClick={(e) => {
