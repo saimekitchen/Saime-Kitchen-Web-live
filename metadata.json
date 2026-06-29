@@ -1,5 +1,5 @@
 {
-  "name": "Saime 360",
+  "name": "Saime Kitchen & Bar",
   "description": "Vibrant and casual Vietnamese-fusion bento and comfort food eatery. Features a responsive menu, community guestbook, and table reservation system.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
