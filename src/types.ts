@@ -29,16 +29,18 @@ export interface MenuItem {
 
 export interface Reservation {
   id: string;
+  type?: 'table' | 'partnership';
   name: string;
   email: string;
   phone: string;
   date: string;
   time: string;
   guests: number;
-  zone: 'The Long Table' | 'Tropical Patio' | 'Cozy Corner' | 'Chef\'s Counter';
+  zone?: 'The Long Table' | 'Tropical Patio' | 'Cozy Corner' | 'Chef\'s Counter';
   seatsCount?: number;        // Custom seats count
   tablesCount?: number;       // Custom tables count
   needAirCon?: boolean;       // Need Air Conditioning
+  eventType?: string;         // Event or activity type for partnerships
   specialRequests?: string;
   status: 'Confirmed' | 'Modified' | 'Cancelled';
   createdAt: string;
