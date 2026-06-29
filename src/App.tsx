@@ -20,8 +20,31 @@ export default function App() {
   const [showMobileSocial, setShowMobileSocial] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   
-  // Dual Language State
-  const [lang, setLang] = useState<'en' | 'vn'>('en');
+  // Dual Language State initialized by system default language or cached preference
+  const [lang, setLang] = useState<'en' | 'vn'>(() => {
+    try {
+      const cached = localStorage.getItem('saime_language');
+      if (cached === 'en' || cached === 'vn') {
+        return cached;
+      }
+      const sysLang = navigator.language || (navigator as any).userLanguage;
+      if (sysLang && sysLang.toLowerCase().startsWith('vi')) {
+        return 'vn';
+      }
+    } catch (e) {
+      console.warn('Language detection error:', e);
+    }
+    return 'en';
+  });
+
+  // Persist language selection when changed
+  useEffect(() => {
+    try {
+      localStorage.setItem('saime_language', lang);
+    } catch (e) {
+      console.warn('Failed to save language setting:', e);
+    }
+  }, [lang]);
 
   // Dynamic Menu Items State with persistence to allow adding new staff and adjusting images
   const [items, setItems] = useState<MenuItem[]>(() => {
