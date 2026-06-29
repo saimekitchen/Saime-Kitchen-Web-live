@@ -250,6 +250,70 @@ export default function App() {
     return () => clearInterval(interval);
   }, [broadcasts.length]);
 
+  // Deep linking and URL query synchronization
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const view = params.get('view')?.toLowerCase();
+    
+    if (view) {
+      if (view === 'cinema' || view === 'movie-night') {
+        handleNav('movie-night');
+      } else if (view === 'tasting' || view === 'tastings') {
+        setActiveLoungeTab('tastings');
+        setActiveSection('tasting');
+      } else if (view === 'games' || view === 'board-games') {
+        setActiveLoungeTab('games');
+        setActiveSection('board-games');
+      } else if (view === 'puzzles' || view === 'day-puzzles') {
+        setActiveLoungeTab('puzzles');
+        setActiveSection('day-puzzles');
+      } else if (view === 'menu') {
+        setActiveSection('hero');
+        setTimeout(() => {
+          const el = document.getElementById('menu');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 300);
+      } else if (view === 'reservation' || view === 'booking') {
+        handleNav('reservation');
+      } else if (view === 'hero' || view === 'home') {
+        handleNav('hero');
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    let viewValue = '';
+    
+    if (activeSection === 'movie-night') {
+      viewValue = 'cinema';
+    } else if (activeSection === 'tasting') {
+      viewValue = 'tasting';
+    } else if (activeSection === 'board-games') {
+      viewValue = 'games';
+    } else if (activeSection === 'day-puzzles') {
+      viewValue = 'puzzles';
+    } else if (activeSection === 'reservation') {
+      viewValue = 'reservation';
+    } else if (activeSection === 'hero') {
+      // Check if we are scrolled to the menu section
+      const el = document.getElementById('menu');
+      const isMenuScrolled = el && Math.abs(el.getBoundingClientRect().top) < window.innerHeight;
+      viewValue = isMenuScrolled ? 'menu' : 'home';
+    }
+
+    if (viewValue) {
+      const currentView = params.get('view');
+      if (currentView !== viewValue) {
+        params.set('view', viewValue);
+        const newUrl = `${window.location.pathname}?${params.toString()}`;
+        window.history.replaceState({ path: newUrl }, '', newUrl);
+      }
+    }
+  }, [activeSection, activeLoungeTab]);
+
   const handleNav = (sectionId: string) => {
     if (sectionId === 'tasting') {
       setActiveLoungeTab('tastings');
@@ -261,6 +325,11 @@ export default function App() {
     
     if (sectionId === 'menu') {
       setActiveSection('hero');
+      const params = new URLSearchParams(window.location.search);
+      params.set('view', 'menu');
+      const newUrl = `${window.location.pathname}?${params.toString()}`;
+      window.history.replaceState({ path: newUrl }, '', newUrl);
+
       setTimeout(() => {
         const el = document.getElementById('menu');
         if (el) {
