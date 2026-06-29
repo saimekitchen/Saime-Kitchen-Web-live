@@ -483,7 +483,9 @@ export default function MenuSection({
  
       // 2. Match active category filter
       let matchesCategory = false;
-      if (selectedCategory === 'Signatures') {
+      if (vegetarianOnly && currentMenuTab === 'bistro') {
+        matchesCategory = true;
+      } else if (selectedCategory === 'Signatures') {
         matchesCategory = ['saime-comfort', 'saime-wonton', 'saime-pan'].includes(item.id) || (!!item.isSignature && currentMenuTab === 'bistro');
       } else {
         const mappedPublicTab = categoryMapping[catStr] || catStr;
@@ -766,43 +768,55 @@ export default function MenuSection({
 
           {/* Mobile Categories Row - Integrated perfectly underneath */}
           <div className="flex flex-wrap gap-1.5 justify-center px-1 pt-2 border-t border-black/5 dark:border-white/5">
-            {categoryMap.map((cat) => {
-              const isActive = selectedCategory === cat.value;
-              return (
-                <button
-                  key={cat.value}
-                  id={`category-tab-mobile-${cat.value.replace(/\s+/g, '-').toLowerCase()}`}
-                  onClick={() => {
-                    setSelectedCategory(cat.value);
-                    // Smoothly scroll to the menu section
-                    const menuSec = document.getElementById('menu');
-                    if (menuSec) {
-                      const offset = 110;
-                      const bodyRect = document.body.getBoundingClientRect().top;
-                      const elementRect = menuSec.getBoundingClientRect().top;
-                      const elementPosition = elementRect - bodyRect;
-                      const offsetPosition = elementPosition - offset;
-                      
-                      window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                      });
-                    }
-                  }}
-                  className={`px-2.5 py-1 rounded-full font-display font-extrabold text-[10px] tracking-wide transition-all border cursor-pointer ${
-                    isActive
-                      ? `${theme.activeBtn} scale-102 !text-white`
-                      : currentMenuTab === 'cocktail'
-                      ? 'bg-[#151518] text-[#ECE5D8]/80 border-white/5'
-                      : currentMenuTab === 'cafe'
-                      ? 'bg-white/70 text-[#155e3b] border-[#155e3b]/15 shadow-xs hover:bg-white'
-                      : 'bg-white text-neutral-dark border-sand-dark/40 shadow-xs'
-                  }`}
-                >
-                  {lang === 'en' ? cat.labelEn : cat.labelVn}
-                </button>
-              );
-            })}
+            {vegetarianOnly && currentMenuTab === 'bistro' ? (
+              <div className="px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/60 text-emerald-800 text-[10px] font-bold tracking-wide animate-pulse flex items-center gap-1.5">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                </span>
+                <span>
+                  {lang === 'en' ? 'Showing all Vegetarian dishes' : 'Đang hiện tất cả món chay'}
+                </span>
+              </div>
+            ) : (
+              categoryMap.map((cat) => {
+                const isActive = selectedCategory === cat.value;
+                return (
+                  <button
+                    key={cat.value}
+                    id={`category-tab-mobile-${cat.value.replace(/\s+/g, '-').toLowerCase()}`}
+                    onClick={() => {
+                      setSelectedCategory(cat.value);
+                      // Smoothly scroll to the menu section
+                      const menuSec = document.getElementById('menu');
+                      if (menuSec) {
+                        const offset = 110;
+                        const bodyRect = document.body.getBoundingClientRect().top;
+                        const elementRect = menuSec.getBoundingClientRect().top;
+                        const elementPosition = elementRect - bodyRect;
+                        const offsetPosition = elementPosition - offset;
+                        
+                        window.scrollTo({
+                          top: offsetPosition,
+                          behavior: 'smooth'
+                        });
+                      }
+                    }}
+                    className={`px-2.5 py-1 rounded-full font-display font-extrabold text-[10px] tracking-wide transition-all border cursor-pointer ${
+                      isActive
+                        ? `${theme.activeBtn} scale-102 !text-white`
+                        : currentMenuTab === 'cocktail'
+                        ? 'bg-[#151518] text-[#ECE5D8]/80 border-white/5'
+                        : currentMenuTab === 'cafe'
+                        ? 'bg-white/70 text-[#155e3b] border-[#155e3b]/15 shadow-xs hover:bg-white'
+                        : 'bg-white text-neutral-dark border-sand-dark/40 shadow-xs'
+                    }`}
+                  >
+                    {lang === 'en' ? cat.labelEn : cat.labelVn}
+                  </button>
+                );
+              })
+            )}
           </div>
         </div>
 
@@ -1374,28 +1388,38 @@ export default function MenuSection({
               <div className="pb-3 select-none">
                 {/* Desktop/Tablet Version: Centered Row */}
                 <div className="hidden md:flex justify-center pb-2 gap-2">
-                  {categoryMap.map((cat) => {
-                    const isActive = selectedCategory === cat.value;
-                    return (
-                      <button
-                        key={cat.value}
-                        id={`category-tab-${cat.value.replace(/\s+/g, '-').toLowerCase()}`}
-                        onClick={() => setSelectedCategory(cat.value)}
-                        className={`whitespace-nowrap px-5 py-2.5 rounded-full font-display font-bold text-sm tracking-wide transition-all border cursor-pointer border-sand-dark/40 ${
-                          isActive
-                            ? `${theme.activeBtn} scale-103`
-                            : currentMenuTab === 'cocktail'
-                            ? 'bg-[#151518] text-[#ECE5D8]/80 border-white/5 hover:border-white/15'
-                            : 'bg-white text-neutral-dark hover:border-neutral-muted/50 shadow-xs'
-                        }`}
-                      >
-                        {lang === 'en' ? cat.labelEn : cat.labelVn}
-                      </button>
-                    );
-                  })}
+                  {vegetarianOnly && currentMenuTab === 'bistro' ? (
+                    <div className="px-6 py-2.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm font-bold tracking-wide animate-pulse flex items-center gap-2 shadow-xs">
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                      </span>
+                      <span>
+                        {lang === 'en' ? 'Showing all Vegetarian dishes across all categories' : 'Hiển thị tất cả món chay từ mọi danh mục'}
+                      </span>
+                    </div>
+                  ) : (
+                    categoryMap.map((cat) => {
+                      const isActive = selectedCategory === cat.value;
+                      return (
+                        <button
+                          key={cat.value}
+                          id={`category-tab-${cat.value.replace(/\s+/g, '-').toLowerCase()}`}
+                          onClick={() => setSelectedCategory(cat.value)}
+                          className={`whitespace-nowrap px-5 py-2.5 rounded-full font-display font-bold text-sm tracking-wide transition-all border cursor-pointer border-sand-dark/40 ${
+                            isActive
+                              ? `${theme.activeBtn} scale-103`
+                              : currentMenuTab === 'cocktail'
+                              ? 'bg-[#151518] text-[#ECE5D8]/80 border-white/5 hover:border-white/15'
+                              : 'bg-white text-neutral-dark hover:border-neutral-muted/50 shadow-xs'
+                          }`}
+                        >
+                          {lang === 'en' ? cat.labelEn : cat.labelVn}
+                        </button>
+                      );
+                    })
+                  )}
                 </div>
-
-
               </div>
 
               {/* Diet Preferences Toggles */}
