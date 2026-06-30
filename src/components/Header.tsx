@@ -21,14 +21,32 @@ export default function Header({
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpenNow, setIsOpenNow] = useState<boolean>(true);
   const [statusText, setStatusText] = useState<string>('');
+  const [showHeader, setShowHeader] = useState(true);
+  const lastScrollY = React.useRef(0);
 
   const t = translations[lang];
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 30);
+      
+      const isMobile = window.innerWidth < 768;
+      if (isMobile) {
+        if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
+          // Scrolling down -> hide header
+          setShowHeader(false);
+        } else if (currentScrollY < lastScrollY.current || currentScrollY <= 10) {
+          // Scrolling up -> show header
+          setShowHeader(true);
+        }
+      } else {
+        setShowHeader(true);
+      }
+      
+      lastScrollY.current = currentScrollY;
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -103,7 +121,9 @@ export default function Header({
   return (
     <header
       id="main-header"
-      className="fixed top-0 left-0 right-0 z-50 flex flex-col transition-all duration-300 select-none"
+      className={`fixed top-0 left-0 right-0 z-50 flex flex-col transition-all duration-300 select-none ${
+        (showHeader || isOpen) ? 'translate-y-0' : 'max-md:-translate-y-full pointer-events-none'
+      }`}
     >
       {/* Main Navbar */}
       <div
