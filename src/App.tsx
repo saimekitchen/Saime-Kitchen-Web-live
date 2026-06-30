@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import ExploreExperiences from './components/ExploreExperiences';
@@ -19,8 +19,8 @@ export default function App() {
   const [activeLoungeTab, setActiveLoungeTab] = useState<'tastings' | 'puzzles' | 'games'>('tastings');
   const [showWelcomeBroadcast, setShowWelcomeBroadcast] = useState<boolean>(false);
   const [currentBroadcastIndex, setCurrentBroadcastIndex] = useState<number>(0);
-  const [showMobileSocial, setShowMobileSocial] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const [showBottomBar, setShowBottomBar] = useState(true);
+  const lastScrollYRef = useRef(0);
   
   // Dual Language State initialized by system default language or cached preference
   const [lang, setLang] = useState<'en' | 'vn'>(() => {
@@ -252,20 +252,28 @@ export default function App() {
   useEffect(() => {
     const handleScrollMobile = () => {
       const currentScrollY = window.scrollY;
-      
-      if (Math.abs(currentScrollY - lastScrollY) < 15) return;
+      const isMobile = window.innerWidth < 768;
 
-      if (currentScrollY > lastScrollY && currentScrollY > 150) {
-        setShowMobileSocial(true);
+      if (isMobile) {
+        if (Math.abs(currentScrollY - lastScrollYRef.current) < 10) return;
+
+        if (currentScrollY > lastScrollYRef.current && currentScrollY > 50) {
+          // Scrolling down -> show bottom bar
+          setShowBottomBar(true);
+        } else if (currentScrollY < lastScrollYRef.current) {
+          // Scrolling up -> hide bottom bar
+          setShowBottomBar(false);
+        }
       } else {
-        setShowMobileSocial(false);
+        setShowBottomBar(true);
       }
-      setLastScrollY(currentScrollY);
+      
+      lastScrollYRef.current = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScrollMobile, { passive: true });
     return () => window.removeEventListener('scroll', handleScrollMobile);
-  }, [lastScrollY]);
+  }, []);
 
   useEffect(() => {
     // Shift broadcast ticker
@@ -491,7 +499,9 @@ export default function App() {
 
       {/* Sticky Floating Bottom Activities Navigation Bar (All Platforms) */}
       <div 
-        className="fixed bottom-4 left-4 right-4 md:left-1/2 md:right-auto md:w-[500px] md:-translate-x-1/2 z-50 bg-[#121214]/95 backdrop-blur-md border border-white/15 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.6)] flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300"
+        className={`fixed bottom-4 left-4 right-4 md:left-1/2 md:right-auto md:w-[500px] md:-translate-x-1/2 z-50 bg-[#121214]/95 backdrop-blur-md border border-white/15 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.6)] flex flex-col overflow-hidden transition-all duration-300 ${
+          showBottomBar ? 'translate-y-0 opacity-100' : 'max-md:translate-y-[150%] max-md:opacity-0 max-md:pointer-events-none'
+        }`}
       >
         {/* Map & Social Utilities Strip */}
         <div className="flex items-center justify-between px-3 py-2.5 border-b border-white/12 bg-[#1c1c22]">
