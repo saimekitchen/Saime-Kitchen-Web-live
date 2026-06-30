@@ -356,20 +356,20 @@ export default function MenuSection({
       ];
     } else if (currentMenuTab === 'cafe') {
       return [
-        { value: 'Coffee', labelEn: '☕ Coffee & Pastries', labelVn: '☕ Cà Phê & Bánh' },
-        { value: 'Tea', labelEn: '🍵 Teas, Juices & Smoothies', labelVn: '🍵 Trà, Nước Ép & Sinh Tố' },
-        { value: 'Matcha', labelEn: '🍵 Matcha & Chocolate', labelVn: '🍵 Matcha & Sô-cô-la' },
-        { value: 'Soft Drink', labelEn: '🥤 Soft Drinks & Beers', labelVn: '🥤 Nước Ngọt & Bia' }
+        { value: 'Coffee', labelEn: 'Coffee & Pastries', labelVn: 'Cà Phê & Bánh' },
+        { value: 'Tea', labelEn: 'Teas, Juices & Smoothies', labelVn: 'Trà, Nước Ép & Sinh Tố' },
+        { value: 'Matcha', labelEn: 'Matcha & Chocolate', labelVn: 'Matcha & Sô-cô-la' },
+        { value: 'Soft Drink', labelEn: 'Soft Drinks & Beers', labelVn: 'Nước Ngọt & Bia' }
       ];
     } else {
       // Cocktail
       return [
-        { value: 'Signature', labelEn: '⭐️ Signature', labelVn: '⭐️ Đặc Sắc' },
-        { value: 'Classic', labelEn: '🍸 Classic', labelVn: '🍸 Cổ Điển' },
-        { value: 'Modern', labelEn: '✨ Modern', labelVn: '✨ Hiện Đại' },
-        { value: 'Mocktail', labelEn: '🍹 Mocktail', labelVn: '🍹 Mocktail' },
-        { value: 'Shot', labelEn: '🥃 Shot', labelVn: '🥃 Shot' },
-        { value: 'Beer', labelEn: '🍺 Beer', labelVn: '🍺 Bia' }
+        { value: 'Signature', labelEn: 'Signature', labelVn: 'Đặc Sắc' },
+        { value: 'Classic', labelEn: 'Classic', labelVn: 'Cổ Điển' },
+        { value: 'Modern', labelEn: 'Modern', labelVn: 'Hiện Đại' },
+        { value: 'Mocktail', labelEn: 'Mocktail', labelVn: 'Mocktail' },
+        { value: 'Shot', labelEn: 'Shot', labelVn: 'Shot' },
+        { value: 'Beer', labelEn: 'Beer', labelVn: 'Bia' }
       ];
     }
   }, [currentMenuTab]);
