@@ -149,7 +149,7 @@ export default function BoardGamesPage({ lang, onNavigate }: BoardGamesPageProps
     } catch (err) {
       console.error('Failed to copy game message', err);
     }
-    const messengerUrl = 'https://m.me/61589897489896';
+    const messengerUrl = `https://m.me/61589897489896?text=${encodeURIComponent(message)}`;
     
     window.open(messengerUrl, '_blank', 'noopener,noreferrer');
     setCustomGameName('');
