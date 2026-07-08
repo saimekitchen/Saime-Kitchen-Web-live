@@ -20,7 +20,7 @@ export default function SpecialOffers({ lang, onNavigate }: SpecialOffersProps) 
     } catch (err) {
       console.error('Failed to copy', err);
     }
-    window.open('https://m.me/61589897489896', '_blank', 'noopener,noreferrer');
+    window.open(`https://m.me/61589897489896?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
   };
 
   return (
