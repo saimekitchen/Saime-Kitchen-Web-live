@@ -249,8 +249,8 @@ ${newBooking.specialRequests || 'Không có ghi chú thêm.'}
       console.error('Failed to copy booking text', err);
     }
     
-    // Redirect to Messenger (open in a new tab)
-    window.open('https://m.me/61589897489896', '_blank');
+    // Redirect to Messenger (open in a new tab) with prefilled text template
+    window.open(`https://m.me/61589897489896?text=${encodeURIComponent(bookingText)}`, '_blank');
 
     // Reset fields except contact to make subsequent booking easy
     setFormData(prev => ({
