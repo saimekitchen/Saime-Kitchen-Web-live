@@ -138,7 +138,7 @@ export default function ChessSection({ lang, onNavigate }: ChessSectionProps) {
     } catch (err) {
       console.error('Failed to copy chess message', err);
     }
-    const messengerUrl = 'https://m.me/61589897489896';
+    const messengerUrl = `https://m.me/61589897489896?text=${encodeURIComponent(message)}`;
     
     setSubmitted(true);
 
