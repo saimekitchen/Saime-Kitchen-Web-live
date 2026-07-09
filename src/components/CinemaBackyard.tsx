@@ -708,7 +708,7 @@ export default function CinemaBackyard({ lang, onNavigate }: CinemaBackyardProps
     // Large high-contrast address (making it extremely obvious)
     ctx.fillStyle = '#ffffff';
     ctx.font = '900 13px system-ui, -apple-system, sans-serif';
-    ctx.fillText('144 Ly Thai To, Son Phong, Hoi An, Quang Nam', addrX + 16, addrY + 31);
+    ctx.fillText('144 Ly Thai To, Hoi An', addrX + 16, addrY + 31);
 
     // Hours & Contact
     ctx.fillStyle = 'rgba(255, 255, 255, 0.65)';
