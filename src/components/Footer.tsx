@@ -49,7 +49,7 @@ export default function Footer({ lang, onNavigate }: FooterProps) {
                       {lang === 'en' ? 'SAIME STREET ADDRESS' : 'ĐỊA CHỈ CHÍNH THỨC'}
                     </span>
                     <p className="font-sans font-black text-white text-base sm:text-lg leading-snug tracking-tight">
-                      144 Ly Thai To, Son Phong, Hoi An, Quang Nam
+                      144 Ly Thai To, Hoi An
                     </p>
                     <span className="inline-block font-sans font-bold text-xs text-rose-400">
                       (Saime Kitchen & Bar)
