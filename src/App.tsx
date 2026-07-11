@@ -379,13 +379,15 @@ export default function App() {
     } else if (activeSection === 'reservation') {
       viewValue = 'reservation';
     } else if (activeSection === 'hero') {
-      // Check if we are scrolled to the menu section
-      const el = document.getElementById('menu');
-      const isMenuScrolled = el && Math.abs(el.getBoundingClientRect().top) < window.innerHeight;
-      const currentQueryView = params.get('view');
-      if (currentQueryView === 'healthy-menu' && isMenuScrolled) {
+      const currentQueryView = params.get('view')?.toLowerCase();
+      if (currentQueryView === 'healthy-menu') {
         viewValue = 'healthy-menu';
+      } else if (currentQueryView === 'menu') {
+        viewValue = 'menu';
       } else {
+        // Fallback to auto-scrolling detection if no explicit view is set yet
+        const el = document.getElementById('menu');
+        const isMenuScrolled = el && Math.abs(el.getBoundingClientRect().top) < window.innerHeight;
         viewValue = isMenuScrolled ? 'menu' : 'home';
       }
     }
