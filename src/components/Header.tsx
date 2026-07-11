@@ -94,9 +94,22 @@ export default function Header({
 
   const navItems = [
     { label: lang === 'en' ? 'Menu' : 'Thực Đơn', value: 'menu' },
+    { label: lang === 'en' ? 'Healthy Menu' : 'Thực Đơn Healthy', value: 'healthy-menu' },
     { label: lang === 'en' ? 'Chess Club' : 'Câu Lạc Bộ Cờ', value: 'chess' },
     { label: lang === 'en' ? 'Reservation' : 'Đặt Bàn', value: 'reservation' },
   ];
+
+  const getIsActive = (itemValue: string) => {
+    const params = new URLSearchParams(window.location.search);
+    const view = params.get('view');
+    if (itemValue === 'healthy-menu') {
+      return view === 'healthy-menu' && activeSection === 'hero';
+    }
+    if (itemValue === 'menu') {
+      return activeSection === 'hero' && view !== 'healthy-menu';
+    }
+    return activeSection === itemValue;
+  };
 
   const handleItemClick = (sectionValue: string) => {
     onNavigate(sectionValue);
@@ -156,7 +169,7 @@ export default function Header({
             {/* Desktop Navigation - Clean Airbnb Category Tabs */}
             <nav id="desktop-nav" className="hidden lg:flex items-center gap-1">
               {navItems.map((item) => {
-                const isActive = activeSection === item.value || (activeSection === 'hero' && item.value === 'menu');
+                const isActive = getIsActive(item.value);
                 return (
                   <button
                     key={item.value}
@@ -262,7 +275,7 @@ export default function Header({
                   id={`mobile-nav-item-${item.value}`}
                   onClick={() => handleItemClick(item.value)}
                   className={`block w-full text-left px-4 py-3 rounded-xl font-sans font-bold text-xs uppercase tracking-wider transition-colors ${
-                    activeSection === item.value || (activeSection === 'hero' && item.value === 'menu')
+                    getIsActive(item.value)
                       ? 'bg-neutral-900 text-white'
                       : 'text-neutral-700 hover:bg-neutral-50'
                   }`}
