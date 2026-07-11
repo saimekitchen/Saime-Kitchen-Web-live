@@ -343,12 +343,15 @@ export default function App() {
         handleNav('chess');
       } else if (view === 'offers' || view === 'special-offers') {
         setActiveSection('special-offers');
-      } else if (view === 'menu') {
+      } else if (view === 'menu' || view === 'healthy-menu') {
         setActiveSection('hero');
         setTimeout(() => {
           const el = document.getElementById('menu');
           if (el) {
             el.scrollIntoView({ behavior: 'smooth' });
+          }
+          if (view === 'healthy-menu') {
+            window.dispatchEvent(new CustomEvent('saime_select_menu', { detail: { tab: 'bistro', division: 'healthy' } }));
           }
         }, 300);
       } else if (view === 'reservation' || view === 'booking') {
@@ -379,7 +382,12 @@ export default function App() {
       // Check if we are scrolled to the menu section
       const el = document.getElementById('menu');
       const isMenuScrolled = el && Math.abs(el.getBoundingClientRect().top) < window.innerHeight;
-      viewValue = isMenuScrolled ? 'menu' : 'home';
+      const currentQueryView = params.get('view');
+      if (currentQueryView === 'healthy-menu' && isMenuScrolled) {
+        viewValue = 'healthy-menu';
+      } else {
+        viewValue = isMenuScrolled ? 'menu' : 'home';
+      }
     }
 
     if (viewValue) {
@@ -404,10 +412,10 @@ export default function App() {
       setActiveLoungeTab('games');
     }
     
-    if (targetSection === 'menu') {
+    if (targetSection === 'menu' || targetSection === 'healthy-menu') {
       setActiveSection('hero');
       const params = new URLSearchParams(window.location.search);
-      params.set('view', 'menu');
+      params.set('view', targetSection);
       const newUrl = `${window.location.pathname}?${params.toString()}`;
       window.history.replaceState({ path: newUrl }, '', newUrl);
 
@@ -416,7 +424,10 @@ export default function App() {
         if (el) {
           el.scrollIntoView({ behavior: 'smooth' });
         }
-      }, 100);
+        if (targetSection === 'healthy-menu') {
+          window.dispatchEvent(new CustomEvent('saime_select_menu', { detail: { tab: 'bistro', division: 'healthy' } }));
+        }
+      }, 150);
       return;
     }
     
