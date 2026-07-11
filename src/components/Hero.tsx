@@ -150,7 +150,11 @@ export default function Hero({ onGoToMenu, onGoToBooking, onNavigate, lang }: He
                 {/* 1. Healthy Menu Card */}
                 <div 
                   onClick={() => {
-                    onGoToMenu();
+                    if (onNavigate) {
+                      onNavigate('healthy-menu');
+                    } else {
+                      onGoToMenu();
+                    }
                     setTimeout(() => {
                       window.dispatchEvent(new CustomEvent('saime_select_menu', { detail: { tab: 'bistro', division: 'healthy' } }));
                     }, 100);
