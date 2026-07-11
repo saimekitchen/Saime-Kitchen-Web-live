@@ -147,13 +147,25 @@ export default function MenuSection({
   // Primary Channel Tab: Bistro (comfy food), Cafe (dripped egg coffee), Cocktail (sleek cocktails)
   const [currentMenuTab, setCurrentMenuTab] = useState<'bistro' | 'cafe' | 'cocktail'>('bistro');
   const [foodMenuDivision, setFoodMenuDivision] = useState<'healthy' | 'casual' | 'vegetarian'>(() => {
+    const params = new URLSearchParams(window.location.search);
+    const view = params.get('view')?.toLowerCase();
+    if (view === 'healthy-menu') {
+      return 'healthy';
+    }
     const hour = new Date().getHours();
     if (hour >= 6 && hour < 14) {
       return 'healthy';
     }
     return 'casual';
   });
-  const [selectedCategory, setSelectedCategory] = useState<string>('Main Course');
+  const [selectedCategory, setSelectedCategory] = useState<string>(() => {
+    const params = new URLSearchParams(window.location.search);
+    const view = params.get('view')?.toLowerCase();
+    if (view === 'healthy-menu') {
+      return 'Healthy Diet';
+    }
+    return 'Main Course';
+  });
   const [searchQuery, setSearchQuery] = useState<string>('');
   const vegetarianOnly = currentMenuTab === 'bistro' && foodMenuDivision === 'vegetarian';
   const [spicyOnly, setSpicyOnly] = useState<boolean>(false);
@@ -265,7 +277,8 @@ export default function MenuSection({
         if (tab) {
           setCurrentMenuTab(tab);
           if (tab === 'bistro') {
-            setSelectedCategory('Main Course');
+            const finalDivision = division || foodMenuDivision;
+            setSelectedCategory(finalDivision === 'healthy' ? 'Healthy Diet' : 'Main Course');
           } else if (tab === 'cafe') {
             setSelectedCategory('Coffee');
           } else if (tab === 'cocktail') {
