@@ -505,7 +505,7 @@ export function translateMenuItem(item: MenuItem, lang: 'en' | 'vn'): MenuItem {
 
   return {
     ...item,
-    name: translation.name,
+    name: item.name, // Keep the same as English version, do not translate
     description: translation.description,
     ingredients: translation.ingredients,
     category: translation.category || CATEGORY_TRANSLATIONS[item.category] || item.category,
