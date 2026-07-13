@@ -53,7 +53,7 @@ export default function App() {
   // Dynamic Menu Items State with persistence to allow adding new staff and adjusting images
   const [items, setItems] = useState<MenuItem[]>(() => {
     // Force reset/clear old localStorage caches if version mismatch to apply new hardcoded assets
-    const CURRENT_VERSION = 'saime_v3.10_casual_menu_update';
+    const CURRENT_VERSION = 'saime_v3.11_garden_salad_image_update';
     try {
       const savedVersion = localStorage.getItem('saime_version');
       if (savedVersion !== CURRENT_VERSION) {
