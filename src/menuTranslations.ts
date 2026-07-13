@@ -52,6 +52,16 @@ export const MENU_ITEM_TRANSLATIONS: Record<string, {
     description: 'Bánh bao hấp mềm mại, xốp mịn kẹp thịt ba chỉ xá xíu thơm lừng tan chảy trong miệng, rau ngò tươi, dưa leo xắt lát và sốt mayonnaise kết hợp cùng nước sốt xá xíu đậm đà ngọt dịu.',
     ingredients: ['Bánh bao hấp', 'Thịt ba chỉ xá xíu', 'Dưa leo', 'Nước sốt xá xíu', 'Mayonnaise', 'Rau ngò'],
   },
+  'chicken-mantou': {
+    name: 'Chicken Mantou',
+    description: 'Bánh bao kẹp gà nugget chiên giòn, bắp cải trắng & tím cùng nước sốt nhà làm đậm đà.',
+    ingredients: ['Bánh bao', 'Gà nugget', 'Bắp cải trắng', 'Bắp cải tím', 'Sốt nhà làm'],
+  },
+  'braised-pork-mantou': {
+    name: 'Braised Pork Mantou',
+    description: 'Bánh bao kẹp thịt kho tàu thơm ngon, dưa leo tươi mát, măng giòn và sốt mayonnaise béo ngậy.',
+    ingredients: ['Bánh bao', 'Thịt kho tàu', 'Dưa leo', 'Măng', 'Sốt mayonnaise'],
+  },
   'saime-wonton': {
     name: 'HOÀNH THÁNH CHIÊN SAIME',
     description: 'Hoành thánh chiên giòn vàng óng kẹp nhân thịt heo và tôm xay đậm đà hương vị xíu mại, ăn kèm đồ chua thanh mát, sốt mayonnaise béo ngậy và tương ớt cay nồng.',
@@ -89,6 +99,11 @@ export const MENU_ITEM_TRANSLATIONS: Record<string, {
     description: 'Bát súp sưởi ấm tâm hồn của bếp trưởng: súp sườn heo non hầm thảo mộc thơm lành cùng bắp ngọt, cà rốt, khoai tây ngọt dẻo, mang đậm phong vị quê nhà ấm áp.',
     ingredients: ['Sườn non heo', 'Bắp ngọt', 'Cà rốt', 'Khoai tây dẻo', 'Hành ngò'],
   },
+  'xoi': {
+    name: 'Xôi',
+    description: 'Xôi dẻo thơm kết hợp pate béo ngậy, lá dứa, hành phi giòn, tôm khô nhỏ, chà bông heo, lạp sườn nướng, xá xíu đậm đà và trứng cút.',
+    ingredients: ['Pate béo', 'Xôi dẻo', 'Lá dứa', 'Hành phi', 'Tôm khô', 'Chà bông', 'Lạp sườn', 'Thịt xá xíu', 'Trứng cút'],
+  },
   'chicken-salad': {
     name: 'SALAD GÀ SỐT VINAIGRETTE',
     description: 'Ức gà nướng thái mỏng xếp trên thảm rau cải xanh, cà chua bi ngọt lịm, hành tây tím, rưới nước sốt giấm vinaigrette chua ngọt thơm lừng.',
@@ -113,6 +128,11 @@ export const MENU_ITEM_TRANSLATIONS: Record<string, {
     name: 'KHOAI TÂY CHIÊN',
     description: 'Khoai tây cắt thanh chiên giòn vàng óng, lắc nhẹ chút muối biển tinh khiết, dùng kèm tương cà.',
     ingredients: ['Khoai tây tươi', 'Muối biển', 'Dầu thực vật'],
+  },
+  'skew-combo': {
+    name: 'Skew combo',
+    description: 'Thịt gà và thịt lợn xiên nướng thơm ngon nức mũi.',
+    ingredients: ['Thịt gà', 'Thịt lợn', 'Gia vị xiên nướng'],
   },
   'coco-toast': {
     name: 'BÁNH MÌ NƯỚNG DỪA dứa',
