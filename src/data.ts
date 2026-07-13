@@ -90,6 +90,26 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'Starters',
     image: '/src/assets/images/regenerated_image_1781685883138.jpg'
   },
+  {
+    id: 'chicken-mantou',
+    name: 'Chicken Mantou',
+    price: 45000,
+    description: 'Mautou, chicken nugget, white & purple cabbage, home-made sauce.',
+    ingredients: ['Mantou', 'Chicken nugget', 'White cabbage', 'Purple cabbage', 'Home-made sauce'],
+    category: 'Starters',
+    image: 'https://i.imgur.com/PK2wXHW.jpeg',
+    menuType: 'bistro'
+  },
+  {
+    id: 'braised-pork-mantou',
+    name: 'Braised Pork Mantou',
+    price: 45000,
+    description: 'Mautou, braised pork, cucumber, bamboo shoots, mayonnaise',
+    ingredients: ['Mantou', 'Braised pork', 'Cucumber', 'Bamboo shoots', 'Mayonnaise'],
+    category: 'Starters',
+    image: 'https://i.imgur.com/ZYHRw2x.jpeg',
+    menuType: 'bistro'
+  },
 
   // Mains & Pastas
   {
@@ -132,6 +152,16 @@ export const MENU_ITEMS: MenuItem[] = [
     isBestSeller: true,
     isChefRecommend: true,
     image: '/src/assets/images/regenerated_image_1781685663912.jpg'
+  },
+  {
+    id: 'xoi',
+    name: 'Xôi',
+    price: 65000,
+    description: 'Pate, sticky rice, pandan leaves, shallots, dried tiny shrimp, pork floss, chinese sausage, char siu pork, quail eggs',
+    ingredients: ['Pate', 'Sticky rice', 'Pandan leaves', 'Shallots', 'Dried tiny shrimp', 'Pork floss', 'Chinese sausage', 'Char siu pork', 'Quail eggs'],
+    category: 'Main Course',
+    image: 'https://i.imgur.com/eOUBrS7.jpeg',
+    menuType: 'bistro'
   },
 
   // Sides & Salads
@@ -183,6 +213,16 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'Salad & Sides',
     isVegetarian: true,
     image: '/src/assets/images/regenerated_image_1781686104887.jpg'
+  },
+  {
+    id: 'skew-combo',
+    name: 'Skew combo',
+    price: 80000,
+    description: 'Chicken & Pork Skew',
+    ingredients: ['Chicken', 'Pork', 'Skewers'],
+    category: 'Salad & Sides',
+    image: 'https://i.imgur.com/2WFVjrY.jpeg',
+    menuType: 'bistro'
   },
 
   // Sweets
