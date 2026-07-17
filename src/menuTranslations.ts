@@ -2,7 +2,7 @@ import { MenuItem } from './types';
 
 export const CATEGORY_TRANSLATIONS: Record<string, string> = {
   'Main Course': 'Món Chính',
-  'Starters': 'Món Khai Vị',
+  'Starters': 'Khai Vị',
   'Coffee': 'Cà phê',
   'Tea': 'Trà & Nước Ép',
   'Smoothie': 'Sinh tố',
@@ -10,12 +10,12 @@ export const CATEGORY_TRANSLATIONS: Record<string, string> = {
   'Pastry': 'Bánh ngọt',
   'Cocktail': 'Cocktail',
   'Mocktail': 'Mocktail',
-  'Shot': 'Rượu Shot',
+  'Shot': 'Shot',
   'Beer': 'Bia',
   'Staff': 'Đội Ngũ',
-  'Comfort Food': 'Ẩm Thực Sưởi Ấm',
+  'Comfort Food': 'Comfort food',
   'Package': 'Set Ăn & Combo',
-  'Healthy Diet': 'Chế Độ Ăn Lành Mạnh',
+  'Healthy Diet': 'Đồ ăn healthy',
 };
 
 export const MENU_ITEM_TRANSLATIONS: Record<string, {
@@ -26,19 +26,19 @@ export const MENU_ITEM_TRANSLATIONS: Record<string, {
 }> = {
   // Main Courses & Burgers
   'chicken-burger': {
-    name: 'BURGER GÀ GIÒN',
+    name: 'BURGER GÀ',
     description: 'Ức gà chiên xù giòn tan cùng phô mai tan chảy, xà lách tươi, cà chua xắt lát, salad bắp cải trắng tím trộn sốt giấm mayonnaise đặc trưng.',
-    ingredients: ['Gà chiên giòn', 'Xà lách', 'Phô mai lát', 'Cà chua', 'Sốt cà chua', 'Bắp cải trắng & tím', 'Hành tây', 'Sốt giấm bít-trô', 'Mayonnaise'],
+    ingredients: ['Gà chiên giòn', 'Xà lách', 'Phô mai lát', 'Cà chua', 'Sốt cà chua', 'Bắp cải trắng & tím', 'Hành tây', 'Sốt giấm', 'Mayo'],
   },
   'beef-burger': {
-    name: 'BURGER BÒ NƯỚNG',
+    name: 'BURGER BÒ',
     description: 'Thịt bò xay nướng lửa thơm lừng hòa quyện cùng thịt ba rọi xông khói giòn rụm, phô mai lát, trứng ốp-la lòng đào, xà lách, cà chua, kết hợp với sốt mayonnaise, tương cà và mù tạt vàng trên bánh mì nướng mè.',
-    ingredients: ['Thịt bò nướng', 'Vụn bánh mì', 'Hành tây', 'Xà lách', 'Cà chua', 'Thịt xông khói', 'Phô mai lát', 'Trứng ốp-la', 'Mayonnaise', 'Tương cà', 'Mù tạt'],
+    ingredients: ['Thịt bò nướng', 'Vụn bánh mì', 'Hành tây', 'Xà lách', 'Cà chua', 'Thịt xông khói', 'Phô mai lát', 'Trứng ốp-la', 'Mayo', 'Tương cà', 'Mù tạt'],
   },
   'banh-mi-char-siu': {
     name: 'BÁNH MÌ XÁ XÍU',
     description: 'Bánh mì Việt Nam nướng giòn rụm kẹp đầy thịt xá xíu rim mật ong caramen đậm đà, pa-tê nhà làm béo ngậy, dưa leo tươi, xà lách và đồ chua muối giòn ngọt.',
-    ingredients: ['Bánh mì giòn', 'Thịt xá xíu', 'Pa-tê béo', 'Dưa leo', 'Đồ chua muối', 'Rau thơm'],
+    ingredients: ['Bánh mì giòn', 'Thịt xá xíu', 'Pa-tê nhà làm', 'Dưa leo', 'Đồ chua muối', 'Rau thơm'],
   },
   'saime-pan': {
     name: 'BÁNH MÌ CHẢO SAIME',
@@ -53,27 +53,27 @@ export const MENU_ITEM_TRANSLATIONS: Record<string, {
     ingredients: ['Bánh bao hấp', 'Thịt ba chỉ xá xíu', 'Dưa leo', 'Nước sốt xá xíu', 'Mayonnaise', 'Rau ngò'],
   },
   'chicken-mantou': {
-    name: 'Chicken Mantou',
+    name: 'BÁNH BAO KẸP GÀ',
     description: 'Bánh bao kẹp gà nugget chiên giòn, bắp cải trắng & tím cùng nước sốt nhà làm đậm đà.',
     ingredients: ['Bánh bao', 'Gà nugget', 'Bắp cải trắng', 'Bắp cải tím', 'Sốt nhà làm'],
   },
   'braised-pork-mantou': {
-    name: 'Braised Pork Mantou',
+    name: 'BÁNH BAO KẸP THỊT KHO MĂNG',
     description: 'Bánh bao kẹp thịt kho tàu thơm ngon, dưa leo tươi mát, măng giòn và sốt mayonnaise béo ngậy.',
     ingredients: ['Bánh bao', 'Thịt kho tàu', 'Dưa leo', 'Măng', 'Sốt mayonnaise'],
   },
   'saime-wonton': {
-    name: 'HOÀNH THÁNH CHIÊN SAIME',
+    name: 'HOÀNH THÁNH THỊT SAIME',
     description: 'Hoành thánh chiên giòn vàng óng kẹp nhân thịt heo và tôm xay đậm đà hương vị xíu mại, ăn kèm đồ chua thanh mát, sốt mayonnaise béo ngậy và tương ớt cay nồng.',
     ingredients: ['Vỏ hoành thánh', 'Nhân tôm thịt xíu mại', 'Mayonnaise', 'Tương ớt', 'Đồ chua'],
   },
   'corn-wonton': {
-    name: 'HOÀNH THÁNH NGỌT CHIÊN',
+    name: 'HOÀNH THÁNH BẮP',
     description: 'Lựa chọn hoành thánh chay sưởi ấm tâm hồn với nhân hạt ngô ngọt dẻo, hành tím, hành lá tươi kết hợp chiên áp chảo nhẹ nhàng cùng muối tiêu cay nhẹ.',
     ingredients: ['Vỏ hoành thánh', 'Ngô nếp dẻo', 'Ngô ngọt', 'Hành tím', 'Hành lá', 'Muối & Tiêu'],
   },
   'cracker': {
-    name: 'BÁNH TRÁNG KẸP SAIME',
+    name: 'CƠM CHÁY PATE CHÀ BÔNG',
     description: 'Bánh tráng nướng giòn rụm phủ dầu hành thơm phức, chà bông heo đậm đà, lớp pa-tê đặc trưng béo ngậy cùng nước sốt mắm kẹo ngọt thanh umami.',
     ingredients: ['Bánh tráng giòn', 'Pa-tê', 'Dầu hành', 'Chà bông heo', 'Nước mắm kẹo'],
   },
@@ -90,27 +90,27 @@ export const MENU_ITEM_TRANSLATIONS: Record<string, {
     ingredients: ['Mì sợi Ý', 'Thịt bò bằm', 'Nước sốt cà chua', 'Phô mai Parmesan', 'Húng tây'],
   },
   'creamy-pasta': {
-    name: 'MÌ Ý SỐT KEM NẤM',
-    description: 'Mì sợi dẹt quyện trong sốt kem béo ngậy, nấm tươi xắt lát thơm phức, phô mai Parmesan tan chảy và tiêu đen đập dập cay nồng nàn.',
-    ingredients: ['Mì sợi dẹt', 'Nấm tươi', 'Sốt kem béo', 'Phô mai Parmesan', 'Tiêu đen'],
+    name: 'MÌ Ý SỐT KEM HẠT ĐÁC',
+    description: 'Mì sợi dẹt quyện trong sốt kem béo ngậy ăn cùng hạt đác, phô mai Parmesan tan chảy và tiêu đen đập dập cay nồng nàn.',
+    ingredients: ['Mì sợi dẹt', 'Hạt đác', 'Sốt kem béo', 'Phô mai Parmesan', 'Tiêu đen'],
   },
   'saime-comfort': {
-    name: 'SÚP COMFORT SAIME',
+    name: 'XÔI BẮP',
     description: 'Bát súp sưởi ấm tâm hồn của bếp trưởng: súp sườn heo non hầm thảo mộc thơm lành cùng bắp ngọt, cà rốt, khoai tây ngọt dẻo, mang đậm phong vị quê nhà ấm áp.',
     ingredients: ['Sườn non heo', 'Bắp ngọt', 'Cà rốt', 'Khoai tây dẻo', 'Hành ngò'],
   },
   'xoi': {
-    name: 'Xôi',
+    name: 'XÔI MẶN',
     description: 'Xôi dẻo thơm kết hợp pate béo ngậy, lá dứa, hành phi giòn, tôm khô nhỏ, chà bông heo, lạp sườn nướng, xá xíu đậm đà và trứng cút.',
     ingredients: ['Pate béo', 'Xôi dẻo', 'Lá dứa', 'Hành phi', 'Tôm khô', 'Chà bông', 'Lạp sườn', 'Thịt xá xíu', 'Trứng cút'],
   },
   'chicken-salad': {
-    name: 'SALAD GÀ SỐT VINAIGRETTE',
+    name: 'SALAD GÀ',
     description: 'Ức gà nướng thái mỏng xếp trên thảm rau cải xanh, cà chua bi ngọt lịm, hành tây tím, rưới nước sốt giấm vinaigrette chua ngọt thơm lừng.',
     ingredients: ['Gà nướng', 'Rau xanh tổng hợp', 'Cà chua bi', 'Hành tây tím', 'Sốt giấm chua ngọt'],
   },
   'garden-salad': {
-    name: 'SALAD VƯỜN TƯƠI',
+    name: 'SALAD',
     description: 'Các loại rau xanh giòn rụm trong ngày, dưa leo, cà chua bi, dầu oliu nguyên chất rưới sốt giấm chanh tươi thanh mát giảm ngấy tuyệt hảo.',
     ingredients: ['Rau xà lách xanh', 'Dưa leo', 'Cà chua bi', 'Dầu ô-liu', 'Nước cốt chanh'],
   },
@@ -130,12 +130,12 @@ export const MENU_ITEM_TRANSLATIONS: Record<string, {
     ingredients: ['Khoai tây tươi', 'Muối biển', 'Dầu thực vật'],
   },
   'skew-combo': {
-    name: 'Skew combo',
+    name: 'COMBO NƯỚNG',
     description: 'Thịt gà và thịt lợn xiên nướng thơm ngon nức mũi.',
     ingredients: ['Thịt gà', 'Thịt lợn', 'Gia vị xiên nướng'],
   },
   'coco-toast': {
-    name: 'BÁNH MÌ NƯỚNG DỪA dứa',
+    name: 'COCO TOAST',
     description: 'Bánh mì brioche lát dày nướng bơ kẹp mứt dứa dừa nướng thơm bùi, ăn kèm một muỗng kem dừa mát lạnh sảng khoái.',
     ingredients: ['Bánh mì gối Brioche', 'Mứt dứa dừa', 'Bơ thơm', 'Kem cốt dừa'],
   },
@@ -449,14 +449,14 @@ export const MENU_ITEM_TRANSLATIONS: Record<string, {
   },
   'set-1': {
     name: 'SET 1',
-    description: '**Starter (Món khai vị):** Gỏi gà, Bánh mì bơ tỏi, Bánh đa, Bánh bao xá xíu (Mantou xá xíu). **Main course (Món chính):** Creamy Dreamy, Bánh mì chảo Saime. **Dessert (Món tráng miệng):** Coco Toast, Mocktail.',
-    ingredients: ['Gỏi gà', 'Bánh mì bơ tỏi', 'Bánh đa', 'Mantou xá xíu', 'Creamy Dreamy', 'Bánh mì chảo Saime', 'Coco Toast', 'Mocktail'],
+    description: '**Starter (Món khai vị):** Salad gà, Bánh mì bơ tỏi, Cơm cháy pate chà bông, Bánh bao xá xíu (Màn thầu xá xíu). **Main course (Món chính):** Creamy Dreamy, Bánh mì chảo Saime. **Dessert (Món tráng miệng):** Coco Toast, Mocktail.',
+    ingredients: ['Salad gà', 'Bánh mì bơ tỏi', 'Cơm cháy pate chà bông', 'Màn thầu xá xíu', 'Creamy Dreamy', 'Bánh mì chảo Saime', 'Coco Toast', 'Mocktail'],
     category: 'Combo / Set Ăn'
   },
   'set-2': {
     name: 'SET 2',
-    description: '**Starter (Món khai vị):** Gỏi gà, Bánh mì bơ tỏi, Bánh đa, Bánh bao xá xíu (Mantou xá xíu). **Main course (Món chính):** Mì trứng thịt kho tàu, Saime Comfort. **Dessert (Món tráng miệng):** Coco Toast, Mocktail.',
-    ingredients: ['Gỏi gà', 'Bánh mì bơ tỏi', 'Bánh đa', 'Mantou xá xíu', 'Mì trứng thịt kho tàu', 'Saime Comfort', 'Coco Toast', 'Mocktail'],
+    description: '**Starter (Món khai vị):** Salad gà, Bánh mì bơ tỏi, Cơm cháy pate chà bông, Bánh bao xá xíu (Màn thầu xá xíu). **Main course (Món chính):** Mì trứng thịt kho tàu, Saime Comfort. **Dessert (Món tráng miệng):** Coco Toast, Mocktail.',
+    ingredients: ['Salad gà', 'Bánh mì bơ tỏi', 'Cơm cháy pate chà bông', 'Màn thầu xá xíu', 'Mì trứng thịt kho tàu', 'Saime Comfort', 'Coco Toast', 'Mocktail'],
     category: 'Combo / Set Ăn'
   },
   'snack-combo': {
