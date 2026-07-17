@@ -1729,11 +1729,13 @@ export default function MenuSection({
                             }`}>
                               {item.name}
                             </h3>
-                            <p className={`font-sans text-xs leading-relaxed ${
-                              currentMenuTab === 'cocktail' ? 'text-neutral-300' : 'text-neutral-900 font-medium'
-                            }`}>
-                              {renderDescription(item)}
-                            </p>
+                            {((item.category as string) === 'Staff' || (item.category as string) === 'Package') && (
+                              <p className={`font-sans text-xs leading-relaxed ${
+                                currentMenuTab === 'cocktail' ? 'text-neutral-300' : 'text-neutral-900 font-medium'
+                              }`}>
+                                {renderDescription(item)}
+                              </p>
+                            )}
                           </div>
 
                           {/* Ingredients list */}
@@ -1850,9 +1852,11 @@ export default function MenuSection({
                               }`}>
                                 {item.name}
                               </h3>
-                              <p className={`font-sans text-xs leading-relaxed ${currentMenuTab === 'cocktail' ? 'text-neutral-300' : 'text-neutral-900 font-medium'}`}>
-                                {renderDescription(item)}
-                              </p>
+                              {((item.category as string) === 'Staff' || (item.category as string) === 'Package') && (
+                                <p className={`font-sans text-xs leading-relaxed ${currentMenuTab === 'cocktail' ? 'text-neutral-300' : 'text-neutral-900 font-medium'}`}>
+                                  {renderDescription(item)}
+                                </p>
+                              )}
 
                               {/* Dynamic Ingredient Badge Row */}
                               {item.ingredients && item.ingredients.length > 0 && (
@@ -2348,14 +2352,19 @@ export default function MenuSection({
 
                 <div className="p-6 sm:p-8 space-y-6 overflow-y-auto max-h-[calc(90vh-16/10*40px)]">
                   
-                  <div className="space-y-2">
-                    <h4 className="font-display font-bold text-xs text-tropical uppercase tracking-widest">
-                      {(selectedItem.category as string) === 'Staff' ? (lang === 'en' ? 'Crew Mission / Role Story' : 'Sứ mệnh & Vai trò') : (lang === 'en' ? 'Flavor Profile / Chef Notes' : 'Hương Vị / Ghi Chú Của Bếp Trưởng')}
-                    </h4>
-                    <p className="font-sans text-neutral-dark text-xs sm:text-sm leading-relaxed font-normal">
-                      {renderDescription(selectedItem)}
-                    </p>
-                  </div>
+                  {/* Display Crew Mission for Staff, Package Contents for Package, or hide description for other menu items based on user request */}
+                  {((selectedItem.category as string) === 'Staff' || (selectedItem.category as string) === 'Package') ? (
+                    <div className="space-y-2">
+                      <h4 className="font-display font-bold text-xs text-tropical uppercase tracking-widest">
+                        {(selectedItem.category as string) === 'Staff' 
+                          ? (lang === 'en' ? 'Crew Mission / Role Story' : 'Sứ mệnh & Vai trò')
+                          : (lang === 'en' ? 'Package Contents' : 'Chi tiết Set ăn')}
+                      </h4>
+                      <p className="font-sans text-neutral-dark text-xs sm:text-sm leading-relaxed font-normal">
+                        {renderDescription(selectedItem)}
+                      </p>
+                    </div>
+                  ) : null}
 
                   {/* Size Guide Grid if available */}
                   {selectedItem.sizes && Object.keys(selectedItem.sizes).length > 0 && (
