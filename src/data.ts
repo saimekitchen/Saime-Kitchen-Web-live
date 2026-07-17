@@ -138,7 +138,7 @@ export const MENU_ITEMS: MenuItem[] = [
     description: 'Pasta, palm seed, onion, whipping cream, unsalted butter, parmesan cheese.',
     ingredients: ['Pasta', 'Palm seed', 'Onion', 'Whipping cream', 'Unsalted butter', 'Parmesan cheese'],
     category: 'Main Course',
-    image: 'https://i.imgur.com/6IH6KSs.jpeg',
+    image: 'https://i.imgur.com/eiB78Fk.png',
     imageScale: 110,
     imageXOffset: 0,
     imageYOffset: 0,
