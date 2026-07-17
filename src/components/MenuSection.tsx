@@ -217,6 +217,11 @@ export default function MenuSection({
             { value: 'Mocktail', menuType: 'cocktail' }
           ];
         }
+        // Ensure Package category is present in bistro
+        const hasPackage = parsed.some((c: any) => c.menuType === 'bistro' && c.value === 'Package');
+        if (!hasPackage) {
+          parsed.push({ value: 'Package', menuType: 'bistro' });
+        }
         localStorage.setItem('saime_custom_categories', JSON.stringify(parsed));
         return parsed;
       } catch (e) {
@@ -229,6 +234,7 @@ export default function MenuSection({
       { value: 'Mains & Pastas', menuType: 'bistro' },
       { value: 'Sides & Salads', menuType: 'bistro' },
       { value: 'Sweets', menuType: 'bistro' },
+      { value: 'Package', menuType: 'bistro' },
       { value: 'Staff', menuType: 'bistro' },
       { value: 'Specialty Coffee', menuType: 'cafe' },
       { value: 'Fresh Pastry & Bites', menuType: 'cafe' },
@@ -261,6 +267,9 @@ export default function MenuSection({
           parsed['Shot'] = 'Shot';
           parsed['Beer'] = 'Beer';
         }
+        if (!parsed['Package']) {
+          parsed['Package'] = 'Package';
+        }
         localStorage.setItem('saime_category_mapping', JSON.stringify(parsed));
         return parsed;
       } catch (e) {
@@ -273,6 +282,7 @@ export default function MenuSection({
       'Mains & Pastas': 'Main Course',
       'Sides & Salads': 'Salad & Sides',
       'Sweets': 'Dessert',
+      'Package': 'Package',
       'Specialty Coffee': 'Coffee',
       'Fresh Pastry & Bites': 'Pastries',
       'Classic': 'Classic',
@@ -439,7 +449,7 @@ export default function MenuSection({
         { value: 'Beer', labelEn: 'Beer', labelVn: 'Bia' }
       ];
     }
-  }, [currentMenuTab]);
+  }, [currentMenuTab, foodMenuDivision]);
 
   const categories = categoryMap.map(c => c.value);
 
