@@ -53,7 +53,7 @@ export default function App() {
   // Dynamic Menu Items State with persistence to allow adding new staff and adjusting images
   const [items, setItems] = useState<MenuItem[]>(() => {
     // Force reset/clear old localStorage caches if version mismatch to apply new hardcoded assets
-    const CURRENT_VERSION = 'saime_v3.14_espresso_removed';
+    const CURRENT_VERSION = 'saime_v3.16_banh_mi_char_siu_removed';
     try {
       const savedVersion = localStorage.getItem('saime_version');
       if (savedVersion !== CURRENT_VERSION) {
@@ -98,10 +98,10 @@ export default function App() {
         parsed = parsed.filter(item => defaultList.some(d => d.id === item.id) || item.id.startsWith('custom-'));
         // Only trust cache if it has a reasonable size and elements, otherwise reload default
         if (Array.isArray(parsed) && parsed.length >= 5) {
-          // Force-update isSignature, isBestSeller, and isChefRecommend for saime-comfort, saime-wonton, and char-siu-mantou
+          // Force-update isSignature, isBestSeller, and isChefRecommend for saime-comfort and char-siu-mantou
           let modified = false;
           parsed = parsed.map(item => {
-            if (['saime-comfort', 'saime-wonton', 'char-siu-mantou'].includes(item.id)) {
+            if (['saime-comfort', 'char-siu-mantou'].includes(item.id)) {
               if (!item.isSignature || !item.isBestSeller) {
                 item.isSignature = true;
                 item.isBestSeller = true;
