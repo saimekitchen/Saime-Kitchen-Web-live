@@ -53,7 +53,7 @@ export default function App() {
   // Dynamic Menu Items State with persistence to allow adding new staff and adjusting images
   const [items, setItems] = useState<MenuItem[]>(() => {
     // Force reset/clear old localStorage caches if version mismatch to apply new hardcoded assets
-    const CURRENT_VERSION = 'saime_v3.12_package_combo_added_to_casual_menu';
+    const CURRENT_VERSION = 'saime_v3.14_espresso_removed';
     try {
       const savedVersion = localStorage.getItem('saime_version');
       if (savedVersion !== CURRENT_VERSION) {
@@ -94,6 +94,8 @@ export default function App() {
       const saved = localStorage.getItem('saime_menu_items');
       if (saved) {
         let parsed = JSON.parse(saved) as MenuItem[];
+        // Filter out items that are no longer in defaultList and not user-created custom items
+        parsed = parsed.filter(item => defaultList.some(d => d.id === item.id) || item.id.startsWith('custom-'));
         // Only trust cache if it has a reasonable size and elements, otherwise reload default
         if (Array.isArray(parsed) && parsed.length >= 5) {
           // Force-update isSignature, isBestSeller, and isChefRecommend for saime-comfort, saime-wonton, and char-siu-mantou
