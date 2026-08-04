@@ -141,41 +141,6 @@ export const MENU_ITEM_TRANSLATIONS: Record<string, {
   },
 
   // Coffee
-  'espresso-coffee': {
-    name: 'ESPRESSO Ý',
-    description: 'Cà phê Espresso thuần khiết, đậm đà chuẩn vị Ý được pha chế từ hạt Robusta & Arabica chọn lọc cao cấp. Hương thơm nồng nàn cùng lớp crema vàng óng.',
-    ingredients: ['Hạt cà phê Ý tuyển chọn', 'Lớp crema đậm vị'],
-  },
-  'americano-coffee': {
-    name: 'AMERICANO / LONG BLACK',
-    description: 'Gấp đôi lượng espresso nguyên chất pha loãng với nước nóng thanh tao, mang lại hương vị cà phê mượt mà, sâu lắng kéo dài khó quên.',
-    ingredients: ['Espresso kép', 'Nước nóng tinh khiết'],
-  },
-  'cappuccino-coffee': {
-    name: 'CAPPUCCINO / FLAT WHITE',
-    description: 'Lớp bọt sữa siêu mịn đổ nhẹ nhàng lên tách espresso kép đậm đặc. Hương vị cân bằng, ấm áp và béo ngậy vô cùng mượt mà.',
-    ingredients: ['Espresso trái cây', 'Sữa đánh bọt mịn'],
-  },
-  'caramel-macchiato': {
-    name: 'CARAMEL MACCHIATO',
-    description: 'Cà phê espresso hòa quyện cùng si-rô vani ngọt ngào và sữa tươi đánh bọt ấm áp, kết thúc bằng những đường sốt caramel bơ béo ngậy.',
-    ingredients: ['Espresso', 'Si-rô vani', 'Sữa tươi đánh bọt', 'Sốt caramel'],
-  },
-  'latte-coffee': {
-    name: 'CAFE LATTE',
-    description: 'Cà phê espresso truyền thống kết hợp hoàn hảo cùng sữa nóng đánh bọt mịn màng và một lớp bọt sữa mỏng tinh tế trên bề mặt.',
-    ingredients: ['Espresso đậm đà', 'Sữa nóng', 'Lớp bọt nhung'],
-  },
-  'salted-cream-latte': {
-    name: 'LATTE KEM BÉO MUỐI',
-    description: 'Cà phê Latte cao cấp phủ một lớp kem sữa muối mặn ngọt béo ngậy tan từ từ vào nền espresso đậm vị phía dưới.',
-    ingredients: ['Espresso', 'Kem sữa muối biển', 'Sữa tươi nguyên chất'],
-  },
-  'mocha-coffee': {
-    name: 'CAFE MOCHA SÔ-CÔ-LA',
-    description: 'Sự kết hợp quyến rũ giữa espresso đậm đà cùng ca-cao nguyên chất béo ngậy, sữa nóng và phủ một lớp bột sô-cô-la mỏng.',
-    ingredients: ['Espresso', 'Sô-cô-la đậm', 'Sữa đánh bọt'],
-  },
   'black-coffee': {
     name: 'CÀ PHÊ ĐEN TRUYỀN THỐNG',
     description: 'Cà phê đen pha phin chậm truyền thống của Việt Nam cực kỳ đậm đặc, mạnh mẽ và nồng nàn hương thơm hạt Robusta rang mộc.',
