@@ -35,11 +35,7 @@ export const MENU_ITEM_TRANSLATIONS: Record<string, {
     description: 'Thịt bò xay nướng lửa thơm lừng hòa quyện cùng thịt ba rọi xông khói giòn rụm, phô mai lát, trứng ốp-la lòng đào, xà lách, cà chua, kết hợp với sốt mayonnaise, tương cà và mù tạt vàng trên bánh mì nướng mè.',
     ingredients: ['Thịt bò nướng', 'Vụn bánh mì', 'Hành tây', 'Xà lách', 'Cà chua', 'Thịt xông khói', 'Phô mai lát', 'Trứng ốp-la', 'Mayo', 'Tương cà', 'Mù tạt'],
   },
-  'banh-mi-char-siu': {
-    name: 'BÁNH MÌ XÁ XÍU',
-    description: 'Bánh mì Việt Nam nướng giòn rụm kẹp đầy thịt xá xíu rim mật ong caramen đậm đà, pa-tê nhà làm béo ngậy, dưa leo tươi, xà lách và đồ chua muối giòn ngọt.',
-    ingredients: ['Bánh mì giòn', 'Thịt xá xíu', 'Pa-tê nhà làm', 'Dưa leo', 'Đồ chua muối', 'Rau thơm'],
-  },
+
   'saime-pan': {
     name: 'BÁNH MÌ CHẢO SAIME',
     description: 'Một bữa tiệc đường phố đầy cuốn hút: Chảo gang nóng hổi với xíu mại Saime mọng nước, trứng lòng đào hoàn hảo, pa-tê béo ngậy, chả lụa thủ công, đồ chua, ngò rí và nước tương thanh ngọt, dùng kèm bánh mì giòn nóng hổi.',
@@ -62,11 +58,7 @@ export const MENU_ITEM_TRANSLATIONS: Record<string, {
     description: 'Bánh bao kẹp thịt kho tàu thơm ngon, dưa leo tươi mát, măng giòn và sốt mayonnaise béo ngậy.',
     ingredients: ['Bánh bao', 'Thịt kho tàu', 'Dưa leo', 'Măng', 'Sốt mayonnaise'],
   },
-  'saime-wonton': {
-    name: 'HOÀNH THÁNH THỊT SAIME',
-    description: 'Hoành thánh chiên giòn vàng óng kẹp nhân thịt heo và tôm xay đậm đà hương vị xíu mại, ăn kèm đồ chua thanh mát, sốt mayonnaise béo ngậy và tương ớt cay nồng.',
-    ingredients: ['Vỏ hoành thánh', 'Nhân tôm thịt xíu mại', 'Mayonnaise', 'Tương ớt', 'Đồ chua'],
-  },
+
   'corn-wonton': {
     name: 'HOÀNH THÁNH BẮP',
     description: 'Lựa chọn hoành thánh chay sưởi ấm tâm hồn với nhân hạt ngô ngọt dẻo, hành tím, hành lá tươi kết hợp chiên áp chảo nhẹ nhàng cùng muối tiêu cay nhẹ.',
@@ -89,11 +81,7 @@ export const MENU_ITEM_TRANSLATIONS: Record<string, {
     description: 'Mì Ý dai ngon hoàn hảo rưới ngập nước sốt cà chua thịt bò bằm ninh chậm thơm lừng, phủ phô mai Parmesan béo ngậy và lá húng tây tươi.',
     ingredients: ['Mì sợi Ý', 'Thịt bò bằm', 'Nước sốt cà chua', 'Phô mai Parmesan', 'Húng tây'],
   },
-  'creamy-pasta': {
-    name: 'MÌ Ý SỐT KEM HẠT ĐÁC',
-    description: 'Mì sợi dẹt quyện trong sốt kem béo ngậy ăn cùng hạt đác, phô mai Parmesan tan chảy và tiêu đen đập dập cay nồng nàn.',
-    ingredients: ['Mì sợi dẹt', 'Hạt đác', 'Sốt kem béo', 'Phô mai Parmesan', 'Tiêu đen'],
-  },
+
   'saime-comfort': {
     name: 'XÔI BẮP',
     description: 'Bát súp sưởi ấm tâm hồn của bếp trưởng: súp sườn heo non hầm thảo mộc thơm lành cùng bắp ngọt, cà rốt, khoai tây ngọt dẻo, mang đậm phong vị quê nhà ấm áp.',
@@ -129,11 +117,7 @@ export const MENU_ITEM_TRANSLATIONS: Record<string, {
     description: 'Khoai tây cắt thanh chiên giòn vàng óng, lắc nhẹ chút muối biển tinh khiết, dùng kèm tương cà.',
     ingredients: ['Khoai tây chiên', 'Muối'],
   },
-  'skew-combo': {
-    name: 'COMBO NƯỚNG',
-    description: 'Thịt gà và thịt lợn xiên nướng thơm ngon nức mũi.',
-    ingredients: ['Thịt gà', 'Thịt heo', 'Gia vị xiên nướng'],
-  },
+
   'coco-toast': {
     name: 'COCO TOAST',
     description: 'Bánh mì brioche lát dày nướng bơ kẹp mứt dứa dừa nướng thơm bùi, ăn kèm một muỗng kem dừa mát lạnh sảng khoái.',
@@ -400,24 +384,7 @@ export const MENU_ITEM_TRANSLATIONS: Record<string, {
   'beer-heineken-0': { name: 'BIA HEINEKEN KHÔNG CỒN CHAI', description: 'Bia Heineken 0.0 chai không cồn nguyên bản sảng khoái lành mạnh.', ingredients: ['Heineken 0.0 Chai'] },
 
   
-  'set-1': {
-    name: 'SET 1',
-    description: '**Starter (Món khai vị):** Salad gà, Bánh mì bơ tỏi, Cơm cháy pate chà bông, Bánh bao xá xíu (Màn thầu xá xíu). **Main course (Món chính):** Creamy Dreamy, Bánh mì chảo Saime. **Dessert (Món tráng miệng):** Coco Toast, Mocktail.',
-    ingredients: ['Salad gà', 'Bánh mì bơ tỏi', 'Cơm cháy pate chà bông', 'Màn thầu xá xíu', 'Creamy Dreamy', 'Bánh mì chảo Saime', 'Coco Toast', 'Mocktail'],
-    category: 'Combo / Set Ăn'
-  },
-  'set-2': {
-    name: 'SET 2',
-    description: '**Starter (Món khai vị):** Salad gà, Bánh mì bơ tỏi, Cơm cháy pate chà bông, Bánh bao xá xíu (Màn thầu xá xíu). **Main course (Món chính):** Mì trứng thịt kho tàu, Saime Comfort. **Dessert (Món tráng miệng):** Coco Toast, Mocktail.',
-    ingredients: ['Salad gà', 'Bánh mì bơ tỏi', 'Cơm cháy pate chà bông', 'Màn thầu xá xíu', 'Mì trứng thịt kho tàu', 'Saime Comfort', 'Coco Toast', 'Mocktail'],
-    category: 'Combo / Set Ăn'
-  },
-  'snack-combo': {
-    name: 'COMBO ĂN VẶT',
-    description: '**Combo Ăn Vặt:** Phù hợp cho đêm xem phim, chơi boardgames. Bao gồm khoai tây chiên giòn, gà viên chiên giòn rụm và lon bia không cồn mát lạnh.',
-    ingredients: ['Khoai tây chiên', 'Gà viên chiên giòn', 'Bia không cồn Heineken 0.0'],
-    category: 'Combo / Set Ăn'
-  },
+
   'hd-chicken-rice': {
     name: 'CƠM GÀ LÀNH MẠNH',
     description: 'Ức gà áp chảo thơm ngon dùng kèm cà chua bi, đậu gà khô, sốt sữa chua thanh mát, dưa leo, đồ chua, ngô ngọt và cơm lứt bổ dưỡng.',
