@@ -217,11 +217,8 @@ export default function MenuSection({
             { value: 'Mocktail', menuType: 'cocktail' }
           ];
         }
-        // Ensure Package category is present in bistro
-        const hasPackage = parsed.some((c: any) => c.menuType === 'bistro' && c.value === 'Package');
-        if (!hasPackage) {
-          parsed.push({ value: 'Package', menuType: 'bistro' });
-        }
+        // Clean up parsed custom categories if needed
+        parsed = parsed.filter((c: any) => c.value !== 'Package');
         localStorage.setItem('saime_custom_categories', JSON.stringify(parsed));
         return parsed;
       } catch (e) {
@@ -234,7 +231,6 @@ export default function MenuSection({
       { value: 'Mains & Pastas', menuType: 'bistro' },
       { value: 'Sides & Salads', menuType: 'bistro' },
       { value: 'Sweets', menuType: 'bistro' },
-      { value: 'Package', menuType: 'bistro' },
       { value: 'Staff', menuType: 'bistro' },
       { value: 'Specialty Coffee', menuType: 'cafe' },
       { value: 'Fresh Pastry & Bites', menuType: 'cafe' },
@@ -427,9 +423,6 @@ export default function MenuSection({
         { value: 'Main Course', labelEn: 'Main Course', labelVn: 'Món Chính' },
         { value: 'Dessert', labelEn: 'Dessert', labelVn: 'Tráng Miệng' }
       ];
-      if (foodMenuDivision === 'casual') {
-        base.push({ value: 'Package', labelEn: 'Package', labelVn: 'Combo / Set Ăn' });
-      }
       return base;
     } else if (currentMenuTab === 'cafe') {
       return [
@@ -584,7 +577,7 @@ export default function MenuSection({
       if (currentMenuTab === 'bistro' && (foodMenuDivision === 'healthy' || foodMenuDivision === 'vegetarian')) {
         matchesCategory = true;
       } else if (selectedCategory === 'Signatures') {
-        matchesCategory = ['saime-comfort', 'saime-wonton', 'saime-pan'].includes(item.id) || (!!item.isSignature && currentMenuTab === 'bistro');
+        matchesCategory = ['saime-comfort', 'saime-pan'].includes(item.id) || (!!item.isSignature && currentMenuTab === 'bistro');
       } else {
         const mappedPublicTab = categoryMapping[catStr] || catStr;
         if (mappedPublicTab === selectedCategory) {
