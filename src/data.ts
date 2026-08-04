@@ -22,16 +22,7 @@ export const MENU_ITEMS: MenuItem[] = [
     isSignature: true,
     image: 'https://i.imgur.com/LUOWos5.jpeg'
   },
-  {
-    id: 'banh-mi-char-siu',
-    name: 'BANH MI CHAR SIU',
-    price: 50000,
-    description: 'Crisp Vietnamese baguette loaded with succulent caramelized char siu pork meat, rich savory pâté, cucumber slices, fresh lettuce, and house-made crunchy Vietnamese pickles.',
-    ingredients: ['Banh mi Baguette', 'Char siu meat', 'Pâté', 'Cucumber', 'Vietnamese pickles', 'Lettuce'],
-    category: 'Main Course',
-    isSignature: true,
-    image: 'https://i.imgur.com/xHA399I.jpeg'
-  },
+
   {
     id: 'saime-pan',
     name: 'SAIME PAN',
@@ -78,19 +69,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: 'https://i.imgur.com/ZYHRw2x.jpeg',
     menuType: 'bistro'
   },
-  {
-    id: 'saime-wonton',
-    name: 'SAIME WONTON',
-    price: 45000,
-    description: 'Golden-fried crispy wontons generously filled with seasoned pork and shrimp siu mai elements, served with cool Vietnamese pickles, mayonnaise, and dynamic chili sauce.',
-    ingredients: ['Wonton wrappers', 'Siu mai filling', 'Mayonnaise', 'Chili sauce', 'Vietnamese pickles'],
-    category: 'Starters',
-    isSpicy: true,
-    isSignature: true,
-    isBestSeller: true,
-    isChefRecommend: true,
-    image: '/src/assets/images/saime_wonton_dish_1781685487940.jpg'
-  },
+
   {
     id: 'corn-wonton',
     name: 'CORN WONTON',
@@ -131,19 +110,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'Main Course',
     image: '/src/assets/images/regenerated_image_1781686324721.jpg'
   },
-  {
-    id: 'creamy-pasta',
-    name: 'CREAMY PASTA',
-    price: 120000,
-    description: 'Pasta, palm seed, onion, whipping cream, unsalted butter, parmesan cheese.',
-    ingredients: ['Pasta', 'Palm seed', 'Onion', 'Whipping cream', 'Unsalted butter', 'Parmesan cheese'],
-    category: 'Main Course',
-    image: 'https://i.imgur.com/eiB78Fk.png',
-    imageScale: 110,
-    imageXOffset: 0,
-    imageYOffset: 0,
-    imageFit: 'cover'
-  },
+
   {
     id: 'saime-comfort',
     name: 'SAIME COMFORT',
@@ -218,16 +185,7 @@ export const MENU_ITEMS: MenuItem[] = [
     isVegetarian: true,
     image: '/src/assets/images/regenerated_image_1781686104887.jpg'
   },
-  {
-    id: 'skew-combo',
-    name: 'Skew combo',
-    price: 80000,
-    description: 'Chicken & Pork Skew',
-    ingredients: ['Chicken', 'Pork', 'Skewers'],
-    category: 'Salad & Sides',
-    image: 'https://i.imgur.com/2WFVjrY.jpeg',
-    menuType: 'bistro'
-  },
+
 
   // Sweets
   {
@@ -967,40 +925,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&q=80',
     imageFit: 'contain'
   },
-  {
-    id: 'set-1',
-    name: 'SET 1',
-    price: 350000,
-    description: '**Starter:** Chicken Salad, Garlic Butter, Rice Crackers, Char Siu Mantou. **Main Course:** Creamy Dreamy, Saime Pan. **Dessert:** Coco Toast, Mocktail.',
-    ingredients: ['Chicken Salad', 'Garlic Butter', 'Rice Crackers', 'Char Siu Mantou', 'Creamy Dreamy', 'Saime Pan', 'Coco Toast', 'Mocktail'],
-    category: 'Package',
-    menuType: 'bistro',
-    isSignature: true,
-    isBestSeller: true,
-    image: 'https://i.imgur.com/ss16RXf.jpeg'
-  },
-  {
-    id: 'set-2',
-    name: 'SET 2',
-    price: 350000,
-    description: '**Starter:** Chicken Salad, Garlic Butter, Rice Crackers, Char Siu Mantou. **Main Course:** Braised Pork Egg Noodle, Saime Comfort. **Dessert:** Coco Toast, Mocktail.',
-    ingredients: ['Chicken Salad', 'Garlic Butter', 'Rice Crackers', 'Char Siu Mantou', 'Braised Pork Egg Noodle', 'Saime Comfort', 'Coco Toast', 'Mocktail'],
-    category: 'Package',
-    menuType: 'bistro',
-    isSignature: true,
-    image: 'https://i.imgur.com/i3C7dKv.jpeg'
-  },
-  {
-    id: 'snack-combo',
-    name: 'SNACK COMBO',
-    price: 120000,
-    description: '**Snack Combo:** Suitable for movie night or boardgames. Includes golden-crisped French fries, delicious chicken nuggets, and a chilled refreshing can of non-alcoholic beer.',
-    ingredients: ['French Fries', 'Chicken Nuggets', 'Non-alcoholic Beer'],
-    category: 'Package',
-    menuType: 'bistro',
-    isSignature: true,
-    image: 'https://i.imgur.com/ap7smFP.jpeg'
-  },
+
   {
     id: 'hd-chicken-rice',
     name: 'CHICKEN RICE',
