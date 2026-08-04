@@ -154,7 +154,7 @@ export const MENU_ITEMS: MenuItem[] = [
     ingredients: ['Lettuce', 'Purple lettuce sprout', 'Cherry tomatoes', 'Cucumber', 'Peeled shallots', 'Onion', 'Yellow corn', 'Spicy mayonnaise'],
     category: 'Salad & Sides',
     isVegetarian: true,
-    image: 'https://i.imgur.com/Cz0QPXk.jpeg'
+    image: 'https://i.imgur.com/3hFezPF.jpeg'
   },
   {
     id: 'chicken-nugget',
