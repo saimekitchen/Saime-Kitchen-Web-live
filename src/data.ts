@@ -976,22 +976,6 @@ export const MENU_ITEMS: MenuItem[] = [
     cardAspect: 'aspect-square'
   },
   {
-    id: 'hd-tuna-salad',
-    name: 'TUNA SALAD',
-    price: 100000,
-    description: 'A fresh, refreshing salad featuring flaky tuna, crisp purple lettuce sprouts, cherry tomatoes, cucumbers, mild peeled shallots, white onions, sweet corn, and hard-boiled chicken eggs.',
-    ingredients: ['Salad', 'Purple lettuce', 'Sprouts', 'Cherry tomatoes', 'Cucumber', 'Peeled shallots', 'White onion', 'Tuna', 'Sweet corn', 'Chicken eggs'],
-    category: 'Salad & Sides',
-    isHealthy: true,
-    image: 'https://i.imgur.com/M2VzIgp.jpeg',
-    menuType: 'bistro',
-    imageScale: 105,
-    imageXOffset: 0,
-    imageYOffset: 0,
-    imageFit: 'cover',
-    cardAspect: 'aspect-square'
-  },
-  {
     id: 'hd-white-fish-rice',
     name: 'WHITE FISH RICE',
     price: 130000,
