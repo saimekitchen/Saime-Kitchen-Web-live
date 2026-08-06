@@ -403,12 +403,6 @@ export const MENU_ITEM_TRANSLATIONS: Record<string, {
     ingredients: ['Trứng gà', 'Đậu trắng', 'Cà chua bi', 'Ngô ngọt', 'Dưa leo', 'Phô mai Oba Feta', 'Đậu gà khô', 'Sốt dầu mù tạt'],
     category: 'Chế Độ Ăn Lành Mạnh'
   },
-  'hd-tuna-salad': {
-    name: 'SALAD CÁ NGỪ',
-    description: 'Món salad tươi mát với cá ngừ dầm, mầm xà lách tím, cà chua bi, dưa leo, hành tím, hành tây trắng, ngô ngọt và trứng gà luộc.',
-    ingredients: ['Xà lách', 'Xà lách tím', 'Rau mầm', 'Cà chua bi', 'Dưa leo', 'Hành tím', 'Hành tây trắng', 'Cá ngừ', 'Ngô ngọt', 'Trứng gà'],
-    category: 'Chế Độ Ăn Lành Mạnh'
-  },
   'hd-white-fish-rice': {
     name: 'CƠM CÁ CHẼM SỐT DẦU MÙ TẠT',
     description: 'Filet cá basa áp chảo bơ lạt thơm lừng, ăn kèm cơm lứt, cà chua bi, đậu gà khô, sốt dầu mù tạt, dưa leo, đồ chua, xà lách và ngô ngọt.',
