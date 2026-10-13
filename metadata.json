@@ -1,0 +1,6 @@
+{
+  "name": "Saime Food & Cocktail Lab",
+  "description": "Saime Introverts, fusion cocktail and dining in Hoi An. Vietnamese childhood dishes and authentic botanicals reimagined through contemporary craft and liquid chemistry.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
