@@ -1635,7 +1635,7 @@ export const CommutesMap: React.FC<CommutesMapProps> = ({ apiKey }) => {
         <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-white/60">
           <span className="text-[11px] sm:text-xs">15.887048, 108.332693</span>
           <a
-            href="https://www.google.com/maps/search/?api=1&query=15.887048,108.332693"
+            href="https://maps.app.goo.gl/ThxTTj1xBnQnfBCfA"
             target="_blank"
             rel="noopener noreferrer"
             className="px-3 py-1 rounded-full bg-white/[0.06] hover:bg-[#e63946] hover:text-white text-white/80 border border-white/10 transition-colors inline-flex items-center gap-1 font-semibold text-[11px] sm:text-xs"
