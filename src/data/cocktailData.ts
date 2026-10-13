@@ -1,6 +1,7 @@
 import { CocktailItem } from '../types';
+import { HARDCODED_IMAGES } from './hardcodedImages';
 
-export const COCKTAIL_ITEMS: CocktailItem[] = [
+const BASE_COCKTAIL_ITEMS: CocktailItem[] = [
   // ==========================================
   // --- NORTH VIETNAM (Miền Bắc - 4 Cocktails) ---
   // ==========================================
@@ -572,3 +573,8 @@ export const COCKTAIL_ITEMS: CocktailItem[] = [
     }
   }
 ];
+
+export const COCKTAIL_ITEMS: CocktailItem[] = BASE_COCKTAIL_ITEMS.map((item) => ({
+  ...item,
+  primaryImage: HARDCODED_IMAGES.cocktails[item.id] || item.primaryImage,
+}));
