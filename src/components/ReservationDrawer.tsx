@@ -73,11 +73,15 @@ export const ReservationDrawer: React.FC<ReservationDrawerProps> = ({
   };
 
   const messengerRecipientId = '1121358051063119';
+  const facebookPageId = '61589897489896';
   const facebookUrl = 'https://www.facebook.com/profile.php?id=61589897489896';
 
   // Generates the official Facebook Messenger URL pre-filled with the reservation template ready to send
+  // We use m.me with the page recipient ID and encoded text param which Messenger uses to pre-populate the input box.
   const getMessengerUrlWithTemplate = (messageText: string) => {
-    return `https://m.me/${messengerRecipientId}?text=${encodeURIComponent(messageText)}`;
+    // Both 1121358051063119 (direct message thread recipient) and 61589897489896 (page ID) can be targeted
+    const primaryId = messengerRecipientId || facebookPageId;
+    return `https://m.me/${primaryId}?text=${encodeURIComponent(messageText)}`;
   };
 
   const copyToClipboard = async (text: string): Promise<boolean> => {
@@ -254,8 +258,8 @@ export const ReservationDrawer: React.FC<ReservationDrawerProps> = ({
 
                 <div className="pt-2 text-[11px] text-white/50 leading-relaxed bg-white/[0.02] p-2.5 rounded-lg border border-white/5 text-left">
                   {isVi
-                    ? '💡 Mẹo: Mẫu thông tin đã được copy vào bộ nhớ tạm và nạp vào Messenger. Nếu Messenger chưa tự điền, bạn chỉ cần chọn "Dán" (Paste / Ctrl+V) vào khung chat và bấm Gửi.'
-                    : '💡 Tip: The template is copied to your clipboard & loaded into Messenger. If not pre-filled automatically, simply press "Paste" (Ctrl+V / Long-press) in chat and send.'}
+                    ? '💡 Lưu ý: Nội dung đặt bàn đã được nạp sẵn vào ô soạn tin nhắn Messenger và lưu vào bộ nhớ tạm. Bạn chỉ cần nhấn nút "Gửi" để hoàn tất.'
+                    : '💡 Note: Your reservation details have been automatically pre-filled into the Messenger input box and saved to clipboard. Simply press "Send" to complete.'}
                 </div>
 
                 <button
