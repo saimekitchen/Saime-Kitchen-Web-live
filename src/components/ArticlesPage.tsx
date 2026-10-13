@@ -215,31 +215,40 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
                       ))}
                     </div>
 
-                    {/* Contextual link for Saime */}
-                    {restaurant.isSaime && (
-                      <div className="pt-2 flex flex-wrap items-center gap-3 text-xs">
-                        <button
-                          onClick={onOpenReservation}
-                          className="text-[#e63946] hover:underline font-bold inline-flex items-center gap-1 cursor-pointer"
-                        >
-                          <span>{isVi ? '→ Đặt bàn tại Saime Introverts' : '→ Reserve a table at Saime'}</span>
-                        </button>
-                        <span className="text-white/30">•</span>
-                        <button
-                          onClick={onSwitchToFoodPage}
-                          className="text-white/70 hover:text-white hover:underline cursor-pointer"
-                        >
-                          {isVi ? 'Xem thực đơn món ăn' : 'View food menu'}
-                        </button>
-                        <span className="text-white/30">•</span>
-                        <button
-                          onClick={onSwitchToCocktailPage}
-                          className="text-white/70 hover:text-white hover:underline cursor-pointer"
-                        >
-                          {isVi ? 'Xem 12 cocktail đặc sản' : 'View 12 signature cocktails'}
-                        </button>
-                      </div>
-                    )}
+                      {/* Contextual link for Saime */}
+                      {restaurant.isSaime && (
+                        <div className="pt-2 flex flex-wrap items-center gap-3 text-xs">
+                          <button
+                            onClick={onOpenReservation}
+                            className="text-[#e63946] hover:underline font-bold inline-flex items-center gap-1 cursor-pointer"
+                          >
+                            <span>{isVi ? '→ Đặt bàn tại Saime Introverts' : '→ Reserve a table at Saime'}</span>
+                          </button>
+                          <span className="text-white/30">•</span>
+                          <a
+                            href="https://maps.app.goo.gl/ThxTTj1xBnQnfBCfA"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[#e63946] hover:underline font-semibold inline-flex items-center gap-1"
+                          >
+                            <span>{isVi ? 'Chỉ đường Google Maps ↗' : 'Get Directions ↗'}</span>
+                          </a>
+                          <span className="text-white/30">•</span>
+                          <button
+                            onClick={onSwitchToFoodPage}
+                            className="text-white/70 hover:text-white hover:underline cursor-pointer"
+                          >
+                            {isVi ? 'Xem thực đơn món ăn' : 'View food menu'}
+                          </button>
+                          <span className="text-white/30">•</span>
+                          <button
+                            onClick={onSwitchToCocktailPage}
+                            className="text-white/70 hover:text-white hover:underline cursor-pointer"
+                          >
+                            {isVi ? 'Xem 12 cocktail đặc sản' : 'View 12 signature cocktails'}
+                          </button>
+                        </div>
+                      )}
                   </section>
                 );
               })}
