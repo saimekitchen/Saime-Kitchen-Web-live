@@ -125,8 +125,16 @@ export const Footer: React.FC<FooterProps> = ({
               <p>{t.footerAddress2}</p>
             </div>
 
-            <div className="pt-2 border-t border-white/5 text-[10px] sm:text-[11px] text-white/50">
-              {t.footerParkingHint}
+            <div className="pt-2 border-t border-white/5 flex items-center justify-between gap-2 text-[10px] sm:text-[11px]">
+              <span className="text-white/50">{t.footerParkingHint}</span>
+              <a
+                href="https://maps.app.goo.gl/ThxTTj1xBnQnfBCfA"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#e63946] hover:underline font-semibold shrink-0"
+              >
+                {currentLang === 'vi' ? 'Chỉ đường →' : 'Directions →'}
+              </a>
             </div>
           </div>
 
