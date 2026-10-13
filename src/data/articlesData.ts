@@ -1,3 +1,5 @@
+import { HARDCODED_IMAGES } from './hardcodedImages';
+
 export interface RestaurantReview {
   id: string;
   rank: number;
@@ -66,7 +68,7 @@ export const RESTAURANTS_TOP_8: RestaurantReview[] = [
     priceRangeVi: 'Tầm trung (75.000 VNĐ cho món khai vị đến 250.000 VNĐ cho món chính)',
     atmosphere: 'Modern, airy, quiet, and minimalist with spacious indoor & outdoor seating',
     atmosphereVi: 'Hiện đại, thoáng đãng, yên tĩnh, tối giản với không gian trong nhà & ngoài trời rộng rãi',
-    image: '/images/food/food-tam.jpg',
+    image: HARDCODED_IMAGES.food['food-tam'] || '/images/food/food-tam.jpg',
     imageCaption: 'Saime Introverts - Modern Vietnamese Childhood Fusion Dining at 144 Ly Thai To',
     imageCaptionVi: 'Saime Introverts - Ẩm thực Fusion tuổi thơ đương đại tại 144 Lý Thái Tổ',
     isSaime: true,
@@ -269,7 +271,7 @@ export const ARTICLES_DATA: ArticleItem[] = [
     readTimeVi: '7 phút đọc',
     badge: 'Featured Guide',
     badgeVi: 'Cẩm Nang Nổi Bật',
-    coverImage: '/images/food/food-tam.jpg',
+    coverImage: HARDCODED_IMAGES.food['food-tam'] || '/images/food/food-tam.jpg',
     author: 'Saime Editorial Team',
     title: 'Top 8 Fine Dining & Fusion Restaurants in Hoi An You Must Try [Updated 10/2026]',
     titleVi: 'Top 8 Nhà Hàng Fine Dining & Fusion Dining Đáng Thử Nhất Tại Hội An [Cập nhật 10/2026]',
