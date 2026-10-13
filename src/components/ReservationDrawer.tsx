@@ -72,19 +72,49 @@ export const ReservationDrawer: React.FC<ReservationDrawerProps> = ({
 📍 144 Ly Thai To, Hoi An | Saime Introverts`;
   };
 
-  const messengerUrl = 'https://www.facebook.com/messages/t/1121358051063119';
+  const messengerRecipientId = '1121358051063119';
   const facebookUrl = 'https://www.facebook.com/profile.php?id=61589897489896';
 
-  const copyToClipboard = async (text: string) => {
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
+  // Generates the official Facebook Messenger URL pre-filled with the reservation template ready to send
+  const getMessengerUrlWithTemplate = (messageText: string) => {
+    return `https://m.me/${messengerRecipientId}?text=${encodeURIComponent(messageText)}`;
+  };
+
+  const copyToClipboard = async (text: string): Promise<boolean> => {
+    let succeeded = false;
+
+    // 1. Try modern clipboard API
+    if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+      try {
         await navigator.clipboard.writeText(text);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 3000);
+        succeeded = true;
+      } catch {
+        succeeded = false;
       }
-    } catch {
-      // fallback
     }
+
+    // 2. Robust fallback for iframes and mobile web browsers
+    if (!succeeded) {
+      try {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.top = '0';
+        textArea.style.left = '-9999px';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        succeeded = document.execCommand('copy');
+        document.body.removeChild(textArea);
+      } catch {
+        succeeded = false;
+      }
+    }
+
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3500);
+    return succeeded;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -93,20 +123,29 @@ export const ReservationDrawer: React.FC<ReservationDrawerProps> = ({
 
     const formattedDetail = getFormattedMessage();
 
-    // Copy formatted details to clipboard for convenience
+    // 1. Copy formatted reservation template to clipboard
     copyToClipboard(formattedDetail);
 
-    // Open Messenger directly
+    // 2. Generate target Messenger URL containing the prefilled template
+    const messengerTargetUrl = getMessengerUrlWithTemplate(formattedDetail);
+
+    // 3. Immediately redirect / launch Messenger with template ready to be sent
     try {
-      window.open(messengerUrl, '_blank', 'noopener,noreferrer');
+      const link = document.createElement('a');
+      link.href = messengerTargetUrl;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     } catch {
-      // In case pop-ups are blocked
+      window.location.href = messengerTargetUrl;
     }
 
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 400);
+    }, 250);
   };
 
   const handleResetAndClose = () => {
@@ -150,7 +189,7 @@ export const ReservationDrawer: React.FC<ReservationDrawerProps> = ({
 
             {isSubmitted ? (
               <div className="py-6 text-center space-y-4">
-                <div className="w-14 h-14 rounded-full bg-[#e63946]/20 border border-[#e63946]/40 flex items-center justify-center mx-auto text-[#e63946] text-xl font-bold">
+                <div className="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center mx-auto text-emerald-400 text-2xl font-bold">
                   ✓
                 </div>
                 <div>
@@ -162,15 +201,25 @@ export const ReservationDrawer: React.FC<ReservationDrawerProps> = ({
                   </p>
                 </div>
 
-                {/* Formatted Details Preview Box */}
-                <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10 text-left text-xs font-mono space-y-1.5 mt-4 text-white/80 whitespace-pre-wrap leading-relaxed shadow-inner">
-                  {getFormattedMessage()}
+                {/* Formatted Details Preview Box with Live Copied Indicator */}
+                <div className="relative text-left">
+                  <div className="flex items-center justify-between pb-1.5 px-1">
+                    <span className="text-[10px] font-semibold text-white/50 uppercase tracking-wider">
+                      {isVi ? 'Mẫu Đặt Bàn Đã Sao Chép' : 'Copied Reservation Template'}
+                    </span>
+                    <span className="text-[10px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                      {copied ? (isVi ? '✓ Vừa sao chép!' : '✓ Just copied!') : (isVi ? '✓ Trong Clipboard' : '✓ In Clipboard')}
+                    </span>
+                  </div>
+                  <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10 text-left text-xs font-mono space-y-1.5 text-white/80 whitespace-pre-wrap leading-relaxed shadow-inner max-h-56 overflow-y-auto">
+                    {getFormattedMessage()}
+                  </div>
                 </div>
 
                 {/* Direct Action Buttons */}
                 <div className="space-y-2.5 pt-2">
                   <a
-                    href={messengerUrl}
+                    href={getMessengerUrlWithTemplate(getFormattedMessage())}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-3.5 px-4 rounded-xl bg-[#0084FF] hover:bg-[#0073e6] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-[#0084FF]/25 active:scale-95"
@@ -203,8 +252,10 @@ export const ReservationDrawer: React.FC<ReservationDrawerProps> = ({
                   </div>
                 </div>
 
-                <div className="pt-2 text-[11px] text-white/50">
-                  {t.resMessengerHint}
+                <div className="pt-2 text-[11px] text-white/50 leading-relaxed bg-white/[0.02] p-2.5 rounded-lg border border-white/5 text-left">
+                  {isVi
+                    ? '💡 Mẹo: Mẫu thông tin đã được copy vào bộ nhớ tạm và nạp vào Messenger. Nếu Messenger chưa tự điền, bạn chỉ cần chọn "Dán" (Paste / Ctrl+V) vào khung chat và bấm Gửi.'
+                    : '💡 Tip: The template is copied to your clipboard & loaded into Messenger. If not pre-filled automatically, simply press "Paste" (Ctrl+V / Long-press) in chat and send.'}
                 </div>
 
                 <button
@@ -376,7 +427,7 @@ export const ReservationDrawer: React.FC<ReservationDrawerProps> = ({
                     <span>{isSubmitting ? t.resSubmitting : t.resConfirmBtn}</span>
                   </button>
                   <p className="text-[10px] text-white/40 text-center mt-2">
-                    {isVi ? 'Tự động định dạng và gửi trực tiếp qua Facebook Messenger' : 'Auto formats details and opens Facebook Messenger'}
+                    {isVi ? 'Tự động sao chép mẫu đặt bàn & chuyển hướng sang Messenger sẵn sàng để gửi' : 'Copies reservation template & redirects to Messenger ready to send'}
                   </p>
                 </div>
               </form>
