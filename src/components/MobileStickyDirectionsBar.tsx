@@ -12,9 +12,7 @@ export const MobileStickyDirectionsBar: React.FC<MobileStickyDirectionsBarProps>
 }) => {
   const isVi = currentLang === 'vi';
 
-  // High-accuracy Google Maps Direction URL to Saime Introverts
-  const googleMapsDirectionsUrl =
-    'https://www.google.com/maps/dir/?api=1&destination=Saime+Kitchen+%26+Bar,+144+L%C3%BD+Th%C3%A1i+T%E1%BB%95,+C%E1%BA%A9m+Ch%C3%A2u,+H%E1%BB%99i+An,+Qu%E1%BA%A3ng+Nam,+Vietnam';
+  const googleMapsDirectionsUrl = 'https://maps.app.goo.gl/ThxTTj1xBnQnfBCfA';
 
   return (
     <aside
