@@ -7,6 +7,7 @@ import { CocktailPage } from './components/CocktailPage';
 import { ImageLightboxModal } from './components/ImageLightboxModal';
 import { ReservationDrawer } from './components/ReservationDrawer';
 import { MobileStickyDirectionsBar } from './components/MobileStickyDirectionsBar';
+import { autoSyncOnStartup } from './utils/foodImageStore';
 
 // Detect user device/phone default language: Vietnamese if phone is in Vietnamese, otherwise English
 const detectUserLanguage = (): Language => {
@@ -51,6 +52,11 @@ export default function App() {
   useEffect(() => {
     document.documentElement.lang = currentLang;
   }, [currentLang]);
+
+  // Auto-sync images uploaded in this building environment directly into project source code
+  useEffect(() => {
+    autoSyncOnStartup();
+  }, []);
 
   // Keyboard navigation shortcuts
   useEffect(() => {
