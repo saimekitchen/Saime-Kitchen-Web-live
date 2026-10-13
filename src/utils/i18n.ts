@@ -10,6 +10,7 @@ export interface TranslationDictionary {
   // Navigation
   pageFood: string;
   pageCocktail: string;
+  pageArticles: string;
   viewLookbook: string;
   viewGrid: string;
   bookTable: string;
@@ -165,6 +166,7 @@ export const translations: Record<Language, TranslationDictionary> = {
     // Navigation
     pageFood: 'Food',
     pageCocktail: 'Cocktails',
+    pageArticles: 'Articles',
     viewLookbook: 'Lookbook',
     viewGrid: 'Grid',
     bookTable: 'Book Table',
@@ -336,6 +338,7 @@ export const translations: Record<Language, TranslationDictionary> = {
     // Navigation
     pageFood: 'Thực đơn',
     pageCocktail: 'Cocktail',
+    pageArticles: 'Bài Viết',
     viewLookbook: 'Tạp chí',
     viewGrid: 'Lưới ảnh',
     bookTable: 'Đặt Bàn',

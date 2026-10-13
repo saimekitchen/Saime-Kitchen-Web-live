@@ -1,6 +1,6 @@
 export type Language = 'en' | 'vi';
 
-export type ActivePage = 'food' | 'cocktail';
+export type ActivePage = 'food' | 'cocktail' | 'articles';
 
 export type FoodCategory = 'starter' | 'main' | 'dessert' | 'addon';
 

@@ -75,6 +75,21 @@ export const Header: React.FC<HeaderProps> = ({
                 <span>{t.pageCocktail}</span>
               </span>
             </button>
+
+            <button
+              id="nav-articles-btn"
+              onClick={() => onPageChange('articles')}
+              className={`relative px-5 lg:px-7 py-2 rounded-full text-xs lg:text-sm font-bold tracking-wide transition-all duration-200 ${
+                activePage === 'articles'
+                  ? 'text-white bg-[#e63946] shadow-md shadow-[#e63946]/25'
+                  : 'text-white/70 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <span className="flex items-center gap-2">
+                <span className="text-[10px] opacity-75">03</span>
+                <span>{t.pageArticles}</span>
+              </span>
+            </button>
           </nav>
 
           {/* Right Actions */}
@@ -124,16 +139,16 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Mobile Sub-Navigation Bar: Segmented Switcher for 01 Food & 02 Cocktails */}
+        {/* Mobile Sub-Navigation Bar: Segmented Switcher for 01 Food, 02 Cocktails & 03 Articles */}
         <div className="md:hidden pb-3 pt-0">
           <nav
-            className="grid grid-cols-2 p-1 rounded-xl bg-white/[0.05] border border-white/10 shadow-inner w-full"
+            className="grid grid-cols-3 p-1 rounded-xl bg-white/[0.05] border border-white/10 shadow-inner w-full gap-1"
             id="mobile-two-page-nav"
           >
             <button
               id="mobile-nav-food-btn"
               onClick={() => onPageChange('food')}
-              className={`py-2 px-3 rounded-lg text-xs font-bold tracking-wide transition-all duration-200 flex items-center justify-center gap-2 ${
+              className={`py-2 px-1.5 rounded-lg text-xs font-bold tracking-wide transition-all duration-200 flex items-center justify-center gap-1.5 ${
                 activePage === 'food'
                   ? 'text-white bg-[#e63946] shadow-sm shadow-[#e63946]/40'
                   : 'text-white/70 hover:text-white hover:bg-white/5'
@@ -146,7 +161,7 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               id="mobile-nav-cocktail-btn"
               onClick={() => onPageChange('cocktail')}
-              className={`py-2 px-3 rounded-lg text-xs font-bold tracking-wide transition-all duration-200 flex items-center justify-center gap-2 ${
+              className={`py-2 px-1.5 rounded-lg text-xs font-bold tracking-wide transition-all duration-200 flex items-center justify-center gap-1.5 ${
                 activePage === 'cocktail'
                   ? 'text-white bg-[#e63946] shadow-sm shadow-[#e63946]/40'
                   : 'text-white/70 hover:text-white hover:bg-white/5'
@@ -154,6 +169,19 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <span className="text-[10px] opacity-75">02</span>
               <span className="truncate">{t.pageCocktail}</span>
+            </button>
+
+            <button
+              id="mobile-nav-articles-btn"
+              onClick={() => onPageChange('articles')}
+              className={`py-2 px-1.5 rounded-lg text-xs font-bold tracking-wide transition-all duration-200 flex items-center justify-center gap-1.5 ${
+                activePage === 'articles'
+                  ? 'text-white bg-[#e63946] shadow-sm shadow-[#e63946]/40'
+                  : 'text-white/70 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <span className="text-[10px] opacity-75">03</span>
+              <span className="truncate">{t.pageArticles}</span>
             </button>
           </nav>
         </div>

@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Camera } from 'lucide-react';
+import React, { useState } from 'react';
 import { FoodItem, CocktailItem, Language } from '../types';
 import { translations } from '../utils/i18n';
-import { getCustomFoodImage, getCustomCocktailImage } from '../utils/foodImageStore';
-import { UploadImageModal } from './UploadImageModal';
 
 interface ImageLightboxModalProps {
   item: FoodItem | CocktailItem | null;
@@ -21,40 +18,15 @@ export const ImageLightboxModal: React.FC<ImageLightboxModalProps> = ({
   currentLang,
 }) => {
   const [isZoomed, setIsZoomed] = useState<boolean>(false);
-  const [uploadOpen, setUploadOpen] = useState<boolean>(false);
-  const [currentDisplayImage, setCurrentDisplayImage] = useState<string>('');
 
   const t = translations[currentLang];
   const isVi = currentLang === 'vi';
 
-  const isFood = type === 'food';
-  const foodItem = isFood ? (item as FoodItem) : null;
-  const cocktailItem = !isFood ? (item as CocktailItem) : null;
-
-  const updateImageFromStore = () => {
-    if (!item) return;
-    if (isFood && foodItem) {
-      const custom = getCustomFoodImage(foodItem.id);
-      setCurrentDisplayImage(custom || foodItem.primaryImage);
-    } else if (cocktailItem) {
-      const custom = getCustomCocktailImage(cocktailItem.id);
-      setCurrentDisplayImage(custom || cocktailItem.primaryImage);
-    } else {
-      setCurrentDisplayImage(item.primaryImage);
-    }
-  };
-
-  useEffect(() => {
-    updateImageFromStore();
-  }, [item, isFood, foodItem, cocktailItem]);
-
-  const handleImageUpdated = () => {
-    updateImageFromStore();
-  };
-
   if (!item || !type) return null;
 
-  const currentImage = currentDisplayImage || item.primaryImage;
+  const isFood = type === 'food';
+  const foodItem = isFood ? (item as FoodItem) : null;
+  const currentImage = item.primaryImage;
 
   const itemName = isVi && item.nameVi ? item.nameVi : item.name;
   const itemTagline = isVi && item.taglineVi ? item.taglineVi : item.tagline;
@@ -94,32 +66,15 @@ export const ImageLightboxModal: React.FC<ImageLightboxModalProps> = ({
               src={currentImage}
               alt={itemName}
               referrerPolicy="no-referrer"
-              className={`w-full h-full object-cover transition-transform duration-500 ease-out ${
-                isZoomed ? 'scale-125' : 'scale-100 group-hover:scale-105'
+              className={`max-w-full max-h-full object-contain transition-transform duration-300 select-none ${
+                isZoomed ? 'scale-150' : 'group-hover:scale-105'
               }`}
             />
-
-            {/* Gradient Scrim */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/30 pointer-events-none" />
 
             {/* Zoom hint */}
             <div className="absolute bottom-4 left-4 bg-black/60 subtle-blur px-3 py-1 rounded-full text-[11px] font-medium text-white/80 border border-white/10 pointer-events-none">
               {t.clickToZoom}
             </div>
-
-            {/* Direct Upload Image Action in Modal */}
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                setUploadOpen(true);
-              }}
-              className="absolute bottom-4 right-4 z-20 px-3 py-1.5 rounded-full bg-black/70 hover:bg-[#e63946] text-white/90 hover:text-white text-xs font-semibold backdrop-blur-md border border-white/20 transition-all flex items-center gap-1.5 shadow-lg"
-              id="lightbox-upload-photo-btn"
-            >
-              <Camera className="w-3.5 h-3.5" />
-              <span>{isVi ? 'Đổi ảnh món này' : 'Upload photo'}</span>
-            </button>
           </div>
         </div>
 
@@ -133,110 +88,100 @@ export const ImageLightboxModal: React.FC<ImageLightboxModalProps> = ({
                   {isFood ? t.detailsAndRecipeNotes : t.cocktailDetailsNotes}
                 </span>
                 <span className="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-white/80">
+                  {item.category.toUpperCase()}
+                </span>
+              </div>
+              <h2 className="font-display font-dm-sans text-2xl sm:text-3xl font-extrabold text-white leading-tight">
+                {itemName}
+              </h2>
+              <div className="flex items-center justify-between mt-2">
+                <p className="text-xs sm:text-sm text-white/70 italic font-serif">
+                  &ldquo;{itemTagline}&rdquo;
+                </p>
+                <span className="font-display font-dm-sans font-bold text-lg text-[#e63946]">
                   {item.price}
                 </span>
               </div>
-              <h2 className="font-display font-dm-sans text-2xl sm:text-3xl font-bold text-white leading-tight">
-                {itemName}
-              </h2>
-              <p className="text-xs text-white/60 font-medium mt-1">
-                {itemTagline}
+            </div>
+
+            {/* Description / Story Concept */}
+            <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5 space-y-2">
+              <span className="text-[11px] font-semibold text-[#e63946] uppercase tracking-wider block">
+                {t.storyConcept}
+              </span>
+              <p className="text-xs sm:text-sm text-white/80 leading-relaxed font-normal">
+                {itemDescription}
               </p>
             </div>
 
-            {/* Description */}
-            <p className="text-sm text-white/80 font-normal leading-relaxed">
-              {itemDescription}
-            </p>
+            {/* Fun Fact / Cultural Heritage Quote if available */}
+            {itemFunFact && (
+              <div className="p-3.5 rounded-xl bg-[#e63946]/10 border border-[#e63946]/20 text-xs text-white/90 italic">
+                <span className="font-bold text-[#e63946] not-italic block mb-0.5">
+                  {isVi ? 'Góc Ký Ức Saime:' : 'Cultural Memory:'}
+                </span>
+                &ldquo;{itemFunFact}&rdquo;
+              </div>
+            )}
 
-            {/* Structured specs */}
-            <div className="grid grid-cols-2 gap-3 text-xs">
-              {foodItem && (
-                <>
-                  <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
-                    <span className="text-[10px] uppercase font-semibold text-white/40 block">{t.servingTemperature}</span>
-                    <span className="font-medium text-white mt-0.5 block">{foodItem.temperature}</span>
-                  </div>
-                  <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
-                    <span className="text-[10px] uppercase font-semibold text-white/40 block">{t.dietaryFeatures}</span>
-                    <span className="font-medium text-white mt-0.5 block truncate">
-                      {foodItem.dietary.join(', ')}
-                    </span>
-                  </div>
-                </>
-              )}
-              {cocktailItem && (
-                <>
-                  <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
-                    <span className="text-[10px] uppercase font-semibold text-white/40 block">
-                      {isVi ? 'Vùng Cảm Hứng' : 'Regional Origin'}
-                    </span>
-                    <span className="font-medium text-white mt-0.5 block">
-                      {cocktailItem.category === 'north'
-                        ? (isVi ? 'Miền Bắc' : 'Northern Vietnam')
-                        : cocktailItem.category === 'central'
-                        ? (isVi ? 'Miền Trung' : 'Central Vietnam')
-                        : (isVi ? 'Miền Nam' : 'Southern Vietnam')}
-                    </span>
-                  </div>
-                  <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
-                    <span className="text-[10px] uppercase font-semibold text-white/40 block">{t.glasswareProfile}</span>
-                    <span className="font-medium text-white mt-0.5 block">{cocktailItem.glassware}</span>
-                  </div>
-                </>
-              )}
-            </div>
-
-            {/* Ingredients / Botanical profile */}
+            {/* Key Ingredients */}
             <div className="space-y-2">
-              <span className="text-xs uppercase font-semibold text-white/60 tracking-wider block">
-                {isFood ? t.keyIngredients : t.cocktailBotanicals}
-              </span>
+              <h3 className="text-xs font-semibold text-white/60 uppercase tracking-wider">
+                {t.keyIngredients}
+              </h3>
               <div className="flex flex-wrap gap-1.5">
-                {itemIngredients.map((ingredient, idx) => (
+                {itemIngredients.map((ing, idx) => (
                   <span
                     key={idx}
-                    className="px-2.5 py-1 rounded-lg bg-white/5 text-white/80 text-xs border border-white/5"
+                    className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/10 text-xs text-white/90"
                   >
-                    {ingredient}
+                    {ing}
                   </span>
                 ))}
               </div>
             </div>
 
-            {/* Behind the creation Story */}
-            <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 space-y-1.5">
-              <span className="text-xs uppercase font-semibold text-[#e63946] tracking-wider block">
-                {isFood ? t.behindTheCreation : t.curatorsPhilosophy}
-              </span>
-              <p className="text-xs text-white/70 italic leading-relaxed">
-                "{itemFunFact}"
-              </p>
-            </div>
+            {/* Dietary or Flavor Nodes */}
+            {isFood && foodItem?.dietary && (
+              <div className="space-y-2">
+                <h3 className="text-xs font-semibold text-white/60 uppercase tracking-wider">
+                  {t.dietaryFeatures}
+                </h3>
+                <div className="flex flex-wrap gap-1.5">
+                  {foodItem.dietary.map((d, idx) => (
+                    <span
+                      key={idx}
+                      className="px-2.5 py-1 rounded-md bg-[#2a9d8f]/20 border border-[#2a9d8f]/30 text-xs text-[#2a9d8f] font-medium"
+                    >
+                      {d}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* Curated Pairing Link */}
-          <div className="pt-4 border-t border-white/10 space-y-2">
-            <span className="text-[10px] uppercase font-bold text-white/40 tracking-wider block">
-              {isFood ? t.sommelierPairingRecommendation : t.curatedPairingNote}
-            </span>
-            <div className="p-3 rounded-xl bg-[#e63946]/10 border border-[#e63946]/30 flex items-center justify-between gap-3">
-              <div className="min-w-0 flex-1">
-                <span className="text-xs font-bold text-white block truncate">
+          {/* Interactive Suggested Pairing Section */}
+          <div className="pt-4 border-t border-white/10 mt-6">
+            <div className="flex items-center justify-between text-xs text-white/50 mb-2">
+              <span className="font-semibold text-[#e63946] uppercase tracking-wider">
+                {isFood ? t.suggestedPairing : t.suggestedFoodPairing}
+              </span>
+            </div>
+            <div className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-between gap-3">
+              <div className="min-w-0">
+                <h4 className="font-display font-dm-sans font-bold text-sm text-white truncate">
                   {pairingName}
-                </span>
-                <span className="text-[11px] text-white/60 block line-clamp-1">
+                </h4>
+                <p className="text-[11px] text-white/60 line-clamp-1 italic">
                   {pairingNotes}
-                </span>
+                </p>
               </div>
               <button
                 onClick={() => {
-                  onClose();
-                  if (isFood && foodItem) {
-                    onNavigatePairing(foodItem.pairing.cocktailId, 'cocktail');
-                  } else if (!isFood && cocktailItem) {
-                    onNavigatePairing(cocktailItem.pairing.foodId, 'food');
-                  }
+                  const targetId = isFood ? item.pairing.cocktailId : item.pairing.foodId;
+                  const targetType = isFood ? 'cocktail' : 'food';
+                  onNavigatePairing(targetId, targetType);
                 }}
                 className="px-3 py-1.5 rounded-full bg-[#e63946] text-white text-xs font-bold hover:bg-[#d62839] transition-colors whitespace-nowrap shadow-md"
                 id="lightbox-navigate-pairing-btn"
@@ -247,16 +192,6 @@ export const ImageLightboxModal: React.FC<ImageLightboxModalProps> = ({
           </div>
         </div>
       </div>
-
-      {/* Upload Image Modal */}
-      <UploadImageModal
-        isOpen={uploadOpen}
-        onClose={() => setUploadOpen(false)}
-        initialType={isFood ? 'food' : 'cocktail'}
-        initialId={item.id}
-        currentLang={currentLang}
-        onImageUpdated={handleImageUpdated}
-      />
     </div>
   );
 };

@@ -33,36 +33,52 @@ export const Footer: React.FC<FooterProps> = ({
             </p>
           </div>
 
-          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div
               onClick={() => onPageChange('food')}
-              className="p-4 sm:p-5 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#e63946]/50 cursor-pointer transition-all group"
+              className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#e63946]/50 cursor-pointer transition-all group"
             >
               <div className="flex items-center justify-between text-xs font-semibold text-[#e63946] uppercase mb-2">
-                <span>Page 01</span>
+                <span>01</span>
                 <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
               </div>
-              <h4 className="font-display font-dm-sans text-base sm:text-lg font-bold text-white group-hover:text-[#e63946] transition-colors">
+              <h4 className="font-display font-dm-sans text-sm sm:text-base font-bold text-white group-hover:text-[#e63946] transition-colors">
                 {t.footerFoodCardTitle}
               </h4>
-              <p className="text-xs text-white/60 font-normal mt-1">
+              <p className="text-[11px] text-white/60 font-normal mt-1 line-clamp-2">
                 {t.footerFoodCardDesc}
               </p>
             </div>
 
             <div
               onClick={() => onPageChange('cocktail')}
-              className="p-4 sm:p-5 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#e63946]/50 cursor-pointer transition-all group"
+              className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#e63946]/50 cursor-pointer transition-all group"
             >
               <div className="flex items-center justify-between text-xs font-semibold text-[#e63946] uppercase mb-2">
-                <span>Page 02</span>
+                <span>02</span>
                 <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
               </div>
-              <h4 className="font-display font-dm-sans text-base sm:text-lg font-bold text-white group-hover:text-[#e63946] transition-colors">
+              <h4 className="font-display font-dm-sans text-sm sm:text-base font-bold text-white group-hover:text-[#e63946] transition-colors">
                 {t.footerCocktailCardTitle}
               </h4>
-              <p className="text-xs text-white/60 font-normal mt-1">
+              <p className="text-[11px] text-white/60 font-normal mt-1 line-clamp-2">
                 {t.footerCocktailCardDesc}
+              </p>
+            </div>
+
+            <div
+              onClick={() => onPageChange('articles')}
+              className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#e63946]/50 cursor-pointer transition-all group"
+            >
+              <div className="flex items-center justify-between text-xs font-semibold text-[#e63946] uppercase mb-2">
+                <span>03</span>
+                <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+              </div>
+              <h4 className="font-display font-dm-sans text-sm sm:text-base font-bold text-white group-hover:text-[#e63946] transition-colors">
+                {currentLang === 'vi' ? 'Top 8 Nhà Hàng Hội An' : 'Top 8 Dining Guide'}
+              </h4>
+              <p className="text-[11px] text-white/60 font-normal mt-1 line-clamp-2">
+                {currentLang === 'vi' ? 'Khám phá ẩm thực fine dining & fusion đặc sắc nhất Hội An' : 'Curated fine dining & fusion guide updated 10/2026'}
               </p>
             </div>
           </div>

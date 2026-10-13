@@ -4,6 +4,7 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { FoodPage } from './components/FoodPage';
 import { CocktailPage } from './components/CocktailPage';
+import { ArticlesPage } from './components/ArticlesPage';
 import { ImageLightboxModal } from './components/ImageLightboxModal';
 import { ReservationDrawer } from './components/ReservationDrawer';
 import { MobileStickyDirectionsBar } from './components/MobileStickyDirectionsBar';
@@ -127,7 +128,7 @@ export default function App() {
         onLanguageChange={handleLanguageChange}
       />
 
-      {/* 2. Main Content: Food Page or Cocktail Page */}
+      {/* 2. Main Content: Food Page, Cocktail Page, or Articles Page */}
       <main className="flex-1 w-full max-w-full">
         {activePage === 'food' ? (
           <FoodPage
@@ -137,12 +138,19 @@ export default function App() {
             currentLang={currentLang}
             onOpenReservation={() => setIsReservationOpen(true)}
           />
-        ) : (
+        ) : activePage === 'cocktail' ? (
           <CocktailPage
             onSelectCocktail={handleSelectCocktail}
             onNavigatePairing={handleNavigatePairing}
             onSwitchToFoodPage={() => handlePageChange('food')}
             currentLang={currentLang}
+            onOpenReservation={() => setIsReservationOpen(true)}
+          />
+        ) : (
+          <ArticlesPage
+            currentLang={currentLang}
+            onSwitchToFoodPage={() => handlePageChange('food')}
+            onSwitchToCocktailPage={() => handlePageChange('cocktail')}
             onOpenReservation={() => setIsReservationOpen(true)}
           />
         )}
