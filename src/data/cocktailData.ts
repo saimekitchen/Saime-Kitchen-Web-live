@@ -574,7 +574,11 @@ const BASE_COCKTAIL_ITEMS: CocktailItem[] = [
   }
 ];
 
-export const COCKTAIL_ITEMS: CocktailItem[] = BASE_COCKTAIL_ITEMS.map((item) => ({
-  ...item,
-  primaryImage: HARDCODED_IMAGES.cocktails[item.id] || item.primaryImage,
-}));
+export const COCKTAIL_ITEMS: CocktailItem[] = BASE_COCKTAIL_ITEMS.map((item) => {
+  const customImg = HARDCODED_IMAGES.cocktails[item.id] || item.primaryImage;
+  return {
+    ...item,
+    primaryImage: customImg,
+    detailImages: [customImg, ...(item.detailImages || []).filter((img) => img !== customImg)],
+  };
+});
