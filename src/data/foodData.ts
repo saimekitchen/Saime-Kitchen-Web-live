@@ -629,7 +629,11 @@ const BASE_FOOD_ITEMS: FoodItem[] = [
   }
 ];
 
-export const FOOD_ITEMS: FoodItem[] = BASE_FOOD_ITEMS.map((item) => ({
-  ...item,
-  primaryImage: HARDCODED_IMAGES.food[item.id] || item.primaryImage,
-}));
+export const FOOD_ITEMS: FoodItem[] = BASE_FOOD_ITEMS.map((item) => {
+  const customImg = HARDCODED_IMAGES.food[item.id] || item.primaryImage;
+  return {
+    ...item,
+    primaryImage: customImg,
+    detailImages: [customImg, ...(item.detailImages || []).filter((img) => img !== customImg)],
+  };
+});
