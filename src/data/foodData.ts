@@ -1,6 +1,7 @@
 import { FoodItem } from '../types';
+import { HARDCODED_IMAGES } from './hardcodedImages';
 
-export const FOOD_ITEMS: FoodItem[] = [
+const BASE_FOOD_ITEMS: FoodItem[] = [
   // ==========================================
   // --- APPETIZERS (4 Items) ---
   // ==========================================
@@ -627,3 +628,8 @@ export const FOOD_ITEMS: FoodItem[] = [
     }
   }
 ];
+
+export const FOOD_ITEMS: FoodItem[] = BASE_FOOD_ITEMS.map((item) => ({
+  ...item,
+  primaryImage: HARDCODED_IMAGES.food[item.id] || item.primaryImage,
+}));
