@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Upload, X, Check, Trash2, Image as ImageIcon, AlertCircle, Wine, Utensils } from 'lucide-react';
+import { Upload, X, Check, Trash2, Image as ImageIcon, AlertCircle, Wine, Utensils, HardDrive, Save, Download, Copy, FileJson } from 'lucide-react';
 import { Language } from '../types';
 import { FOOD_ITEMS } from '../data/foodData';
 import { COCKTAIL_ITEMS } from '../data/cocktailData';
@@ -11,6 +11,9 @@ import {
   removeCustomCocktailImage,
   getCustomCocktailImage,
   compressAndReadFile,
+  syncAllToSourceCode,
+  getAllCustomFoodImages,
+  getAllCustomCocktailImages,
 } from '../utils/foodImageStore';
 
 interface UploadImageModalProps {
@@ -54,7 +57,41 @@ export const UploadImageModal: React.FC<UploadImageModalProps> = ({
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [isHardcoding, setIsHardcoding] = useState<boolean>(false);
+  const [copiedJson, setCopiedJson] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleHardcodeAll = async () => {
+    setIsHardcoding(true);
+    setErrorMsg(null);
+    try {
+      const result = await syncAllToSourceCode();
+      if (result.success) {
+        setSuccessMsg(
+          isVi
+            ? `Tuyệt vời! Đã lưu cứng thành công ${result.count} ảnh vào mã nguồn dự án (public/images & hardcodedImages.ts). Sẵn sàng 100% khi deploy live!`
+            : `Success! Permanently saved ${result.count} images into source code (public/images & hardcodedImages.ts). Ready for live!`
+        );
+        if (onImageUpdated) onImageUpdated();
+      } else {
+        setErrorMsg(result.message || 'Không thể đồng bộ vào mã nguồn.');
+      }
+    } catch (err: unknown) {
+      setErrorMsg(err instanceof Error ? err.message : 'Lỗi khi lưu vào mã nguồn');
+    } finally {
+      setIsHardcoding(false);
+    }
+  };
+
+  const handleExportJson = () => {
+    const foodImgs = getAllCustomFoodImages();
+    const cocktailImgs = getAllCustomCocktailImages();
+    const data = JSON.stringify({ food: foodImgs, cocktails: cocktailImgs }, null, 2);
+    navigator.clipboard.writeText(data).then(() => {
+      setCopiedJson(true);
+      setTimeout(() => setCopiedJson(false), 3000);
+    });
+  };
 
   // Sync state when opened
   useEffect(() => {
@@ -449,6 +486,55 @@ export const UploadImageModal: React.FC<UploadImageModalProps> = ({
                   {isVi ? 'Duyệt tệp tin' : 'Select file'}
                 </button>
               </div>
+            </div>
+          </div>
+
+          {/* Permanent Source Code Hardcoding Section */}
+          <div className="p-4 rounded-2xl bg-gradient-to-r from-[#e63946]/15 via-black/40 to-white/[0.02] border border-[#e63946]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-white font-bold text-xs sm:text-sm">
+                <HardDrive className="w-4 h-4 text-[#e63946]" />
+                <span>
+                  {isVi
+                    ? 'Lưu cứng ảnh vào mã nguồn (Hardcode to Source Code)'
+                    : 'Hardcode Images to Source Code'}
+                </span>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  {isVi ? 'Sẵn sàng Live' : 'Live Ready'}
+                </span>
+              </div>
+              <p className="text-[11px] sm:text-xs text-white/60 max-w-xl">
+                {isVi
+                  ? 'Toàn bộ ảnh bạn đã tải lên trong môi trường này sẽ được ghi trực tiếp vào mã nguồn dự án (thư mục public/images và hardcodedImages.ts). Khi website được đưa lên live, tất cả ảnh sẽ hiển thị chuẩn xác!'
+                  : 'Permanently writes all images uploaded in this building environment into project files (public/images and hardcodedImages.ts) so they remain active when deployed live.'}
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto justify-end">
+              <button
+                type="button"
+                onClick={handleExportJson}
+                title={isVi ? 'Sao chép JSON dự phòng' : 'Copy Backup JSON'}
+                className="px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-white/70 hover:text-white border border-white/10 text-xs font-semibold inline-flex items-center gap-1.5 transition-colors"
+              >
+                {copiedJson ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                <span>{copiedJson ? (isVi ? 'Đã chép' : 'Copied') : 'JSON'}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={handleHardcodeAll}
+                disabled={isHardcoding}
+                id="btn-hardcode-images-to-source"
+                className="px-4 py-2 rounded-xl bg-[#e63946] hover:bg-[#d62839] text-white text-xs font-bold shadow-lg shadow-[#e63946]/20 inline-flex items-center gap-2 transition-all cursor-pointer disabled:opacity-60"
+              >
+                <Save className="w-4 h-4" />
+                <span>
+                  {isHardcoding
+                    ? (isVi ? 'Đang lưu vào mã nguồn...' : 'Saving to source...')
+                    : (isVi ? 'Lưu cứng vào mã nguồn' : 'Hardcode to Source Code')}
+                </span>
+              </button>
             </div>
           </div>
         </div>
