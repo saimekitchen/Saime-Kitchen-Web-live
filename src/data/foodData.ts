@@ -569,7 +569,7 @@ const BASE_FOOD_ITEMS: FoodItem[] = [
     ],
     dietary: ['Comfort Dessert', 'Vietnamese Classic'],
     temperature: 'Cold',
-    primaryImage: 'https://i.imgur.com/H6EwY0a.jpeg',
+    primaryImage: 'https://i.imgur.com/QABQxQi.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1200&q=85'
     ],
