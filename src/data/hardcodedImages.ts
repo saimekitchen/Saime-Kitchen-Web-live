@@ -19,7 +19,7 @@ export const HARDCODED_IMAGES: HardcodedImageRegistry = {
     "food-bo": "https://i.imgur.com/FeZiKDZ.jpeg",
     "food-bap": "https://i.imgur.com/oROoMs0.jpeg",
     "food-mam": "https://i.imgur.com/Tsa7qnS.jpeg",
-    "food-dua": "https://i.imgur.com/H6EwY0a.jpeg",
+    "food-dua": "https://i.imgur.com/QABQxQi.jpeg",
     "food-potato-mille-feuille": "https://i.imgur.com/SO6qzZB.jpeg"
   },
   cocktails: {
