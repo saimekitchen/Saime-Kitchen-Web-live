@@ -31,7 +31,7 @@ const BASE_FOOD_ITEMS: FoodItem[] = [
     ],
     dietary: ['Crispy Texture', 'Chef Special'],
     temperature: 'Warm',
-    primaryImage: 'https://images.unsplash.com/photo-1541544741938-0af808871cc0?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/R6isbeO.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -73,7 +73,7 @@ const BASE_FOOD_ITEMS: FoodItem[] = [
     ],
     dietary: ['Crispy', 'Street Food Reimagined'],
     temperature: 'Crispy',
-    primaryImage: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/IO2U2B9.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -123,7 +123,7 @@ const BASE_FOOD_ITEMS: FoodItem[] = [
     ],
     dietary: ['Signature Bite', 'Fermentation'],
     temperature: 'Warm',
-    primaryImage: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/qbq2BIb.png',
     detailImages: [
       'https://images.unsplash.com/photo-1541544741938-0af808871cc0?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -165,7 +165,7 @@ const BASE_FOOD_ITEMS: FoodItem[] = [
     ],
     dietary: ['Refreshing', 'Unique Texture'],
     temperature: 'Chilled',
-    primaryImage: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/RJu0WjD.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -215,7 +215,7 @@ const BASE_FOOD_ITEMS: FoodItem[] = [
     ],
     dietary: ['Central Heritage', 'Handmade Dumplings'],
     temperature: 'Warm',
-    primaryImage: 'https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/hZ39VHU.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -257,7 +257,7 @@ const BASE_FOOD_ITEMS: FoodItem[] = [
     ],
     dietary: ['Poultry', 'Sous Vide Precision'],
     temperature: 'Warm',
-    primaryImage: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/oIbH8qV.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -303,7 +303,7 @@ const BASE_FOOD_ITEMS: FoodItem[] = [
     ],
     dietary: ['Southern Heritage', 'Chef Specialty'],
     temperature: 'Warm',
-    primaryImage: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/nqPAQNa.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -351,7 +351,7 @@ const BASE_FOOD_ITEMS: FoodItem[] = [
     ],
     dietary: ['Pork Cheek', 'Modern Cơm Tấm'],
     temperature: 'Warm',
-    primaryImage: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/eCSixCJ.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -395,7 +395,7 @@ const BASE_FOOD_ITEMS: FoodItem[] = [
     ],
     dietary: ['Fish', 'French Technique'],
     temperature: 'Warm',
-    primaryImage: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/QbTVQwp.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -437,7 +437,7 @@ const BASE_FOOD_ITEMS: FoodItem[] = [
     ],
     dietary: ['Signature Comfort', 'Slow Braised'],
     temperature: 'Warm',
-    primaryImage: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/FeZiKDZ.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -485,7 +485,7 @@ const BASE_FOOD_ITEMS: FoodItem[] = [
     ],
     dietary: ['Vegetarian', 'Unique Sweet & Savory'],
     temperature: 'Chilled',
-    primaryImage: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/oROoMs0.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -525,7 +525,7 @@ const BASE_FOOD_ITEMS: FoodItem[] = [
     ],
     dietary: ['Curiosity Provocation', 'Umami Dessert'],
     temperature: 'Chilled',
-    primaryImage: 'https://images.unsplash.com/photo-1528975604071-b4dc52a2d18c?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/Tsa7qnS.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -546,28 +546,30 @@ const BASE_FOOD_ITEMS: FoodItem[] = [
     name: 'Dừa',
     nameVi: 'Dừa',
     category: 'dessert',
-    price: '95,000 ₫',
-    tagline: 'Pan-Seared Milk-Soaked Bread / Coconut Ice Cream / Peanuts / Shredded Coconut / Condensed Milk',
-    taglineVi: 'Bánh mì ngâm sữa áp chảo / Kem dừa / Đậu phộng / Dừa bào sợi / Sữa đặc',
-    description: 'Golden caramelized milk-soaked bread accompanied by rich house-churned coconut ice cream, crushed roasted peanuts, fresh shredded coconut, and sweet condensed milk drizzle.',
-    descriptionVi: 'Bánh mì ngâm sữa áp chảo vàng ruộm giòn tan ngoài vỏ mềm mướt bên trong, ăn cùng viên kem dừa thơm béo, đậu phộng rang giòn, dừa bào sợi và sữa đặc ngọt dịu.',
+    price: '100,000 ₫',
+    tagline: 'Pan-Seared Milk-Soaked Bread / Coconut Ice Cream / Pan-Seared Pineapple / Peanuts / Shredded Coconut / Condensed Milk',
+    taglineVi: 'Bánh mì ngâm sữa áp chảo / Kem dừa / Dứa khìa / Đậu phộng / Dừa bào sợi / Sữa đặc',
+    description: 'Golden caramelized milk-soaked bread accompanied by rich coconut ice cream, pan-seared pineapple, roasted peanuts, fresh shredded coconut, and sweet condensed milk drizzle.',
+    descriptionVi: 'Bánh mì ngâm sữa áp chảo vàng ruộm giòn thơm, ăn cùng viên kem dừa béo mịn, dứa khìa chua ngọt đậm đà, đậu phộng rang giòn, dừa bào sợi và sữa đặc ngọt dịu.',
     ingredients: [
       'Pan-Seared Milk-Soaked Bread',
-      'Artisanal Coconut Ice Cream',
-      'Crushed Roasted Peanuts',
-      'Fresh Shredded Young Coconut',
-      'Sweet Condensed Milk'
+      'Coconut Ice Cream',
+      'Pan-Seared Pineapple',
+      'Peanuts',
+      'Shredded Coconut',
+      'Condensed Milk'
     ],
     ingredientsVi: [
       'Bánh mì ngâm sữa áp chảo',
-      'Kem dừa thủ công',
-      'Đậu phộng rang',
-      'Dừa non bào sợi',
-      'Sữa đặc Ông Thọ'
+      'Kem dừa',
+      'Dứa khìa',
+      'Đậu phộng',
+      'Dừa bào sợi',
+      'Sữa đặc'
     ],
     dietary: ['Comfort Dessert', 'Vietnamese Classic'],
     temperature: 'Cold',
-    primaryImage: 'https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/H6EwY0a.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -611,7 +613,7 @@ const BASE_FOOD_ITEMS: FoodItem[] = [
     ],
     dietary: ['Crispy Side', 'Chef Technique'],
     temperature: 'Crispy',
-    primaryImage: 'https://images.unsplash.com/photo-1518013034458-3070831cac58?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/SO6qzZB.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=85'
     ],
