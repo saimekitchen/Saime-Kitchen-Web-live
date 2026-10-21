@@ -82,6 +82,17 @@ async function startServer() {
   // Serve static public assets directly
   app.use(express.static(PUBLIC_DIR));
 
+  // Explicit SEO files serving
+  app.get('/robots.txt', (_req, res) => {
+    res.type('text/plain');
+    res.sendFile(path.resolve(PUBLIC_DIR, 'robots.txt'));
+  });
+
+  app.get('/sitemap.xml', (_req, res) => {
+    res.type('application/xml');
+    res.sendFile(path.resolve(PUBLIC_DIR, 'sitemap.xml'));
+  });
+
   // -------------------------------------------------------------
   // API: Get hardcoded images
   // -------------------------------------------------------------

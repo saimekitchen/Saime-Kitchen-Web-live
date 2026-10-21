@@ -8,7 +8,13 @@ import { ArticlesPage } from './components/ArticlesPage';
 import { ImageLightboxModal } from './components/ImageLightboxModal';
 import { ReservationDrawer } from './components/ReservationDrawer';
 import { MobileStickyDirectionsBar } from './components/MobileStickyDirectionsBar';
-import { autoSyncOnStartup } from './utils/foodImageStore';
+import {
+  parseRoute,
+  navigateTo,
+  updateRouteMetadata,
+  NAVIGATION_EVENT,
+  RouteState,
+} from './utils/router';
 
 // Detect user device/phone default language: Vietnamese if phone is in Vietnamese, otherwise English
 const detectUserLanguage = (): Language => {
@@ -18,9 +24,10 @@ const detectUserLanguage = (): Language => {
       return saved as Language;
     }
     if (typeof navigator !== 'undefined') {
-      const languages = navigator.languages && navigator.languages.length > 0
-        ? navigator.languages
-        : [navigator.language];
+      const languages =
+        navigator.languages && navigator.languages.length > 0
+          ? navigator.languages
+          : [navigator.language];
       for (const lang of languages) {
         if (lang && lang.toLowerCase().startsWith('vi')) {
           return 'vi';
@@ -34,7 +41,16 @@ const detectUserLanguage = (): Language => {
 };
 
 export default function App() {
-  const [activePage, setActivePage] = useState<ActivePage>('food');
+  const [route, setRoute] = useState<RouteState>(() => {
+    if (typeof window !== 'undefined') {
+      return parseRoute(window.location.pathname);
+    }
+    return { page: 'food', articleSlug: null, pathname: '/food' };
+  });
+
+  const activePage = route.page;
+  const currentArticleSlug = route.articleSlug;
+
   const [currentLang, setCurrentLang] = useState<Language>(detectUserLanguage);
   const [selectedItem, setSelectedItem] = useState<FoodItem | CocktailItem | null>(null);
   const [selectedType, setSelectedType] = useState<'food' | 'cocktail' | null>(null);
@@ -54,9 +70,61 @@ export default function App() {
     document.documentElement.lang = currentLang;
   }, [currentLang]);
 
-  // Auto-sync images uploaded in this building environment directly into project source code
+  // Synchronize route changes from browser Back/Forward (popstate) and custom navigation events
   useEffect(() => {
-    autoSyncOnStartup();
+    const handleLocationChange = () => {
+      const parsed = parseRoute(window.location.pathname);
+      setRoute(parsed);
+    };
+
+    const handleCustomNav = (e: Event) => {
+      const customEvent = e as CustomEvent<{ path: string }>;
+      const parsed = parseRoute(customEvent.detail?.path || window.location.pathname);
+      setRoute(parsed);
+    };
+
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener(NAVIGATION_EVENT, handleCustomNav);
+
+    // Initial normalization if on root '/'
+    if (window.location.pathname === '/') {
+      window.history.replaceState({}, '', '/food');
+      setRoute({ page: 'food', articleSlug: null, pathname: '/food' });
+    }
+
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener(NAVIGATION_EVENT, handleCustomNav);
+    };
+  }, []);
+
+  // Sync SEO Title, description, and canonical link whenever route or language changes
+  useEffect(() => {
+    updateRouteMetadata(route, currentLang);
+  }, [route, currentLang]);
+
+  // Intercept internal link clicks for seamless SPA navigation while keeping real hrefs for crawlers
+  useEffect(() => {
+    const handleDocumentClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement)?.closest('a');
+      if (!target) return;
+      const href = target.getAttribute('href');
+      // If internal link starting with /
+      if (
+        href &&
+        href.startsWith('/') &&
+        !href.startsWith('//') &&
+        !target.hasAttribute('download') &&
+        target.target !== '_blank'
+      ) {
+        // Allow default behavior for modifier keys (Ctrl/Cmd click opens new tab)
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        e.preventDefault();
+        navigateTo(href);
+      }
+    };
+    document.addEventListener('click', handleDocumentClick);
+    return () => document.removeEventListener('click', handleDocumentClick);
   }, []);
 
   // Keyboard navigation shortcuts
@@ -74,8 +142,22 @@ export default function App() {
 
   // Switch page handler
   const handlePageChange = (page: ActivePage) => {
-    setActivePage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (page === 'food') {
+      navigateTo('/food');
+    } else if (page === 'cocktail') {
+      navigateTo('/cocktails');
+    } else if (page === 'articles') {
+      navigateTo('/articles');
+    }
+  };
+
+  // Article navigation handler
+  const handleNavigateArticle = (slug: string | null) => {
+    if (slug) {
+      navigateTo(`/articles/${slug}`);
+    } else {
+      navigateTo('/articles');
+    }
   };
 
   // Lightbox handlers
@@ -99,8 +181,8 @@ export default function App() {
     // 1. Close lightbox
     handleCloseLightbox();
 
-    // 2. Switch page
-    setActivePage(targetType);
+    // 2. Switch page via router
+    navigateTo(targetType === 'food' ? '/food' : '/cocktails', { scroll: false });
 
     // 3. Scroll to element and highlight
     setTimeout(() => {
@@ -119,7 +201,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen w-full max-w-full bg-[#111215] text-[#f2f3f5] flex flex-col selection:bg-[#e63946] selection:text-white dot-texture font-sans">
-      {/* 1. Header with 2-page Switcher & Language Switcher with Flag Emojis */}
+      {/* 1. Header with 3-page Switcher & Language Switcher with Flag Emojis */}
       <Header
         activePage={activePage}
         onPageChange={handlePageChange}
@@ -149,6 +231,8 @@ export default function App() {
         ) : (
           <ArticlesPage
             currentLang={currentLang}
+            currentArticleSlug={currentArticleSlug}
+            onNavigateArticle={handleNavigateArticle}
             onSwitchToFoodPage={() => handlePageChange('food')}
             onSwitchToCocktailPage={() => handlePageChange('cocktail')}
             onOpenReservation={() => setIsReservationOpen(true)}

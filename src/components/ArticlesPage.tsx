@@ -11,10 +11,12 @@ import {
   Sparkles
 } from 'lucide-react';
 import { Language } from '../types';
-import { ARTICLES_DATA, RestaurantReview } from '../data/articlesData';
+import { ARTICLES_DATA, RestaurantReview, findArticleBySlug } from '../data/articlesData';
 
 interface ArticlesPageProps {
   currentLang: Language;
+  currentArticleSlug?: string | null;
+  onNavigateArticle: (slug: string | null) => void;
   onSwitchToFoodPage: () => void;
   onSwitchToCocktailPage: () => void;
   onOpenReservation: () => void;
@@ -22,23 +24,25 @@ interface ArticlesPageProps {
 
 export const ArticlesPage: React.FC<ArticlesPageProps> = ({
   currentLang,
+  currentArticleSlug,
+  onNavigateArticle,
   onSwitchToFoodPage,
   onSwitchToCocktailPage,
   onOpenReservation,
 }) => {
   const isVi = currentLang === 'vi';
-  const [selectedArticleId, setSelectedArticleId] = useState<string | null>(null);
   const [copiedLink, setCopiedLink] = useState(false);
 
-  const selectedArticle = ARTICLES_DATA.find((a) => a.id === selectedArticleId) || null;
+  // Find article by URL slug or id
+  const selectedArticle = currentArticleSlug ? findArticleBySlug(currentArticleSlug) || null : null;
 
-  const handleOpenArticle = (id: string) => {
-    setSelectedArticleId(id);
+  const handleOpenArticle = (slug: string) => {
+    onNavigateArticle(slug);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleBackToList = () => {
-    setSelectedArticleId(null);
+    onNavigateArticle(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -70,14 +74,18 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
         {/* Top Back Navigation Bar */}
         <div className="w-full border-b border-white/10 bg-[#0e0f13]/90 backdrop-blur-md sticky top-16 z-30">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
-            <button
-              onClick={handleBackToList}
+            <a
+              href="/articles"
+              onClick={(e) => {
+                e.preventDefault();
+                handleBackToList();
+              }}
               className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-white/70 hover:text-white transition-colors cursor-pointer"
               id="back-to-articles-list-top"
             >
               <ArrowLeft className="w-4 h-4 text-[#e63946]" />
               <span>{isVi ? 'Tất cả bài viết' : 'All Articles'}</span>
-            </button>
+            </a>
 
             <button
               onClick={handleCopyLink}
@@ -234,19 +242,27 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
                             <span>{isVi ? 'Chỉ đường Google Maps ↗' : 'Get Directions ↗'}</span>
                           </a>
                           <span className="text-white/30">•</span>
-                          <button
-                            onClick={onSwitchToFoodPage}
+                          <a
+                            href="/food"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              onSwitchToFoodPage();
+                            }}
                             className="text-white/70 hover:text-white hover:underline cursor-pointer"
                           >
                             {isVi ? 'Xem thực đơn món ăn' : 'View food menu'}
-                          </button>
+                          </a>
                           <span className="text-white/30">•</span>
-                          <button
-                            onClick={onSwitchToCocktailPage}
+                          <a
+                            href="/cocktails"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              onSwitchToCocktailPage();
+                            }}
                             className="text-white/70 hover:text-white hover:underline cursor-pointer"
                           >
                             {isVi ? 'Xem 12 cocktail đặc sản' : 'View 12 signature cocktails'}
-                          </button>
+                          </a>
                         </div>
                       )}
                   </section>
@@ -277,13 +293,17 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
 
               {/* Back to all articles bottom anchor */}
               <div className="pt-8 border-t border-white/10 flex items-center justify-between">
-                <button
-                  onClick={handleBackToList}
+                <a
+                  href="/articles"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleBackToList();
+                  }}
                   className="inline-flex items-center gap-2 text-sm font-semibold text-white/70 hover:text-white transition-colors cursor-pointer"
                 >
                   <ArrowLeft className="w-4 h-4 text-[#e63946]" />
                   <span>{isVi ? '← Trở về danh sách bài viết' : '← Back to all articles'}</span>
-                </button>
+                </a>
 
                 <button
                   onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -332,11 +352,17 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
             const readTime = isVi ? article.readTimeVi : article.readTime;
             const shortDesc = isVi ? article.shortDescriptionVi : article.shortDescription;
 
+            const articleUrl = `/articles/${article.slug || article.id}`;
+
             return (
-              <article
+              <a
                 key={article.id}
-                onClick={() => handleOpenArticle(article.id)}
-                className="group rounded-2xl border transition-all duration-200 flex flex-col justify-between overflow-hidden cursor-pointer hover:border-[#e63946] bg-[#17181f] border-[#e63946]/40 shadow-xl shadow-black/40"
+                href={articleUrl}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleOpenArticle(article.slug || article.id);
+                }}
+                className="group rounded-2xl border transition-all duration-200 flex flex-col justify-between overflow-hidden cursor-pointer hover:border-[#e63946] bg-[#17181f] border-[#e63946]/40 shadow-xl shadow-black/40 block no-underline text-inherit"
               >
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-6 p-6 sm:p-8">
                   {/* Thumbnail */}
@@ -386,7 +412,7 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
                     </div>
                   </div>
                 </div>
-              </article>
+              </a>
             );
           })}
         </div>

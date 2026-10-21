@@ -191,20 +191,7 @@ export async function syncAllToSourceCode(): Promise<{
  * Automatically sync on app load if local images exist in this browser
  */
 export function autoSyncOnStartup(): void {
-  try {
-    const rawFood = localStorage.getItem(FOOD_STORAGE_KEY);
-    const rawCocktail = localStorage.getItem(COCKTAIL_STORAGE_KEY);
-    const hasLocal = (rawFood && rawFood.length > 5) || (rawCocktail && rawCocktail.length > 5);
-    if (hasLocal) {
-      syncAllToSourceCode().then((res) => {
-        if (res.success && res.count > 0) {
-          console.log(`[SourceSync] Auto-synced ${res.count} images from browser to source code.`);
-        }
-      });
-    }
-  } catch (err) {
-    console.warn('[SourceSync] Auto sync check skipped:', err);
-  }
+  // No-op: all images are fixed and loaded from official image sources
 }
 
 /**

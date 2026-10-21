@@ -27,8 +27,12 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
           {/* Brand */}
           <div className="flex items-center min-w-0">
-            <button
-              onClick={() => onPageChange('food')}
+            <a
+              href="/food"
+              onClick={(e) => {
+                e.preventDefault();
+                onPageChange('food');
+              }}
               className="text-left group focus:outline-none flex items-center min-w-0"
               id="brand-logo-btn"
               aria-label="Saime Introverts Homepage"
@@ -38,7 +42,7 @@ export const Header: React.FC<HeaderProps> = ({
                 brandTagline={t.brandTagline}
                 showText={true}
               />
-            </button>
+            </a>
           </div>
 
           {/* Desktop-only Center 2-Page Primary Navigation Switcher */}
@@ -46,9 +50,13 @@ export const Header: React.FC<HeaderProps> = ({
             className="hidden md:flex items-center p-1 rounded-full bg-white/[0.05] border border-white/10 shadow-inner"
             id="main-two-page-nav"
           >
-            <button
+            <a
               id="nav-food-btn"
-              onClick={() => onPageChange('food')}
+              href="/food"
+              onClick={(e) => {
+                e.preventDefault();
+                onPageChange('food');
+              }}
               className={`relative px-5 lg:px-7 py-2 rounded-full text-xs lg:text-sm font-bold tracking-wide transition-all duration-200 ${
                 activePage === 'food'
                   ? 'text-white bg-[#e63946] shadow-md shadow-[#e63946]/25'
@@ -59,11 +67,15 @@ export const Header: React.FC<HeaderProps> = ({
                 <span className="text-[10px] opacity-75">01</span>
                 <span>{t.pageFood}</span>
               </span>
-            </button>
+            </a>
 
-            <button
+            <a
               id="nav-cocktail-btn"
-              onClick={() => onPageChange('cocktail')}
+              href="/cocktails"
+              onClick={(e) => {
+                e.preventDefault();
+                onPageChange('cocktail');
+              }}
               className={`relative px-5 lg:px-7 py-2 rounded-full text-xs lg:text-sm font-bold tracking-wide transition-all duration-200 ${
                 activePage === 'cocktail'
                   ? 'text-white bg-[#e63946] shadow-md shadow-[#e63946]/25'
@@ -74,11 +86,15 @@ export const Header: React.FC<HeaderProps> = ({
                 <span className="text-[10px] opacity-75">02</span>
                 <span>{t.pageCocktail}</span>
               </span>
-            </button>
+            </a>
 
-            <button
+            <a
               id="nav-articles-btn"
-              onClick={() => onPageChange('articles')}
+              href="/articles"
+              onClick={(e) => {
+                e.preventDefault();
+                onPageChange('articles');
+              }}
               className={`relative px-5 lg:px-7 py-2 rounded-full text-xs lg:text-sm font-bold tracking-wide transition-all duration-200 ${
                 activePage === 'articles'
                   ? 'text-white bg-[#e63946] shadow-md shadow-[#e63946]/25'
@@ -89,7 +105,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <span className="text-[10px] opacity-75">03</span>
                 <span>{t.pageArticles}</span>
               </span>
-            </button>
+            </a>
           </nav>
 
           {/* Right Actions */}
@@ -145,9 +161,13 @@ export const Header: React.FC<HeaderProps> = ({
             className="grid grid-cols-3 p-1 rounded-xl bg-white/[0.05] border border-white/10 shadow-inner w-full gap-1"
             id="mobile-two-page-nav"
           >
-            <button
+            <a
               id="mobile-nav-food-btn"
-              onClick={() => onPageChange('food')}
+              href="/food"
+              onClick={(e) => {
+                e.preventDefault();
+                onPageChange('food');
+              }}
               className={`py-2 px-1.5 rounded-lg text-xs font-bold tracking-wide transition-all duration-200 flex items-center justify-center gap-1.5 ${
                 activePage === 'food'
                   ? 'text-white bg-[#e63946] shadow-sm shadow-[#e63946]/40'
@@ -156,11 +176,15 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <span className="text-[10px] opacity-75">01</span>
               <span className="truncate">{t.pageFood}</span>
-            </button>
+            </a>
 
-            <button
+            <a
               id="mobile-nav-cocktail-btn"
-              onClick={() => onPageChange('cocktail')}
+              href="/cocktails"
+              onClick={(e) => {
+                e.preventDefault();
+                onPageChange('cocktail');
+              }}
               className={`py-2 px-1.5 rounded-lg text-xs font-bold tracking-wide transition-all duration-200 flex items-center justify-center gap-1.5 ${
                 activePage === 'cocktail'
                   ? 'text-white bg-[#e63946] shadow-sm shadow-[#e63946]/40'
@@ -169,11 +193,15 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <span className="text-[10px] opacity-75">02</span>
               <span className="truncate">{t.pageCocktail}</span>
-            </button>
+            </a>
 
-            <button
+            <a
               id="mobile-nav-articles-btn"
-              onClick={() => onPageChange('articles')}
+              href="/articles"
+              onClick={(e) => {
+                e.preventDefault();
+                onPageChange('articles');
+              }}
               className={`py-2 px-1.5 rounded-lg text-xs font-bold tracking-wide transition-all duration-200 flex items-center justify-center gap-1.5 ${
                 activePage === 'articles'
                   ? 'text-white bg-[#e63946] shadow-sm shadow-[#e63946]/40'
@@ -182,7 +210,7 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <span className="text-[10px] opacity-75">03</span>
               <span className="truncate">{t.pageArticles}</span>
-            </button>
+            </a>
           </nav>
         </div>
       </div>

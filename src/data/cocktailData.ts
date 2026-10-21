@@ -40,7 +40,7 @@ const BASE_COCKTAIL_ITEMS: CocktailItem[] = [
       'Lá nguyệt quế',
       'Chanh'
     ],
-    primaryImage: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/SOypJCj.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -85,7 +85,7 @@ const BASE_COCKTAIL_ITEMS: CocktailItem[] = [
       'Lá dứa',
       'Soda'
     ],
-    primaryImage: 'https://images.unsplash.com/photo-1560512823-829485b8bf24?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/thJkIEV.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -130,7 +130,7 @@ const BASE_COCKTAIL_ITEMS: CocktailItem[] = [
       'Trứng',
       'Sữa đặc'
     ],
-    primaryImage: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/E9mES2v.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -175,7 +175,7 @@ const BASE_COCKTAIL_ITEMS: CocktailItem[] = [
       'Đường',
       'Soda'
     ],
-    primaryImage: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/VfM2qhU.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -230,7 +230,7 @@ const BASE_COCKTAIL_ITEMS: CocktailItem[] = [
       'Chanh',
       'Dầu nước tương'
     ],
-    primaryImage: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/qCTVDXN.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -275,7 +275,7 @@ const BASE_COCKTAIL_ITEMS: CocktailItem[] = [
       'Lá dứa',
       'Chanh'
     ],
-    primaryImage: 'https://images.unsplash.com/photo-1546171753-97d7676e4602?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/KcI0Xzf.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -318,7 +318,7 @@ const BASE_COCKTAIL_ITEMS: CocktailItem[] = [
       'Tabasco',
       'Bia'
     ],
-    primaryImage: 'https://images.unsplash.com/photo-1538488881523-298305634cce?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/5TWmrZ1.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -367,7 +367,7 @@ const BASE_COCKTAIL_ITEMS: CocktailItem[] = [
       'Ớt bột',
       'Chanh'
     ],
-    primaryImage: 'https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/tVWAwb0.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -416,7 +416,7 @@ const BASE_COCKTAIL_ITEMS: CocktailItem[] = [
       'Chanh',
       'Đường'
     ],
-    primaryImage: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/OLh8nJX.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -464,7 +464,7 @@ const BASE_COCKTAIL_ITEMS: CocktailItem[] = [
       'Angostura soda',
       'Foam bắp'
     ],
-    primaryImage: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/lB4dMl7.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -509,7 +509,7 @@ const BASE_COCKTAIL_ITEMS: CocktailItem[] = [
       'Chanh',
       'Đường'
     ],
-    primaryImage: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/G3s4MZo.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1200&q=85'
     ],
@@ -556,7 +556,7 @@ const BASE_COCKTAIL_ITEMS: CocktailItem[] = [
       'Chanh',
       'Đường'
     ],
-    primaryImage: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=85',
+    primaryImage: 'https://i.imgur.com/qhtlQjc.jpeg',
     detailImages: [
       'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1200&q=85'
     ],

@@ -1,0 +1,7 @@
+# Robots.txt for Saime Introverts (https://saimekb.com/)
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://saimekb.com/sitemap.xml

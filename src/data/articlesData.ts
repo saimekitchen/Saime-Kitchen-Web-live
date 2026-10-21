@@ -27,6 +27,7 @@ export interface RestaurantReview {
 
 export interface ArticleItem {
   id: string;
+  slug?: string;
   category: string;
   categoryVi: string;
   date: string;
@@ -263,6 +264,7 @@ export const RESTAURANTS_TOP_8: RestaurantReview[] = [
 export const ARTICLES_DATA: ArticleItem[] = [
   {
     id: 'top-8-fine-dining-fusion-hoi-an',
+    slug: 'top-8-fine-dining-fusion-hoi-an',
     category: 'Culinary Guide',
     categoryVi: 'Cẩm Nang Ẩm Thực',
     date: 'October 2026',
@@ -289,3 +291,14 @@ export const ARTICLES_DATA: ArticleItem[] = [
     }
   }
 ];
+
+// Helper to look up an article by slug or id or partial match
+export function findArticleBySlug(rawSlug: string): ArticleItem | undefined {
+  if (!rawSlug) return undefined;
+  const slug = decodeURIComponent(rawSlug).trim().toLowerCase();
+  return (
+    ARTICLES_DATA.find((a) => (a.slug && a.slug.toLowerCase() === slug) || a.id.toLowerCase() === slug) ||
+    ARTICLES_DATA.find((a) => (a.slug && (a.slug.includes(slug) || slug.includes(a.slug))) || a.id.includes(slug) || slug.includes(a.id))
+  );
+}
+

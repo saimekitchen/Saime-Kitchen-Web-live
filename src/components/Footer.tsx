@@ -34,9 +34,13 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
 
           <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div
-              onClick={() => onPageChange('food')}
-              className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#e63946]/50 cursor-pointer transition-all group"
+            <a
+              href="/food"
+              onClick={(e) => {
+                e.preventDefault();
+                onPageChange('food');
+              }}
+              className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#e63946]/50 cursor-pointer transition-all group block no-underline text-inherit"
             >
               <div className="flex items-center justify-between text-xs font-semibold text-[#e63946] uppercase mb-2">
                 <span>01</span>
@@ -48,11 +52,15 @@ export const Footer: React.FC<FooterProps> = ({
               <p className="text-[11px] text-white/60 font-normal mt-1 line-clamp-2">
                 {t.footerFoodCardDesc}
               </p>
-            </div>
+            </a>
 
-            <div
-              onClick={() => onPageChange('cocktail')}
-              className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#e63946]/50 cursor-pointer transition-all group"
+            <a
+              href="/cocktails"
+              onClick={(e) => {
+                e.preventDefault();
+                onPageChange('cocktail');
+              }}
+              className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#e63946]/50 cursor-pointer transition-all group block no-underline text-inherit"
             >
               <div className="flex items-center justify-between text-xs font-semibold text-[#e63946] uppercase mb-2">
                 <span>02</span>
@@ -64,11 +72,15 @@ export const Footer: React.FC<FooterProps> = ({
               <p className="text-[11px] text-white/60 font-normal mt-1 line-clamp-2">
                 {t.footerCocktailCardDesc}
               </p>
-            </div>
+            </a>
 
-            <div
-              onClick={() => onPageChange('articles')}
-              className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#e63946]/50 cursor-pointer transition-all group"
+            <a
+              href="/articles/top-8-fine-dining-fusion-hoi-an"
+              onClick={(e) => {
+                e.preventDefault();
+                onPageChange('articles');
+              }}
+              className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#e63946]/50 cursor-pointer transition-all group block no-underline text-inherit"
             >
               <div className="flex items-center justify-between text-xs font-semibold text-[#e63946] uppercase mb-2">
                 <span>03</span>
@@ -80,7 +92,7 @@ export const Footer: React.FC<FooterProps> = ({
               <p className="text-[11px] text-white/60 font-normal mt-1 line-clamp-2">
                 {currentLang === 'vi' ? 'Khám phá ẩm thực fine dining & fusion đặc sắc nhất Hội An' : 'Curated fine dining & fusion guide updated 10/2026'}
               </p>
-            </div>
+            </a>
           </div>
         </div>
 
