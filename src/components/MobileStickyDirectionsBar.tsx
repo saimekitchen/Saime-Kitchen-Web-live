@@ -39,7 +39,7 @@ export const MobileStickyDirectionsBar: React.FC<MobileStickyDirectionsBarProps>
           <a
             href="https://www.instagram.com/saime.introverts_fusion/"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="nofollow noopener noreferrer"
             aria-label="Saime Introverts Instagram"
             id="mobile-sticky-instagram-btn"
             className="w-10 h-10 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] active:scale-95 text-white/90 hover:text-white transition-all border border-white/10 flex items-center justify-center"

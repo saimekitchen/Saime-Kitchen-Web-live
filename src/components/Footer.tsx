@@ -213,7 +213,7 @@ export const Footer: React.FC<FooterProps> = ({
                 <a 
                   href="https://www.instagram.com/saime.introverts_fusion/" 
                   target="_blank" 
-                  rel="noopener noreferrer" 
+                  rel="nofollow noopener noreferrer" 
                   className="font-medium text-white hover:text-[#e63946] transition-colors truncate"
                 >
                   @saime.introverts_fusion
