@@ -35,7 +35,7 @@ export const Footer: React.FC<FooterProps> = ({
 
           <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
             <a
-              href="/food"
+              href={currentLang === 'vi' ? '/vn/food' : '/food'}
               onClick={(e) => {
                 e.preventDefault();
                 onPageChange('food');
@@ -55,7 +55,7 @@ export const Footer: React.FC<FooterProps> = ({
             </a>
 
             <a
-              href="/cocktails"
+              href={currentLang === 'vi' ? '/vn/cocktails' : '/cocktails'}
               onClick={(e) => {
                 e.preventDefault();
                 onPageChange('cocktail');
@@ -75,7 +75,7 @@ export const Footer: React.FC<FooterProps> = ({
             </a>
 
             <a
-              href="/articles/top-8-fine-dining-fusion-hoi-an"
+              href={currentLang === 'vi' ? '/vn/articles/top-8-fine-dining-fusion-hoi-an' : '/articles/top-8-fine-dining-fusion-hoi-an'}
               onClick={(e) => {
                 e.preventDefault();
                 onPageChange('articles');
