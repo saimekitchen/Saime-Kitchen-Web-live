@@ -11,6 +11,7 @@ import { MobileStickyDirectionsBar } from './components/MobileStickyDirectionsBa
 import {
   parseRoute,
   navigateTo,
+  switchLanguageUrl,
   updateRouteMetadata,
   NAVIGATION_EVENT,
   RouteState,
@@ -45,13 +46,26 @@ export default function App() {
     if (typeof window !== 'undefined') {
       return parseRoute(window.location.pathname);
     }
-    return { page: 'food', articleSlug: null, pathname: '/food' };
+    return { page: 'food', articleSlug: null, pathname: '/food', lang: 'en' };
   });
 
   const activePage = route.page;
   const currentArticleSlug = route.articleSlug;
 
-  const [currentLang, setCurrentLang] = useState<Language>(detectUserLanguage);
+  const [currentLang, setCurrentLang] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      const isPathExplicitVi = window.location.pathname === '/vn' || window.location.pathname.startsWith('/vn/');
+      if (isPathExplicitVi) return 'vi';
+      const isPathExplicitEn =
+        window.location.pathname === '/food' ||
+        window.location.pathname === '/cocktails' ||
+        window.location.pathname === '/cocktail' ||
+        window.location.pathname === '/articles' ||
+        window.location.pathname.startsWith('/articles/');
+      if (isPathExplicitEn) return 'en';
+    }
+    return detectUserLanguage();
+  });
   const [selectedItem, setSelectedItem] = useState<FoodItem | CocktailItem | null>(null);
   const [selectedType, setSelectedType] = useState<'food' | 'cocktail' | null>(null);
   const [isReservationOpen, setIsReservationOpen] = useState<boolean>(false);
@@ -62,6 +76,10 @@ export default function App() {
       localStorage.setItem('saime_user_language', lang);
     } catch {
       // ignore
+    }
+    if (typeof window !== 'undefined') {
+      const targetUrl = switchLanguageUrl(window.location.pathname, lang);
+      navigateTo(targetUrl);
     }
   };
 
@@ -75,21 +93,30 @@ export default function App() {
     const handleLocationChange = () => {
       const parsed = parseRoute(window.location.pathname);
       setRoute(parsed);
+      setCurrentLang(parsed.lang);
     };
 
     const handleCustomNav = (e: Event) => {
       const customEvent = e as CustomEvent<{ path: string }>;
       const parsed = parseRoute(customEvent.detail?.path || window.location.pathname);
       setRoute(parsed);
+      setCurrentLang(parsed.lang);
     };
 
     window.addEventListener('popstate', handleLocationChange);
     window.addEventListener(NAVIGATION_EVENT, handleCustomNav);
 
-    // Initial normalization if on root '/'
+    // Initial normalization if on root '/' or bare '/vn'
     if (window.location.pathname === '/') {
-      window.history.replaceState({}, '', '/food');
-      setRoute({ page: 'food', articleSlug: null, pathname: '/food' });
+      const initialLang = detectUserLanguage();
+      const targetPath = initialLang === 'vi' ? '/vn/food' : '/food';
+      window.history.replaceState({}, '', targetPath);
+      setRoute(parseRoute(targetPath));
+      setCurrentLang(initialLang);
+    } else if (window.location.pathname === '/vn' || window.location.pathname === '/vn/') {
+      window.history.replaceState({}, '', '/vn/food');
+      setRoute(parseRoute('/vn/food'));
+      setCurrentLang('vi');
     }
 
     return () => {
@@ -140,23 +167,25 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Switch page handler
+  // Switch page handler with language prefix
   const handlePageChange = (page: ActivePage) => {
+    const isVi = currentLang === 'vi';
     if (page === 'food') {
-      navigateTo('/food');
+      navigateTo(isVi ? '/vn/food' : '/food');
     } else if (page === 'cocktail') {
-      navigateTo('/cocktails');
+      navigateTo(isVi ? '/vn/cocktails' : '/cocktails');
     } else if (page === 'articles') {
-      navigateTo('/articles');
+      navigateTo(isVi ? '/vn/articles' : '/articles');
     }
   };
 
-  // Article navigation handler
+  // Article navigation handler with language prefix
   const handleNavigateArticle = (slug: string | null) => {
+    const isVi = currentLang === 'vi';
     if (slug) {
-      navigateTo(`/articles/${slug}`);
+      navigateTo(isVi ? `/vn/articles/${slug}` : `/articles/${slug}`);
     } else {
-      navigateTo('/articles');
+      navigateTo(isVi ? '/vn/articles' : '/articles');
     }
   };
 
