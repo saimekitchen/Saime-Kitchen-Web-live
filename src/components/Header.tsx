@@ -28,7 +28,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Brand */}
           <div className="flex items-center min-w-0">
             <a
-              href="/food"
+              href={currentLang === 'vi' ? '/vn/food' : '/food'}
               onClick={(e) => {
                 e.preventDefault();
                 onPageChange('food');
@@ -52,7 +52,7 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <a
               id="nav-food-btn"
-              href="/food"
+              href={currentLang === 'vi' ? '/vn/food' : '/food'}
               onClick={(e) => {
                 e.preventDefault();
                 onPageChange('food');
@@ -71,7 +71,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             <a
               id="nav-cocktail-btn"
-              href="/cocktails"
+              href={currentLang === 'vi' ? '/vn/cocktails' : '/cocktails'}
               onClick={(e) => {
                 e.preventDefault();
                 onPageChange('cocktail');
@@ -90,7 +90,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             <a
               id="nav-articles-btn"
-              href="/articles"
+              href={currentLang === 'vi' ? '/vn/articles' : '/articles'}
               onClick={(e) => {
                 e.preventDefault();
                 onPageChange('articles');
@@ -163,7 +163,7 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <a
               id="mobile-nav-food-btn"
-              href="/food"
+              href={currentLang === 'vi' ? '/vn/food' : '/food'}
               onClick={(e) => {
                 e.preventDefault();
                 onPageChange('food');
@@ -180,7 +180,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             <a
               id="mobile-nav-cocktail-btn"
-              href="/cocktails"
+              href={currentLang === 'vi' ? '/vn/cocktails' : '/cocktails'}
               onClick={(e) => {
                 e.preventDefault();
                 onPageChange('cocktail');
@@ -197,7 +197,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             <a
               id="mobile-nav-articles-btn"
-              href="/articles"
+              href={currentLang === 'vi' ? '/vn/articles' : '/articles'}
               onClick={(e) => {
                 e.preventDefault();
                 onPageChange('articles');
