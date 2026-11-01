@@ -5,55 +5,99 @@ export interface RouteState {
   page: ActivePage;
   articleSlug: string | null;
   pathname: string;
+  lang: Language;
 }
 
 /**
- * Parse the current browser pathname into route state
+ * Parse the current browser pathname into route state including language (/vn/ detection)
  */
 export function parseRoute(rawPath: string): RouteState {
   const path = rawPath.trim() || '/';
   const cleanPath = path.split('?')[0].split('#')[0];
 
-  // Specific article route: /articles/:slug
-  if (cleanPath.startsWith('/articles/') && cleanPath.length > '/articles/'.length) {
-    const slug = cleanPath.replace(/^\/articles\//, '').split('/')[0];
+  const isVi = cleanPath === '/vn' || cleanPath.startsWith('/vn/');
+  const lang: Language = isVi ? 'vi' : 'en';
+
+  // Strip /vn prefix to determine sub-page
+  let subPath = cleanPath;
+  if (isVi) {
+    subPath = cleanPath === '/vn' ? '/' : cleanPath.replace(/^\/vn/, '');
+  }
+  if (!subPath.startsWith('/')) {
+    subPath = `/${subPath}`;
+  }
+
+  // 1. Specific article route: /articles/:slug or /vn/articles/:slug
+  if (subPath.startsWith('/articles/') && subPath.length > '/articles/'.length) {
+    const slug = subPath.replace(/^\/articles\//, '').split('/')[0];
+    const decodedSlug = decodeURIComponent(slug);
     return {
       page: 'articles',
-      articleSlug: decodeURIComponent(slug),
-      pathname: cleanPath,
+      articleSlug: decodedSlug,
+      pathname: isVi ? `/vn/articles/${decodedSlug}` : `/articles/${decodedSlug}`,
+      lang,
     };
   }
 
-  // Articles list page: /articles
-  if (cleanPath === '/articles' || cleanPath === '/articles/') {
+  // 2. Articles list page: /articles or /vn/articles
+  if (subPath === '/articles' || subPath === '/articles/') {
     return {
       page: 'articles',
       articleSlug: null,
-      pathname: '/articles',
+      pathname: isVi ? '/vn/articles' : '/articles',
+      lang,
     };
   }
 
-  // Cocktail menu page: /cocktail, /cocktails, /drinks
+  // 3. Cocktail menu page: /cocktails, /cocktail, /drinks or /vn/cocktails
   if (
-    cleanPath === '/cocktail' ||
-    cleanPath === '/cocktail/' ||
-    cleanPath === '/cocktails' ||
-    cleanPath === '/cocktails/' ||
-    cleanPath === '/drinks'
+    subPath === '/cocktail' ||
+    subPath === '/cocktail/' ||
+    subPath === '/cocktails' ||
+    subPath === '/cocktails/' ||
+    subPath === '/drinks'
   ) {
     return {
       page: 'cocktail',
       articleSlug: null,
-      pathname: '/cocktails',
+      pathname: isVi ? '/vn/cocktails' : '/cocktails',
+      lang,
     };
   }
 
-  // Food menu page (default): / or /food
+  // 4. Food menu page (default): /food, / or /vn/food, /vn
   return {
     page: 'food',
     articleSlug: null,
-    pathname: cleanPath === '/' ? '/food' : cleanPath,
+    pathname: isVi ? '/vn/food' : '/food',
+    lang,
   };
+}
+
+/**
+ * Get localized URL path for a given canonical route and language
+ */
+export function getLocalizedPath(canonicalPath: string, lang: Language): string {
+  const clean = canonicalPath.startsWith('/') ? canonicalPath : `/${canonicalPath}`;
+  const unlocalized = clean.startsWith('/vn/') ? clean.replace(/^\/vn/, '') : clean === '/vn' ? '/food' : clean;
+  const target = unlocalized === '/' ? '/food' : unlocalized;
+  return lang === 'vi' ? `/vn${target}` : target;
+}
+
+/**
+ * Switch the language of the current URL while preserving the page / article slug
+ */
+export function switchLanguageUrl(currentPathname: string, targetLang: Language): string {
+  const parsed = parseRoute(currentPathname);
+  let baseCanonical = '/food';
+  if (parsed.page === 'food') {
+    baseCanonical = '/food';
+  } else if (parsed.page === 'cocktail') {
+    baseCanonical = '/cocktails';
+  } else if (parsed.page === 'articles') {
+    baseCanonical = parsed.articleSlug ? `/articles/${parsed.articleSlug}` : '/articles';
+  }
+  return getLocalizedPath(baseCanonical, targetLang);
 }
 
 // Custom event name for client-side navigation
@@ -103,15 +147,18 @@ export function trackPageView(pagePath: string): void {
 }
 
 /**
- * Dynamically update page title, description, and canonical link
+ * Dynamically update page title, description, canonical link, and hreflang tags
  */
 export function updateRouteMetadata(route: RouteState, lang: Language): void {
   if (typeof document === 'undefined') return;
   const isVi = lang === 'vi';
 
-  let title = 'Saime Introverts | Fusion Dining & Cocktails in Hoi An';
-  let description =
-    'Experience modern Vietnamese fusion dining and craft cocktails in Hoi An. Reimagined childhood flavors and liquid mixology at 144 Ly Thai To.';
+  let title = isVi
+    ? 'Saime Introverts | Ẩm Thực Fusion & Cocktail Tại Hội An'
+    : 'Saime Introverts | Fusion Dining & Cocktails in Hoi An';
+  let description = isVi
+    ? 'Trải nghiệm ẩm thực fusion tuổi thơ và cocktail đặc sản 3 miền độc bản tại Saime Introverts Hội An, 144 Lý Thái Tổ.'
+    : 'Experience modern Vietnamese fusion dining and craft cocktails in Hoi An. Reimagined childhood flavors and liquid mixology at 144 Ly Thai To.';
   let ogImage = 'https://i.imgur.com/IO2U2B9.jpeg';
 
   if (route.page === 'food') {
@@ -124,7 +171,7 @@ export function updateRouteMetadata(route: RouteState, lang: Language): void {
   } else if (route.page === 'cocktail') {
     title = isVi
       ? '12 Cocktail Đặc Sản Ba Miền | Saime Hội An'
-      : 'Craft Cocktails & Mixology | Saime Introverts';
+      : 'Craft Cocktails & Mixology | Saime Introverts Hoi An';
     description = isVi
       ? 'Hành trình 12 ly cocktail đặc sản ba miền độc bản cùng kỹ thuật làm trong và phối trộn hương vị tại Saime Introverts Hội An.'
       : 'A sensory journey across Vietnam in 12 signature cocktails. Clarified craft cocktails and liquid chemistry at Saime Introverts Hoi An.';
@@ -132,10 +179,22 @@ export function updateRouteMetadata(route: RouteState, lang: Language): void {
     if (route.articleSlug) {
       const article = findArticleBySlug(route.articleSlug);
       if (article) {
-        title = isVi
-          ? `${article.titleVi.slice(0, 42)} | Saime`
-          : `${article.title.slice(0, 42)} | Saime`;
-        description = isVi ? article.shortDescriptionVi : article.shortDescription;
+        if (article.slug === '5-must-try-cocktail-bars-hoi-an' || article.id === '5-must-try-cocktail-bars-hoi-an') {
+          title = isVi
+            ? 'Top 5 Quán Cocktail Bar Phải Thử Tại Hội An | Saime'
+            : '5 Must-Try Cocktail Bars in Hoi An | Saime Introverts';
+          description = isVi
+            ? article.shortDescriptionVi
+            : article.shortDescription;
+        } else {
+          title = isVi
+            ? 'Top 8 Nhà Hàng Fine Dining & Fusion Tại Hội An | Saime'
+            : 'Top 8 Fine Dining & Fusion Restaurants in Hoi An | Saime';
+          description = isVi
+            ? article.shortDescriptionVi
+            : article.shortDescription;
+        }
+
         if (description.length > 155) {
           description = description.slice(0, 152) + '...';
         }
@@ -143,20 +202,23 @@ export function updateRouteMetadata(route: RouteState, lang: Language): void {
           ogImage = article.coverImage;
         }
       } else {
-        title = isVi ? 'Bài Viết & Cẩm Nang | Saime Hội An' : 'Articles & Guides | Saime Introverts';
+        title = isVi
+          ? 'Bài Viết & Cẩm Nang Ẩm Thực | Saime Hội An'
+          : 'Articles & Guides | Saime Introverts Hoi An';
       }
     } else {
       title = isVi
-        ? 'Cẩm Nang Ẩm Thực & Bài Viết | Saime Hội An'
-        : 'Stories & Culinary Guides | Saime Introverts';
+        ? 'Cẩm Nang Ẩm Thực & Quán Bar Hội An | Saime Introverts'
+        : 'Stories & Culinary Guides | Saime Introverts Hoi An';
       description = isVi
-        ? 'Cẩm nang nhà hàng fine dining và fusion dining chọn lọc tại Hội An cùng góc nhìn ẩm thực tuổi thơ đương đại độc bản.'
-        : 'Curated guides to fine dining and modern fusion in Hoi An. Discover iconic culinary memories, childhood flavors, and authentic dining spots.';
+        ? 'Cẩm nang nhà hàng fine dining và quán cocktail bar chọn lọc tại Hội An cùng góc nhìn ẩm thực tuổi thơ đương đại độc bản.'
+        : 'Curated guides to fine dining and modern cocktail bars in Hoi An. Discover iconic culinary memories and authentic venues.';
     }
   }
 
-  // Update DOM Title
+  // Update DOM Title and HTML lang attribute
   document.title = title;
+  document.documentElement.lang = lang;
 
   // Helper for meta tags
   const setMeta = (selector: string, content: string) => {
@@ -173,13 +235,36 @@ export function updateRouteMetadata(route: RouteState, lang: Language): void {
   setMeta('meta[name="twitter:description"]', description);
   setMeta('meta[property="og:image"]', ogImage);
   setMeta('meta[name="twitter:image"]', ogImage);
+  setMeta('meta[property="og:locale"]', isVi ? 'vi_VN' : 'en_US');
+
+  // Compute canonical and hreflang URLs
+  const origin = (typeof window !== 'undefined' && window.location.origin && !window.location.origin.includes('localhost') && !window.location.origin.includes('run.app'))
+    ? window.location.origin
+    : 'https://saimekb.com';
+
+  const enCanonical = `${origin}${getLocalizedPath(route.pathname, 'en')}`;
+  const viCanonical = `${origin}${getLocalizedPath(route.pathname, 'vi')}`;
+  const currentCanonical = isVi ? viCanonical : enCanonical;
 
   // Update canonical
   let canonicalEl = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
   if (canonicalEl) {
-    const origin = (typeof window !== 'undefined' && window.location.origin && !window.location.origin.includes('localhost') && !window.location.origin.includes('run.app'))
-      ? window.location.origin
-      : 'https://saimekb.com';
-    canonicalEl.setAttribute('href', `${origin}${route.pathname}`);
+    canonicalEl.setAttribute('href', currentCanonical);
   }
+
+  // Helper for link tags
+  const setLink = (rel: string, hreflang: string, href: string) => {
+    let link = document.querySelector(`link[rel="${rel}"][hreflang="${hreflang}"]`) as HTMLLinkElement | null;
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = rel;
+      link.hreflang = hreflang;
+      document.head.appendChild(link);
+    }
+    link.href = href;
+  };
+
+  setLink('alternate', 'en', enCanonical);
+  setLink('alternate', 'vi', viCanonical);
+  setLink('alternate', 'x-default', enCanonical);
 }
