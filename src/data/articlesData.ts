@@ -11,8 +11,12 @@ export interface RestaurantReview {
   locationVi: string;
   openingHours: string;
   openingHoursVi: string;
-  cuisine: string;
-  cuisineVi: string;
+  cuisine?: string;
+  cuisineVi?: string;
+  cocktailStyle?: string;
+  cocktailStyleVi?: string;
+  mustTry?: string;
+  mustTryVi?: string;
   priceRange: string;
   priceRangeVi: string;
   atmosphere?: string;
@@ -42,6 +46,8 @@ export interface ArticleItem {
   badge?: string;
   badgeVi?: string;
   author: string;
+  introParagraphs?: string[];
+  introParagraphsVi?: string[];
   restaurantsData?: RestaurantReview[];
   conclusion?: {
     title: string;
@@ -261,6 +267,159 @@ export const RESTAURANTS_TOP_8: RestaurantReview[] = [
   }
 ];
 
+export const BARS_TOP_5: RestaurantReview[] = [
+  {
+    id: 'saime-introverts-bar',
+    rank: 1,
+    name: 'Saime Introverts',
+    nameVi: 'Saime Introverts',
+    tagline: 'The Ultimate Vietnamese Storytelling & Regional Mixology Sanctuary',
+    taglineVi: 'Hành Trình Mixology Kể Chuyện Ký Ức Tuổi Thơ Việt',
+    location: '144 Ly Thai To, Hoi An East Ward, Hoi An',
+    locationVi: '144 Lý Thái Tổ, phường Hội An Đông, Hội An',
+    openingHours: '3:00 PM – 11:00 PM',
+    openingHoursVi: '15:00 – 23:00',
+    priceRange: '180,000 VND – 220,000 VND per cocktail',
+    priceRangeVi: '180.000 VNĐ – 220.000 VNĐ / ly cocktail',
+    cocktailStyle: 'Classics & 12 Signature Cocktails inspired by regional specialties across Vietnam',
+    cocktailStyleVi: 'Classic & 12 món Signature lấy cảm hứng từ đặc sản 3 miền Việt Nam',
+    mustTry: 'Phở Hà Nội, Cao Lầu Hội An, Canh Chua, Đá Me Sài Gòn',
+    mustTryVi: 'Phở Hà Nội, Cao Lầu Hội An, Canh Chua, Đá Me Sài Gòn',
+    atmosphere: 'Modern, airy, quiet, and minimalist with spacious indoor & outdoor seating',
+    atmosphereVi: 'Hiện đại, thoáng đãng, yên tĩnh, tối giản với không gian trong nhà & ngoài trời rộng rãi',
+    image: HARDCODED_IMAGES.cocktails['cocktail-pho'] || 'https://i.imgur.com/SOypJCj.jpeg',
+    imageCaption: 'Saime Introverts - Regional mixology storytelling & liquid chemistry at 144 Ly Thai To',
+    imageCaptionVi: 'Saime Introverts - Hành trình mixology 12 cocktail đặc sản 3 miền tại 144 Lý Thái Tổ',
+    isSaime: true,
+    paragraphs: [
+      'If you seek more than just a place to drink, Saime introverts delivers the most soulful and creative cocktail experience in Hoi An. Founded by a passionate young team eager to share Vietnamese childhood memories through modern mixology, Saime transforms local heritage into liquid art.',
+      'The signature cocktail menu highlights 12 regional specialties from North to South Vietnam. By utilizing advanced mixology techniques such as clarification and molecular gastronomy, the team crafts drinks with complex, balanced flavors. Every cocktail is served with a story card, allowing guests to discover the culture and childhood nostalgia behind each sip.',
+      'Set in an airy, minimalist space with both indoor and outdoor seating, Saime introverts offers a warm, low-key haven away from the crowded street noise. It is not merely a bar, but a cozy space designed for meaningful conversations, connection, and deep relaxation. For cocktail enthusiasts seeking authenticity, innovation, and cozy elegance, Saime stands out as the top destination among top bars in Hoi An.'
+    ],
+    paragraphsVi: [
+      'Nếu bạn muốn thưởng thức một ly cocktail không chỉ ngon mà còn giàu cảm xúc, Saime introverts chắc chắn là trải nghiệm cocktail bar độc đáo nhất tại Hội An. Được sáng lập bởi một đội ngũ trẻ tài năng, Saime mượn nghệ thuật pha chế hiện đại để gửi gắm những ký ức tuổi thơ và văn hóa Việt Nam vào từng ly nước.',
+      'Menu signature của Saime gồm 12 món cocktail đại diện cho đặc sản 3 miền. Nhờ ứng dụng các kỹ thuật mixology hiện đại như lọc trong (clarification) hay ẩm thực phân tử (molecular gastronomy), các thức uống tại đây mang hương vị tròn trịa, cân bằng và đầy bất ngờ. Mỗi ly cocktail được phục vụ cùng một lá bài câu chuyện, giúp thực khách khám phá nét đẹp văn hóa đằng sau từng nguyên liệu.',
+      'Sở hữu không gian tối giản, rộng rãi và vô cùng yên bình, Saime introverts mang đến cảm giác ấm cúng, riêng tư. Đây không đơn thuần là nơi uống cocktail, mà là không gian để lắng nghe, sẻ chia và kết nối những tâm hồn đồng điệu.'
+    ]
+  },
+  {
+    id: 'speakeasy-moon-bar',
+    rank: 2,
+    name: 'Speakeasy Moon Bar',
+    nameVi: 'Speakeasy Moon Bar',
+    tagline: 'Romantic Riverside Rooftop',
+    taglineVi: 'Rooftop Lãng Mạn Bên Dòng Sông',
+    location: '23 Nguyen Phuc Chu, Minh An Ward, Hoi An',
+    locationVi: '23 Nguyễn Phúc Chu, phường Minh An, Hội An',
+    openingHours: '4:00 PM – 1:30 AM',
+    openingHoursVi: '16:00 – 01:30 (Sáng)',
+    priceRange: '169,000 VND (Classics) – 250,000 VND (Signatures)',
+    priceRangeVi: '169.000 VNĐ (Classic) – 250.000 VNĐ (Signature)',
+    cocktailStyle: 'Classic cocktails & sweet-and-sour signature creations',
+    cocktailStyleVi: 'Classic cocktails & các món signature thiên vị chua ngọt',
+    mustTry: 'Moonlit Hoi An, Phở Hà Nội',
+    mustTryVi: 'Moonlit Hoi An, Phở Hà Nội',
+    atmosphere: 'Lively rooftop overlooking the river, soft lighting, and vintage charm',
+    atmosphereVi: 'Rooftop trung tâm phố cổ, sôi động, thoáng mát ngắm dòng sông về đêm',
+    image: 'https://moonbar.com.vn/UploadFile/Gallery/a2.jpg',
+    imageCaption: 'Speakeasy Moon Bar - Riverside rooftop escape in central Hoi An',
+    imageCaptionVi: 'Speakeasy Moon Bar - Không gian rooftop ngắm dòng sông lung linh về đêm',
+    paragraphs: [
+      'Tucked away in central Hoi An, Speakeasy Moon Bar offers a romantic rooftop escape with views of the glittering river. Featuring amber chandeliers and velvet accents, it is a great spot for sweet-and-sour signature cocktails in a lively setting.'
+    ],
+    paragraphsVi: [
+      'Nằm ngay trung tâm Phố Cổ, Speakeasy Moon Bar sở hữu lối vào kín đáo dẫn lên không gian rooftop lãng mạn. Với ánh đèn vàng ấm áp và góc nhìn ra dòng sông lung linh, quán phù hợp cho những ai thích thưởng thức cocktail chua ngọt trong không khí sôi động.'
+    ]
+  },
+  {
+    id: 'mezcal-cocteleria',
+    rank: 3,
+    name: 'Mezcal Coctelería',
+    nameVi: 'Mezcal Coctelería',
+    tagline: 'Agave Spirits & 1950s Vintage Vibe',
+    taglineVi: 'Không Gian Vintage 1950s & Rượu Agave Độc Đáo',
+    location: '38 Phan Chu Trinh, Minh An Ward, Hoi An',
+    locationVi: '38 Phan Chu Trinh, phường Minh An, Hội An',
+    openingHours: '6:00 PM – 11:45 PM',
+    openingHoursVi: '18:00 – 23:45',
+    priceRange: '180,000 VND – 400,000 VND per cocktail',
+    priceRangeVi: '180.000 VNĐ – 400.000 VNĐ / ly cocktail',
+    cocktailStyle: 'Agave classics (Mezcal & Tequila) infused with local ingredients',
+    cocktailStyleVi: 'Chuyên về dòng rượu Agave (Mezcal & Tequila) kết hợp nguyên liệu Việt',
+    mustTry: 'Margarita Xi Muoi, El Culo',
+    mustTryVi: 'Margarita Xí Muội, El Culo',
+    atmosphere: 'Discreet speakeasy vibe with 1950s nostalgia and cozy Old Town views',
+    atmosphereVi: 'Khép kín, hoài cổ thập niên 1950, ấm cúng và mang phong cách speakeasy',
+    image: 'https://cdn.corner.inc/place-photo/google-gallery/1282802/43f02e9e17e81a30bb6e603ce6d2bb4b.jpeg',
+    imageCaption: 'Mezcal Coctelería - Hidden agave speakeasy with 1950s vintage charm',
+    imageCaptionVi: 'Mezcal Coctelería - Quán speakeasy hoài cổ chuyên dòng rượu Agave',
+    paragraphs: [
+      'Hidden behind a small sign up the stairs, Mezcal Coctelería specializes in agave spirits, rare Mezcals, and Tequilas. The bar folds local Vietnamese citrus, chili, tamarind, and Tra Que herbs into classic Mexican spirits, creating a nostalgic 1950s speakeasy feel.'
+    ],
+    paragraphsVi: [
+      'Nằm ẩn mình sau tấm biển nhỏ trên cầu thang, Mezcal Coctelería là điểm đến cho những ai yêu thích Mezcal và Tequila. Quán kết hợp các loại rượu Agave cao cấp với nguyên liệu địa phương như chanh, ớt, me, thảo mộc Trà Quế, tạo nên phong cách hoài cổ thập niên 1950 đầy mê hoặc.'
+    ]
+  },
+  {
+    id: 'hem-hoi-an',
+    rank: 4,
+    name: 'Hèm Hoi An Cocktail Bar',
+    nameVi: 'Hèm Hoi An Cocktail Bar',
+    tagline: 'Vietnamese Saké in a Historic House',
+    taglineVi: 'Trải Nghiệm Saké Việt Trong Nhà Cổ',
+    location: '317 Nguyen Duy Hieu, Cam Chau Ward, Hoi An',
+    locationVi: '317 Nguyễn Duy Hiệu, phường Cẩm Châu, Hội An',
+    openingHours: '4:00 PM – 12:00 AM (Midnight)',
+    openingHoursVi: '16:00 – 00:00 (Đêm)',
+    priceRange: '170,000 VND – 280,000 VND per cocktail',
+    priceRangeVi: '170.000 VNĐ – 280.000 VNĐ / ly cocktail',
+    cocktailStyle: 'Vietnamese Saké and rice spirit cocktails blended with local ingredients',
+    cocktailStyleVi: 'Cocktail pha chế từ Saké Việt Nam và rượu gạo kết hợp nguyên liệu bản địa',
+    mustTry: 'Chị Đa, Hiền, Em',
+    mustTryVi: 'Chị Đa, Hiền, Em',
+    atmosphere: 'Historic, antique, artistic, set inside an authentic ancient house',
+    atmosphereVi: 'Cổ kính, mộc mạc, đậm chất nghệ thuật bên trong ngôi nhà cổ Hội An',
+    image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/31/c1/88/df/caption.jpg?w=1200&h=1200&s=1',
+    imageCaption: 'Hèm Hoi An - Vietnamese Saké cocktail craftsmanship in an ancient wooden house',
+    imageCaptionVi: 'Hèm Hoi An - Tinh hoa Saké Việt trong không gian nhà rường cổ kính',
+    paragraphs: [
+      'Hèm is the first Vietnamese saké cocktail bar, celebrating local rice spirits within a weathered historic Hoi An house. Combining Vietnamese-made saké with culinary produce and select Japanese influences, Hèm offers an artistic and cozy atmosphere.'
+    ],
+    paragraphsVi: [
+      'Hèm là quán cocktail bar đầu tiên sử dụng Saké Việt Nam làm nền tảng pha chế. Tọa lạc trong một ngôi nhà cổ giữ nguyên những bức tường rêu phong, Hèm tôn vinh hạt gạo Việt qua kỹ thuật mixology tinh tế và đậm chất nghệ thuật.'
+    ]
+  },
+  {
+    id: 'market-bar-terrace',
+    rank: 5,
+    name: 'Market Bar - Market Terrace',
+    nameVi: 'Market Bar - Market Terrace',
+    tagline: 'Rooftop Sunset & Custom Gin Infusions',
+    taglineVi: 'Góc Chill Ngắm Hoàng Hôn & Chuyên Gin Infusion',
+    location: 'Terrace 1, Hoi An Cloth Market, Bach Dang / 02 Hoang Dieu Street, Hoi An',
+    locationVi: 'Terrace 1, Chợ Vải Hội An, Bạch Đằng / 02 Hoàng Diệu, Hội An',
+    openingHours: '4:00 PM – 11:00 PM',
+    openingHoursVi: '16:00 – 23:00',
+    priceRange: '170,000 VND – 450,000 VND per cocktail',
+    priceRangeVi: '170.000 VNĐ – 450.000 VNĐ / ly cocktail',
+    cocktailStyle: 'Custom Gin infusions, classic cocktails, and international wines',
+    cocktailStyleVi: 'Tập trung vào các dòng Gin ngâm (Gin infusion), cocktail & rượu vang',
+    mustTry: 'Cucumber & Mango Gin & Tonic, Strawberry Gin with Black Pepper',
+    mustTryVi: 'Gin & Tonic dưa chuột xoài, Strawberry Gin với tiêu đen',
+    atmosphere: 'Serene rooftop terrace overlooking the Cloth Market and Thu Bon River',
+    atmosphereVi: 'Rooftop thoáng đãng ngay trên tầng thượng Chợ Vải, nhìn ra sông Thu Bồn',
+    image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/16/29/92/fd/market-bar-market-terrace.jpg?w=1100&h=1100&s=1',
+    imageCaption: 'Market Bar - Sunset terrace overlooking the Cloth Market and Thu Bon River',
+    imageCaptionVi: 'Market Bar - Hoàng hôn trên tầng thượng ngắm sông Thu Bồn và phố cổ',
+    paragraphs: [
+      'Perched above the bustling Hoi An Cloth Market, Market Bar provides panoramic views of the river and ancient rooftops. It is well known for its custom gin infusions and relaxed terrace ambiance, making it a popular choice for sunset drinks.'
+    ],
+    paragraphsVi: [
+      'Nằm trên tầng thượng Chợ Vải Hội An, Market Bar mang đến tầm nhìn bao quát Phố Cổ và sông Thu Bồn. Nơi đây nổi tiếng với các dòng Gin ngâm thủ công và không gian sân thượng thư thái, thích hợp để ngắm hoàng hôn.'
+    ]
+  }
+];
+
 export const ARTICLES_DATA: ArticleItem[] = [
   {
     id: 'top-8-fine-dining-fusion-hoi-an',
@@ -288,6 +447,42 @@ export const ARTICLES_DATA: ArticleItem[] = [
       text: 'While Hoi An offers many luxury and international dining options, Saime introverts stands out as the most authentic, creative, and memorable fusion dining experience in Hoi An. By pairing nostalgic childhood storytelling with innovative cuisine and regional mixology at reasonable prices, Saime provides a heartfelt journey into modern Vietnamese soul.',
       textVi:
         'Dù Hội An có nhiều lựa chọn ẩm thực cao cấp và quốc tế, Saime introverts vẫn nổi bật như một trải nghiệm fusion dining chân thực, sáng tạo và khó quên nhất tại Hội An. Bằng cách kết hợp những câu chuyện tuổi thơ đầy hoài niệm với nghệ thuật ẩm thực hiện đại và phong cách mixology đặc sản ba miền ở mức giá vô cùng hợp lý, Saime mang đến một hành trình chạm tới chiều sâu tâm hồn ẩm thực Việt Nam.'
+    }
+  },
+  {
+    id: '5-must-try-cocktail-bars-hoi-an',
+    slug: '5-must-try-cocktail-bars-hoi-an',
+    category: 'Nightlife & Mixology',
+    categoryVi: 'Nightlife & Mixology',
+    date: 'November 2026',
+    dateVi: 'Tháng 11/2026',
+    readTime: '6 min read',
+    readTimeVi: '6 phút đọc',
+    badge: 'Cocktail Guide',
+    badgeVi: 'Cẩm Nang Cocktail',
+    coverImage: HARDCODED_IMAGES.cocktails['cocktail-pho'] || 'https://i.imgur.com/SOypJCj.jpeg',
+    author: 'Saime Editorial Team',
+    title: '5 Must-Try Cocktail Bars in Hoi An for an Unforgettable Nightlife Experience',
+    titleVi: 'Top 5 Quán Cocktail Bar Nhất Định Phải Thử Tại Hội An',
+    shortDescription:
+      'When the sun sets over the Thu Bon River, discover the best cocktail bars in Hoi An. From hidden speakeasies to storytelling mixology sanctuaries, here are 5 must-visit bars.',
+    shortDescriptionVi:
+      'Khám phá 5 quán cocktail bar độc đáo và đẳng cấp nhất tại Hội An: từ speakeasy hoài cổ đến hành trình mixology kể chuyện ký ức tuổi thơ Việt Nam.',
+    introParagraphs: [
+      'When the sun sets over the Thu Bon River, the lantern-lit streets of Hoi An transform into a vibrant haven for mixology enthusiasts and leisure travelers. Beyond traditional teahouses and riverside cafes, the ancient town boasts a sophisticated bar scene. From hidden speakeasies to rooftop terraces, finding the perfect venue for a craft drink is essential.',
+      'If you are looking for the absolute best cocktail bar Hoi An, an authentic cocktail experience Hoi An, or a guide to the top bars Hoi An, here are the 5 must-visit cocktail bars you should not miss.'
+    ],
+    introParagraphsVi: [
+      'Khi màn đêm buông xuống trên dòng sông Thu Bồn, Phố Cổ Hội An khoác lên mình vẻ đẹp lung linh và quyến rũ. Không chỉ có trà quán hay các tiệm cà phê ven sông, Hội An còn sở hữu những quán cocktail bar độc đáo và đẳng cấp. Từ những quán speakeasy ẩn mình đến các không gian rooftop ngắm hoàng hôn, việc chọn một điểm dừng chân tinh tế để nhâm nhi đồ uống là trải nghiệm không thể bỏ qua.',
+      'Nếu bạn đang tìm kiếm cocktail bar hoi an, một cocktail experience hoi an đúng nghĩa, hay danh sách top bars hoi an, dưới đây là 5 cái tên xuất sắc nhất dành cho bạn.'
+    ],
+    restaurantsData: BARS_TOP_5,
+    conclusion: {
+      title: 'Why Saime Introverts is the Top Cocktail Bar Choice in Hoi An',
+      titleVi: 'Tại Sao Saime Introverts Là Lựa Chọn Cocktail Bar Hàng Đầu Tại Hội An?',
+      text: 'While Hoi An offers diverse nightlife experiences—from lively rooftops to specialized agave bars—Saime introverts stands out for its unmatched creativity, emotional storytelling, and warm atmosphere. Combining advanced mixology techniques, regional Vietnamese flavors, and an interactive card deck experience, Saime offers a unique, intimate journey into modern Vietnamese culture.',
+      textVi:
+        'Dù Hội An có nhiều mô hình bar đa dạng—từ rooftop sôi động đến các quán chuyên về dòng rượu ngoại—Saime introverts vẫn khẳng định dấu ấn riêng nhờ tư duy sáng tạo sâu sắc, sự chân thành và trải nghiệm cảm xúc khác biệt. Việc kết hợp kỹ thuật mixology hiện đại với hương vị đặc sản 3 miền và những lá bài câu chuyện tuổi thơ giúp Saime trở thành điểm đến không thể bỏ qua cho bất kỳ ai tìm kiếm một đêm Hội An đáng nhớ.'
     }
   }
 ];
