@@ -75,7 +75,7 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
         <div className="w-full border-b border-white/10 bg-[#0e0f13]/90 backdrop-blur-md sticky top-16 z-30">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
             <a
-              href="/articles"
+              href={isVi ? '/vn/articles' : '/articles'}
               onClick={(e) => {
                 e.preventDefault();
                 handleBackToList();
@@ -143,25 +143,27 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
             <div className="space-y-8 sm:space-y-10 text-[15px] sm:text-[17px] text-white/85 leading-[1.8] font-normal">
               {/* Introduction Paragraphs */}
               <div className="space-y-5">
-                <p>
-                  {isVi
+                {((isVi ? selectedArticle.introParagraphsVi : selectedArticle.introParagraphs) || [
+                  isVi
                     ? 'Hội An không chỉ nổi tiếng với những con phố cổ vàng rực đèn lồng hay di sản văn hóa lâu đời, mà còn là điểm đến ẩm thực hấp dẫn với hàng loạt nhà hàng sang trọng và sáng tạo. Từ không gian fine dining Pháp cổ điển đến những nhà hàng fusion biến tấu món ăn địa phương, mảnh đất này luôn biết cách chiều lòng những thực khách khó tính.'
-                    : 'Hoi An is not only celebrated for its lantern-lit yellow alleyways and rich UNESCO heritage, but also for its rapidly evolving culinary scene. From heritage fine dining housed in French colonial villas to inventive fusion venues rethinking local street food, the city offers extraordinary dining experiences for food lovers.'}
-                </p>
-                <p>
-                  {isVi
+                    : 'Hoi An is not only celebrated for its lantern-lit yellow alleyways and rich UNESCO heritage, but also for its rapidly evolving culinary scene. From heritage fine dining housed in French colonial villas to inventive fusion venues rethinking local street food, the city offers extraordinary dining experiences for food lovers.',
+                  isVi
                     ? 'Nếu bạn đang tìm kiếm những trải nghiệm fine dining Hoi An hay fusion dining Hoi An xuất sắc nhất, dưới đây là danh sách 8 nhà hàng không thể bỏ qua.'
-                    : 'If you are looking for the absolute best fine dining Hoi An or fusion dining Hoi An options, here is our curated guide to the top 8 restaurants in Hoi An you simply cannot miss.'}
-                </p>
+                    : 'If you are looking for the absolute best fine dining Hoi An or fusion dining Hoi An options, here is our curated guide to the top 8 restaurants in Hoi An you simply cannot miss.'
+                ]).map((para: string, pIdx: number) => (
+                  <p key={pIdx}>{para}</p>
+                ))}
               </div>
 
-              {/* Continuous List of 8 Restaurants */}
+              {/* Continuous List of Places (Restaurants / Cocktail Bars) */}
               {selectedArticle.restaurantsData.map((restaurant: RestaurantReview) => {
                 const restaurantName = isVi ? restaurant.nameVi : restaurant.name;
                 const tagline = isVi ? restaurant.taglineVi : restaurant.tagline;
                 const location = isVi ? restaurant.locationVi : restaurant.location;
                 const openingHours = isVi ? restaurant.openingHoursVi : restaurant.openingHours;
                 const cuisine = isVi ? restaurant.cuisineVi : restaurant.cuisine;
+                const cocktailStyle = isVi ? restaurant.cocktailStyleVi : restaurant.cocktailStyle;
+                const mustTry = isVi ? restaurant.mustTryVi : restaurant.mustTry;
                 const priceRange = isVi ? restaurant.priceRangeVi : restaurant.priceRange;
                 const atmosphere = isVi ? restaurant.atmosphereVi : restaurant.atmosphere;
                 const paragraphs = isVi ? restaurant.paragraphsVi : restaurant.paragraphs;
@@ -196,19 +198,31 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
                     )}
 
                     {/* Simple metadata lines directly in prose */}
-                    <div className="text-xs sm:text-sm text-white/70 space-y-1 py-1">
+                    <div className="text-xs sm:text-sm text-white/70 space-y-1.5 py-1">
                       <p>
                         <strong className="text-white/90">{isVi ? 'Địa chỉ:' : 'Location:'}</strong> {location}
                       </p>
                       <p>
                         <strong className="text-white/90">{isVi ? 'Giờ mở cửa:' : 'Opening Hours:'}</strong> {openingHours}
                       </p>
-                      <p>
-                        <strong className="text-white/90">{isVi ? 'Loại hình ẩm thực:' : 'Cuisine:'}</strong> {cuisine}
-                      </p>
+                      {cuisine && (
+                        <p>
+                          <strong className="text-white/90">{isVi ? 'Loại hình ẩm thực:' : 'Cuisine:'}</strong> {cuisine}
+                        </p>
+                      )}
+                      {cocktailStyle && (
+                        <p>
+                          <strong className="text-white/90">{isVi ? 'Phong cách cocktail:' : 'Cocktail Style:'}</strong> {cocktailStyle}
+                        </p>
+                      )}
                       <p>
                         <strong className="text-white/90">{isVi ? 'Mức giá:' : 'Price Range:'}</strong> {priceRange}
                       </p>
+                      {mustTry && (
+                        <p>
+                          <strong className="text-white/90">{isVi ? 'Món cocktail nên thử:' : 'Must-Try Cocktails:'}</strong> {mustTry}
+                        </p>
+                      )}
                       {atmosphere && (
                         <p>
                           <strong className="text-white/90">{isVi ? 'Không gian:' : 'Atmosphere:'}</strong> {atmosphere}
@@ -243,7 +257,7 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
                           </a>
                           <span className="text-white/30">•</span>
                           <a
-                            href="/food"
+                            href={isVi ? '/vn/food' : '/food'}
                             onClick={(e) => {
                               e.preventDefault();
                               onSwitchToFoodPage();
@@ -254,7 +268,7 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
                           </a>
                           <span className="text-white/30">•</span>
                           <a
-                            href="/cocktails"
+                            href={isVi ? '/vn/cocktails' : '/cocktails'}
                             onClick={(e) => {
                               e.preventDefault();
                               onSwitchToCocktailPage();
@@ -294,7 +308,7 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
               {/* Back to all articles bottom anchor */}
               <div className="pt-8 border-t border-white/10 flex items-center justify-between">
                 <a
-                  href="/articles"
+                  href={isVi ? '/vn/articles' : '/articles'}
                   onClick={(e) => {
                     e.preventDefault();
                     handleBackToList();
@@ -352,7 +366,9 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
             const readTime = isVi ? article.readTimeVi : article.readTime;
             const shortDesc = isVi ? article.shortDescriptionVi : article.shortDescription;
 
-            const articleUrl = `/articles/${article.slug || article.id}`;
+            const articleUrl = isVi
+              ? `/vn/articles/${article.slug || article.id}`
+              : `/articles/${article.slug || article.id}`;
 
             return (
               <a
