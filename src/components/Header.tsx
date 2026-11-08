@@ -143,15 +143,17 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
             </div>
 
-            {/* Reserve Table CTA */}
-            <button
-              onClick={onOpenReservation}
-              className="px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider bg-white hover:bg-[#e63946] text-black hover:text-white transition-all duration-200 shadow-sm active:scale-95 whitespace-nowrap min-h-[34px] sm:min-h-[38px] flex items-center justify-center"
+            {/* Reserve Table CTA - Direct to Zalo (VI) or WhatsApp (EN) */}
+            <a
+              href={currentLang === 'vi' ? 'https://zalo.me/0964023683' : 'https://wa.me/84964023683'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider bg-white hover:bg-[#e63946] text-black hover:text-white transition-all duration-200 shadow-sm active:scale-95 whitespace-nowrap min-h-[34px] sm:min-h-[38px] flex items-center justify-center no-underline cursor-pointer"
               id="header-reserve-btn"
             >
               <span className="hidden sm:inline">{t.bookTable}</span>
               <span className="sm:hidden">{t.bookTableMobile}</span>
-            </button>
+            </a>
           </div>
         </div>
 
