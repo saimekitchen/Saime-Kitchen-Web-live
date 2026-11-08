@@ -185,10 +185,10 @@ const BASE_COCKTAIL_ITEMS: CocktailItem[] = [
     funFactVi: 'Quả ô mai xí muội tiết ra vị chua mặn ngọt tự nhiên, tạo nên chiều sâu vị giác phong phú bất ngờ.',
     pairing: {
       foodId: 'food-dac',
-      foodName: 'Đác',
-      foodNameVi: 'Đác',
-      notes: 'The salty tart plum balances the earthy sweetness of beetroot and green apple.',
-      notesVi: 'Vị chua mặn thanh của ô mai cân bằng vị ngọt dịu thanh tao của hạt đác và củ dền.'
+      foodName: 'Xèo',
+      foodNameVi: 'Xèo',
+      notes: 'The salty tart plum balances the crispy turmeric rice tuile and rich shrimp in coconut sauce.',
+      notesVi: 'Vị chua mặn thanh của ô mai cân bằng hoàn hảo độ giòn béo của bánh xèo tôm sốt cốt dừa.'
     }
   },
 
