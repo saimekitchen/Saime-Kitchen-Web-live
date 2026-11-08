@@ -147,10 +147,12 @@ export interface TranslationDictionary {
   resSubmitting: string;
   resSuccessTitle: string;
   resSuccessMsg: string;
-  resSendMessengerBtn: string;
+  resSendActionBtn: string;
+  resSendMessengerBtn?: string;
   resCopyDetailsBtn: string;
   resDetailsCopied: string;
-  resMessengerHint: string;
+  resDirectHint: string;
+  resMessengerHint?: string;
   resSuccessClose: string;
   resNoteHelp: string;
 }
@@ -317,14 +319,14 @@ export const translations: Record<Language, TranslationDictionary> = {
     resContactEmail: 'Email Address',
     resSpecialNotes: 'Special Requests, Dietary Notes',
     resSpecialNotesPlaceholder: 'For example: Birthday celebration, vegetarian, gluten free preference...',
-    resConfirmBtn: 'Confirm Reservation',
-    resSubmitting: 'Securing Your Table...',
-    resSuccessTitle: 'Reservation Template Copied & Ready!',
-    resSuccessMsg: 'Your reservation has been copied to your clipboard and redirected to Facebook Messenger with the template ready to send. If Messenger did not open, click below.',
-    resSendMessengerBtn: 'Open Messenger & Send',
+    resConfirmBtn: 'Confirm via WhatsApp',
+    resSubmitting: 'Connecting to WhatsApp...',
+    resSuccessTitle: 'Reservation Template Ready on WhatsApp!',
+    resSuccessMsg: 'Your reservation details have been copied to clipboard and redirected to WhatsApp (+84 964 023 683) ready to send. If WhatsApp did not open automatically, click below.',
+    resSendActionBtn: 'Open WhatsApp Chat (+84 964 023 683)',
     resCopyDetailsBtn: 'Copy Details Again',
     resDetailsCopied: 'Copied to Clipboard!',
-    resMessengerHint: 'Direct link: facebook.com/messages/t/1121358051063119',
+    resDirectHint: 'WhatsApp: +84 964 023 683',
     resSuccessClose: 'Done',
     resNoteHelp: 'For immediate assistance or parties larger than 8, call (+84) 964 023 683.',
   },
@@ -489,14 +491,14 @@ export const translations: Record<Language, TranslationDictionary> = {
     resContactEmail: 'Địa Chỉ Email',
     resSpecialNotes: 'Yêu Cầu Đặc Biệt, Dị Ứng Thực Phẩm',
     resSpecialNotesPlaceholder: 'Ví dụ: Kỷ niệm ngày cưới, ăn chay, không ăn hành...',
-    resConfirmBtn: 'Xác Nhận Đặt Bàn',
-    resSubmitting: 'Đang Ghi Nhận Đặt Bàn...',
-    resSuccessTitle: 'Đã Sao Chép & Sẵn Sàng Gửi!',
-    resSuccessMsg: 'Mẫu đặt bàn đã được tự động sao chép vào bộ nhớ tạm và chuyển hướng đến Messenger. Nếu Messenger chưa tự mở, bạn hãy nhấn nút bên dưới.',
-    resSendMessengerBtn: 'Mở Messenger & Gửi Đặt Bàn',
+    resConfirmBtn: 'Xác Nhận Đặt Bàn qua Zalo',
+    resSubmitting: 'Đang kết nối đến Zalo...',
+    resSuccessTitle: 'Đã Sao Chép & Sẵn Sàng Gửi qua Zalo!',
+    resSuccessMsg: 'Mẫu đặt bàn đã được sao chép vào bộ nhớ tạm và chuyển hướng đến Zalo (0964 023 683). Nếu Zalo chưa tự mở, bạn hãy nhấn nút bên dưới để mở Zalo và dán tin nhắn.',
+    resSendActionBtn: 'Mở Zalo Chat (0964 023 683)',
     resCopyDetailsBtn: 'Sao Chép Lại Mẫu',
     resDetailsCopied: 'Đã Sao Chép Vào Bộ Nhớ Tạm!',
-    resMessengerHint: 'Liên kết trực tiếp: facebook.com/messages/t/1121358051063119',
+    resDirectHint: 'Zalo / Hotline: 0964 023 683',
     resSuccessClose: 'Hoàn Tất',
     resNoteHelp: 'Cần hỗ trợ gấp hoặc đặt bàn đoàn trên 8 người? Gọi ngay (+84) 964 023 683.',
   }
