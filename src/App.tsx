@@ -6,7 +6,6 @@ import { FoodPage } from './components/FoodPage';
 import { CocktailPage } from './components/CocktailPage';
 import { ArticlesPage } from './components/ArticlesPage';
 import { ImageLightboxModal } from './components/ImageLightboxModal';
-import { ReservationDrawer } from './components/ReservationDrawer';
 import { MobileStickyDirectionsBar } from './components/MobileStickyDirectionsBar';
 import {
   parseRoute,
@@ -68,7 +67,25 @@ export default function App() {
   });
   const [selectedItem, setSelectedItem] = useState<FoodItem | CocktailItem | null>(null);
   const [selectedType, setSelectedType] = useState<'food' | 'cocktail' | null>(null);
-  const [isReservationOpen, setIsReservationOpen] = useState<boolean>(false);
+
+  // Direct Book Table action:
+  // - If Vietnamese -> directs immediately to Zalo chat: https://zalo.me/0964023683
+  // - If English -> directs immediately to WhatsApp chat: https://wa.me/84964023683
+  const handleOpenReservation = () => {
+    const isVi = currentLang === 'vi';
+    const targetUrl = isVi ? 'https://zalo.me/0964023683' : 'https://wa.me/84964023683';
+    try {
+      const link = document.createElement('a');
+      link.href = targetUrl;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch {
+      window.location.href = targetUrl;
+    }
+  };
 
   const handleLanguageChange = (lang: Language) => {
     setCurrentLang(lang);
@@ -160,7 +177,6 @@ export default function App() {
       if (e.key === 'Escape') {
         setSelectedItem(null);
         setSelectedType(null);
-        setIsReservationOpen(false);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -234,7 +250,7 @@ export default function App() {
       <Header
         activePage={activePage}
         onPageChange={handlePageChange}
-        onOpenReservation={() => setIsReservationOpen(true)}
+        onOpenReservation={handleOpenReservation}
         currentLang={currentLang}
         onLanguageChange={handleLanguageChange}
       />
@@ -247,7 +263,7 @@ export default function App() {
             onNavigatePairing={handleNavigatePairing}
             onSwitchToCocktailPage={() => handlePageChange('cocktail')}
             currentLang={currentLang}
-            onOpenReservation={() => setIsReservationOpen(true)}
+            onOpenReservation={handleOpenReservation}
           />
         ) : activePage === 'cocktail' ? (
           <CocktailPage
@@ -255,7 +271,7 @@ export default function App() {
             onNavigatePairing={handleNavigatePairing}
             onSwitchToFoodPage={() => handlePageChange('food')}
             currentLang={currentLang}
-            onOpenReservation={() => setIsReservationOpen(true)}
+            onOpenReservation={handleOpenReservation}
           />
         ) : (
           <ArticlesPage
@@ -264,7 +280,7 @@ export default function App() {
             onNavigateArticle={handleNavigateArticle}
             onSwitchToFoodPage={() => handlePageChange('food')}
             onSwitchToCocktailPage={() => handlePageChange('cocktail')}
-            onOpenReservation={() => setIsReservationOpen(true)}
+            onOpenReservation={handleOpenReservation}
           />
         )}
       </main>
@@ -272,7 +288,7 @@ export default function App() {
       {/* 3. Footer with Organized Opening Hours & Information */}
       <Footer
         onPageChange={handlePageChange}
-        onOpenReservation={() => setIsReservationOpen(true)}
+        onOpenReservation={handleOpenReservation}
         currentLang={currentLang}
       />
 
@@ -285,17 +301,10 @@ export default function App() {
         currentLang={currentLang}
       />
 
-      {/* 5. Reservation Drawer */}
-      <ReservationDrawer
-        isOpen={isReservationOpen}
-        onClose={() => setIsReservationOpen(false)}
-        currentLang={currentLang}
-      />
-
-      {/* 6. Mobile Sticky Bottom Bar for Direct Google Maps Navigation */}
+      {/* 5. Mobile Sticky Bottom Bar for Direct Google Maps Navigation */}
       <MobileStickyDirectionsBar
         currentLang={currentLang}
-        onOpenReservation={() => setIsReservationOpen(true)}
+        onOpenReservation={handleOpenReservation}
       />
     </div>
   );
