@@ -262,6 +262,7 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
         </div>
 
+
         {/* Bottom Credits & Tagline */}
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/40 text-center sm:text-left">
           <div className="flex items-center gap-3">

@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { ARTICLES_DATA, RestaurantReview } from '../src/data/articlesData';
 
 interface RouteMetadata {
   path: string;
@@ -10,6 +11,7 @@ interface RouteMetadata {
   alternateEn: string;
   alternateVi: string;
   h1: string;
+  articleSlug?: string;
 }
 
 const routes: RouteMetadata[] = [
@@ -52,7 +54,7 @@ const routes: RouteMetadata[] = [
     canonical: 'https://saimekb.com/articles',
     alternateEn: 'https://saimekb.com/articles',
     alternateVi: 'https://saimekb.com/vn/articles',
-    h1: 'Stories & Culinary Guides | Saime Introverts',
+    h1: 'Stories & Culinary Guides | Saime Introverts Hoi An',
   },
   {
     path: '/articles/top-8-fine-dining-fusion-hoi-an',
@@ -63,6 +65,7 @@ const routes: RouteMetadata[] = [
     alternateEn: 'https://saimekb.com/articles/top-8-fine-dining-fusion-hoi-an',
     alternateVi: 'https://saimekb.com/vn/articles/top-8-fine-dining-fusion-hoi-an',
     h1: 'Top 8 Fine Dining & Fusion Restaurants in Hoi An You Must Try',
+    articleSlug: 'top-8-fine-dining-fusion-hoi-an',
   },
   {
     path: '/articles/5-must-try-cocktail-bars-hoi-an',
@@ -73,6 +76,7 @@ const routes: RouteMetadata[] = [
     alternateEn: 'https://saimekb.com/articles/5-must-try-cocktail-bars-hoi-an',
     alternateVi: 'https://saimekb.com/vn/articles/5-must-try-cocktail-bars-hoi-an',
     h1: '5 Must-Try Cocktail Bars in Hoi An for an Unforgettable Nightlife Experience',
+    articleSlug: '5-must-try-cocktail-bars-hoi-an',
   },
 
   // --- VIETNAMESE ROUTES (/vn/...) ---
@@ -135,6 +139,7 @@ const routes: RouteMetadata[] = [
     alternateEn: 'https://saimekb.com/articles/top-8-fine-dining-fusion-hoi-an',
     alternateVi: 'https://saimekb.com/vn/articles/top-8-fine-dining-fusion-hoi-an',
     h1: 'Top 8 Nhà Hàng Fine Dining & Fusion Nhất Định Phải Thử Tại Hội An',
+    articleSlug: 'top-8-fine-dining-fusion-hoi-an',
   },
   {
     path: '/vn/articles/5-must-try-cocktail-bars-hoi-an',
@@ -145,8 +150,91 @@ const routes: RouteMetadata[] = [
     alternateEn: 'https://saimekb.com/articles/5-must-try-cocktail-bars-hoi-an',
     alternateVi: 'https://saimekb.com/vn/articles/5-must-try-cocktail-bars-hoi-an',
     h1: 'Top 5 Quán Cocktail Bar Nhất Định Phải Thử Tại Hội An',
+    articleSlug: '5-must-try-cocktail-bars-hoi-an',
   },
 ];
+
+function generateArticleSemanticHtml(slug: string, isVi: boolean): string {
+  const article = ARTICLES_DATA.find((a) => a.slug === slug || a.id === slug);
+  if (!article) return '';
+
+  const title = isVi ? article.titleVi : article.title;
+  const category = isVi ? article.categoryVi : article.category;
+  const date = isVi ? article.dateVi : article.date;
+  const readTime = isVi ? article.readTimeVi : article.readTime;
+  const intros = (isVi ? article.introParagraphsVi : article.introParagraphs) || [];
+  const items: RestaurantReview[] = article.restaurantsData || [];
+  const conclusion = article.conclusion;
+
+  let html = `
+      <main class="sr-only">
+        <article itemscope itemtype="https://schema.org/Article">
+          <header>
+            <p><small>${category} • ${date} • ${readTime}</small></p>
+            <h1 itemprop="headline">${title}</h1>
+            <p>By <span itemprop="author">${article.author}</span> • Saime Introverts Hoi An</p>
+          </header>
+
+          <section>
+            ${intros.map((p) => `<p>${p}</p>`).join('\n            ')}
+          </section>
+
+          <section>
+            ${items
+              .map((item) => {
+                const name = isVi ? item.nameVi : item.name;
+                const tagline = isVi ? item.taglineVi : item.tagline;
+                const location = isVi ? item.locationVi : item.location;
+                const hours = isVi ? item.openingHoursVi : item.openingHours;
+                const price = isVi ? item.priceRangeVi : item.priceRange;
+                const style = isVi ? (item.cocktailStyleVi || item.cuisineVi) : (item.cocktailStyle || item.cuisine);
+                const mustTry = isVi ? item.mustTryVi : item.mustTry;
+                const atmosphere = isVi ? item.atmosphereVi : item.atmosphere;
+                const paragraphs = (isVi ? item.paragraphsVi : item.paragraphs) || [];
+
+                return `
+            <article id="${item.id}">
+              <h2>${item.rank}. ${name} – ${tagline}</h2>
+              ${item.image ? `<figure><img src="${item.image}" alt="${name} - ${tagline}" width="800" height="500" loading="lazy" /><figcaption>${name} Hoi An</figcaption></figure>` : ''}
+              <ul>
+                <li><strong>${isVi ? 'Địa chỉ:' : 'Location:'}</strong> ${location}</li>
+                <li><strong>${isVi ? 'Giờ mở cửa:' : 'Opening Hours:'}</strong> ${hours}</li>
+                ${style ? `<li><strong>${isVi ? 'Phong cách / Ẩm thực:' : 'Style / Cuisine:'}</strong> ${style}</li>` : ''}
+                <li><strong>${isVi ? 'Mức giá:' : 'Price Range:'}</strong> ${price}</li>
+                ${mustTry ? `<li><strong>${isVi ? 'Nên thử:' : 'Must-Try:'}</strong> ${mustTry}</li>` : ''}
+                ${atmosphere ? `<li><strong>${isVi ? 'Không gian:' : 'Atmosphere:'}</strong> ${atmosphere}</li>` : ''}
+              </ul>
+              ${paragraphs.map((p) => `<p>${p}</p>`).join('\n              ')}
+            </article>`;
+              })
+              .join('\n')}
+          </section>
+
+          ${
+            conclusion
+              ? `
+          <section>
+            <h2>${isVi ? conclusion.titleVi : conclusion.title}</h2>
+            <p>${isVi ? conclusion.textVi : conclusion.text}</p>
+          </section>`
+              : ''
+          }
+
+          <section>
+            <h3>Related Guides &amp; Menus</h3>
+            <ul>
+              <li><a href="${isVi ? '/vn/articles/top-8-fine-dining-fusion-hoi-an' : '/articles/top-8-fine-dining-fusion-hoi-an'}">${isVi ? 'Top 8 Nhà Hàng Fine Dining &amp; Fusion Tại Hội An' : 'Top 8 Fine Dining &amp; Fusion Restaurants in Hoi An'}</a></li>
+              <li><a href="${isVi ? '/vn/articles/5-must-try-cocktail-bars-hoi-an' : '/articles/5-must-try-cocktail-bars-hoi-an'}">${isVi ? 'Top 5 Quán Cocktail Bar Nhất Định Phải Thử Tại Hội An' : '5 Must-Try Cocktail Bars in Hoi An'}</a></li>
+              <li><a href="${isVi ? '/vn/food' : '/food'}">${isVi ? 'Thực Đơn Món Ăn Fusion Tuổi Thơ' : 'Food Lab Menu'}</a></li>
+              <li><a href="${isVi ? '/vn/cocktails' : '/cocktails'}">${isVi ? '12 Ly Cocktail Đặc Sản Ba Miền' : '12 Regional Cocktails'}</a></li>
+              <li><a href="${isVi ? '/articles/' + slug : '/vn/articles/' + slug}">${isVi ? 'English Version' : 'Phiên bản Tiếng Việt'}</a></li>
+            </ul>
+          </section>
+        </article>
+      </main>`;
+
+  return html;
+}
 
 function prerender() {
   const distDir = path.resolve(process.cwd(), 'dist');
@@ -165,25 +253,25 @@ function prerender() {
 
     let html = baseHtml;
 
-    // Replace HTML lang attribute
+    // 1. Replace HTML lang attribute
     html = html.replace(/<html\s+lang=".*?"/, `<html lang="${route.lang}"`);
 
-    // Replace Title
+    // 2. Replace Title
     html = html.replace(/<title>.*?<\/title>/, `<title>${route.title}</title>`);
 
-    // Replace Meta Description
+    // 3. Replace Meta Description
     html = html.replace(
       /<meta\s+name="description"\s+content=".*?"\s*\/?>/,
       `<meta name="description" content="${route.description}" />`
     );
 
-    // Replace Canonical
+    // 4. Replace Canonical
     html = html.replace(
       /<link\s+rel="canonical"\s+href=".*?"\s*\/?>/,
       `<link rel="canonical" href="${route.canonical}" />`
     );
 
-    // Replace OpenGraph Title & Description & URL
+    // 5. Replace OpenGraph Title, Description, and URL
     html = html.replace(
       /<meta\s+property="og:title"\s+content=".*?"\s*\/?>/,
       `<meta property="og:title" content="${route.title}" />`
@@ -197,7 +285,7 @@ function prerender() {
       `<meta property="og:url" content="${route.canonical}" />`
     );
 
-    // Replace Twitter Title & Description
+    // 6. Replace Twitter Title & Description
     html = html.replace(
       /<meta\s+name="twitter:title"\s+content=".*?"\s*\/?>/,
       `<meta name="twitter:title" content="${route.title}" />`
@@ -207,10 +295,89 @@ function prerender() {
       `<meta name="twitter:description" content="${route.description}" />`
     );
 
-    // Replace H1 in pre-rendered markup
-    html = html.replace(/<h1[^>]*>.*?<\/h1>/, `<h1>${route.h1}</h1>`);
+    // 7. If this is an article page, inject Schema.org Article and BreadcrumbList JSON-LD + Rich Article Semantic HTML!
+    if (route.articleSlug) {
+      const isVi = route.lang === 'vi';
+      const article = ARTICLES_DATA.find((a) => a.slug === route.articleSlug || a.id === route.articleSlug);
+      const articleCover = article?.coverImage || 'https://i.imgur.com/IO2U2B9.jpeg';
 
-    // Add hreflang links before </head> if not already present
+      const articleJsonLd = `
+    <!-- Schema.org Article & Breadcrumbs for ${route.articleSlug} -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Article",
+          "@id": "${route.canonical}#article",
+          "isPartOf": {
+            "@type": "WebPage",
+            "@id": "${route.canonical}"
+          },
+          "headline": "${route.h1.replace(/"/g, '\\"')}",
+          "description": "${route.description.replace(/"/g, '\\"')}",
+          "image": "${articleCover}",
+          "datePublished": "${route.articleSlug.includes('5-must-try') ? '2026-11-01T08:00:00+07:00' : '2026-10-15T08:00:00+07:00'}",
+          "dateModified": "2026-11-08T00:00:00+07:00",
+          "inLanguage": "${route.lang}",
+          "author": {
+            "@type": "Organization",
+            "name": "Saime Editorial Team",
+            "url": "https://saimekb.com/"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Saime Introverts",
+            "url": "https://saimekb.com/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://saimekb.com/logo.png"
+            }
+          },
+          "mainEntityOfPage": "${route.canonical}"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "${route.canonical}#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "${isVi ? 'Trang Chủ' : 'Home'}",
+              "item": "https://saimekb.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "${isVi ? 'Cẩm Nang Ẩm Thực' : 'Articles'}",
+              "item": "${isVi ? 'https://saimekb.com/vn/articles' : 'https://saimekb.com/articles'}"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "${route.h1.replace(/"/g, '\\"')}",
+              "item": "${route.canonical}"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+`;
+      // Insert JSON-LD right before </head>
+      html = html.replace('</head>', `${articleJsonLd}\n  </head>`);
+
+      // Replace the main body with full article content
+      const articleBodyHtml = generateArticleSemanticHtml(route.articleSlug, isVi);
+      if (articleBodyHtml) {
+        html = html.replace(/<main class="sr-only">[\s\S]*?<\/main>/, articleBodyHtml.trim());
+      }
+    } else {
+      // General H1 replacement
+      html = html.replace(/<h1[^>]*>.*?<\/h1>/, `<h1>${route.h1}</h1>`);
+    }
+
+    // 8. Add hreflang links before </head>
     const hreflangTags = `
     <link rel="alternate" hreflang="en" href="${route.alternateEn}" />
     <link rel="alternate" hreflang="vi" href="${route.alternateVi}" />

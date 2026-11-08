@@ -1,7 +1,8 @@
-# Robots.txt for Saime Introverts (https://saimekb.com/)
+# Robots.txt for Saime Introverts (https://saimekb.com / https://www.saimekb.com)
 User-agent: *
 Allow: /
 Disallow: /api/
 
-# Sitemap location
+# Sitemaps (Apex & WWW)
+Sitemap: https://www.saimekb.com/sitemap.xml
 Sitemap: https://saimekb.com/sitemap.xml
