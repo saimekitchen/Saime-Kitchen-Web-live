@@ -10,7 +10,7 @@ export const HARDCODED_IMAGES: HardcodedImageRegistry = {
     "food-bang": "https://i.imgur.com/R6isbeO.jpeg",
     "food-tat": "https://i.imgur.com/IO2U2B9.jpeg",
     "food-nep": "https://i.imgur.com/qbq2BIb.png",
-    "food-dac": "https://i.imgur.com/RJu0WjD.jpeg",
+    "food-dac": "https://i.imgur.com/MjOwOub.jpeg",
     "food-beo": "https://i.imgur.com/hZ39VHU.jpeg",
     "food-mang": "https://i.imgur.com/oIbH8qV.jpeg",
     "food-tiu": "https://i.imgur.com/nqPAQNa.jpeg",
