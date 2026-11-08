@@ -240,12 +240,14 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
                       {/* Contextual link for Saime */}
                       {restaurant.isSaime && (
                         <div className="pt-2 flex flex-wrap items-center gap-3 text-xs">
-                          <button
-                            onClick={onOpenReservation}
-                            className="text-[#e63946] hover:underline font-bold inline-flex items-center gap-1 cursor-pointer"
+                          <a
+                            href={isVi ? 'https://zalo.me/0964023683' : 'https://wa.me/84964023683'}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[#e63946] hover:underline font-bold inline-flex items-center gap-1 cursor-pointer no-underline"
                           >
-                            <span>{isVi ? '→ Đặt bàn tại Saime Introverts' : '→ Reserve a table at Saime'}</span>
-                          </button>
+                            <span>{isVi ? '→ Đặt bàn qua Zalo (0964 023 683)' : '→ Book Table via WhatsApp (+84 964 023 683)'}</span>
+                          </a>
                           <span className="text-white/30">•</span>
                           <a
                             href="https://maps.app.goo.gl/ThxTTj1xBnQnfBCfA"
@@ -294,13 +296,15 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
                   </p>
 
                   <div className="pt-4 flex flex-wrap items-center gap-3">
-                    <button
-                      onClick={onOpenReservation}
-                      className="px-5 py-2.5 rounded-full bg-[#e63946] hover:bg-[#d62839] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-[#e63946]/30 flex items-center gap-1.5 cursor-pointer"
+                    <a
+                      href={isVi ? 'https://zalo.me/0964023683' : 'https://wa.me/84964023683'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-5 py-2.5 rounded-full bg-[#e63946] hover:bg-[#d62839] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-[#e63946]/30 inline-flex items-center gap-1.5 cursor-pointer no-underline"
                     >
-                      <span>{isVi ? 'Đặt Bàn Trực Tuyến' : 'Reserve Table Online'}</span>
+                      <span>{isVi ? 'Đặt Bàn Qua Zalo (0964 023 683)' : 'Book via WhatsApp (+84 964 023 683)'}</span>
                       <ChevronRight className="w-3.5 h-3.5" />
-                    </button>
+                    </a>
                   </div>
                 </section>
               )}
