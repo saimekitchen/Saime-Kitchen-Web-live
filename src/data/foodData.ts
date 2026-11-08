@@ -141,44 +141,46 @@ const BASE_FOOD_ITEMS: FoodItem[] = [
   },
   {
     id: 'food-dac',
-    name: 'Đác',
-    nameVi: 'Đác',
+    name: 'Xèo',
+    nameVi: 'Xèo',
     category: 'starter',
     price: '95,000 ₫',
-    tagline: 'Palm Seeds / Green Apple / Sweet and Sour Garlic-Chilli Fish Sauce / Butterfly Pea Fish Sauce Foam / Horn Chilli',
-    taglineVi: 'Hạt đác / Táo xanh / Mắm tỏi ớt chua ngọt / Bọt mắm hoa đậu biếc / Ớt sừng',
-    description: 'Tender chewy wild palm seeds paired with crisp tart green apple, tossed in a sweet-and-sour garlic-chilli fish sauce, crowned with violet butterfly pea fish sauce foam and fresh horn chilli slices.',
-    descriptionVi: 'Hạt đác dẻo dai hòa quyện táo xanh giòn chua mát, sốt mắm tỏi ớt đậm đà, điểm xuyết lớp bọt mắm hoa đậu biếc tím biếc quý phái và ớt sừng thơm dịu.',
+    tagline: 'Rice Flour Tuile / Turmeric / Spinach / Shrimps in Coconut Sauce / Bean Sprouts / Fish Sauce Gel',
+    taglineVi: 'Bánh tuile bột gạo / Bột nghệ / Rau chân vịt / Nhân tôm cốt dừa / Giá đỗ / Gel nước mắm',
+    description: 'Crispy rice flour tuile infused with turmeric and spinach, cradling tender shrimps in rich coconut sauce, fresh bean sprouts, and bright fish sauce gel.',
+    descriptionVi: 'Bánh tuile bột gạo và bột nghệ giòn rụm kết hợp rau chân vịt thanh mát, nhân tôm sốt cốt dừa béo bùi đậm đà, giá đỗ thanh giòn và những giọt gel nước mắm tinh tế.',
     ingredients: [
-      'Wild Palm Seeds (Hạt Đác)',
-      'Green Apple',
-      'Sweet & Sour Garlic-Chilli Fish Sauce',
-      'Butterfly Pea Fish Sauce Foam',
-      'Horn Chilli'
+      'Rice flour tuile',
+      'Turmeric',
+      'Spinach',
+      'Shrimps in coconut sauce',
+      'Bean sprouts',
+      'Fish sauce gel'
     ],
     ingredientsVi: [
-      'Hạt đác rừng',
-      'Táo xanh',
-      'Mắm tỏi ớt chua ngọt',
-      'Bọt mắm hoa đậu biếc',
-      'Ớt sừng'
+      'Bánh tuile bột gạo',
+      'Bột nghệ',
+      'Rau chân vịt',
+      'Nhân tôm cốt dừa',
+      'Giá đỗ',
+      'Gel nước mắm'
     ],
-    dietary: ['Refreshing', 'Unique Texture'],
-    temperature: 'Chilled',
-    primaryImage: 'https://i.imgur.com/RJu0WjD.jpeg',
+    dietary: ['Crispy Modern Bánh Xèo', 'Seafood'],
+    temperature: 'Crispy',
+    primaryImage: 'https://i.imgur.com/MjOwOub.jpeg',
     detailImages: [
-      'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=1200&q=85'
+      'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=85'
     ],
     aspectRatio: 'square',
-    colorPalette: ['#5b7290', '#9ecb6a', '#b33939'],
-    funFact: 'Wild palm seeds sourced from Khanh Hoa forests, celebrated for their unique jelly-like bite.',
-    funFactVi: 'Hạt đác rừng tự nhiên từ Khánh Hòa với độ dẻo giòn đặc trưng mang lại trải nghiệm vị giác khó quên.',
+    colorPalette: ['#f4cf66', '#d65a31', '#1f1e1c'],
+    funFact: 'A modern, fine-dining interpretation of the iconic Vietnamese sizzling pancake (Bánh Xèo) as an airy, delicate tuile.',
+    funFactVi: 'Kiệt tác cách tân từ món bánh xèo truyền thống Việt Nam dưới hình hài bánh tuile thanh mảnh và tôm sốt cốt dừa.',
     pairing: {
       cocktailId: 'cocktail-o-mai',
       cocktailName: 'Ô mai',
       cocktailNameVi: 'Ô mai',
-      notes: 'The salty tart plum balances the sweet and sour palm seeds and crisp green apple.',
-      notesVi: 'Vị chua mặn thanh của ô mai cân bằng vị hạt đác dẻo và táo xanh thanh mát.'
+      notes: 'The tart, salted plum highball cuts cleanly through the rich coconut sauce and highlights the crispy turmeric tuile.',
+      notesVi: 'Vị chua mặn thanh của ô mai cắt ngọt độ béo của cốt dừa và tôn vinh lớp bánh tuile nghệ giòn tan.'
     }
   },
 
