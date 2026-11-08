@@ -110,13 +110,15 @@ export const Footer: React.FC<FooterProps> = ({
               {t.footerJoinUsDesc}
             </p>
           </div>
-          <button
-            onClick={onOpenReservation}
-            className="w-full sm:w-auto px-7 py-3 rounded-full bg-[#e63946] hover:bg-[#d62839] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md active:scale-95 shrink-0"
+          <a
+            href={currentLang === 'vi' ? 'https://zalo.me/0964023683' : 'https://wa.me/84964023683'}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto px-7 py-3 rounded-full bg-[#e63946] hover:bg-[#d62839] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md active:scale-95 shrink-0 inline-flex items-center justify-center no-underline cursor-pointer"
             id="footer-reserve-btn"
           >
             {t.footerReserveBtn}
-          </button>
+          </a>
         </div>
 
         {/* Clean Structured 3-Column Grid */}
@@ -197,8 +199,30 @@ export const Footer: React.FC<FooterProps> = ({
 
             <div className="text-xs text-white/80 space-y-2.5">
               <div className="flex items-center justify-between gap-2">
-                <span className="text-white/60 shrink-0">Phone / Zalo</span>
+                <span className="text-white/60 shrink-0">Phone / Call</span>
                 <a href="tel:+84964023683" className="font-medium text-white hover:text-[#e63946] transition-colors truncate">
+                  (+84) 964 023 683
+                </a>
+              </div>
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-white/60 shrink-0">Zalo Chat</span>
+                <a 
+                  href="https://zalo.me/0964023683" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="font-medium text-[#0068FF] hover:underline transition-colors truncate"
+                >
+                  0964 023 683
+                </a>
+              </div>
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-white/60 shrink-0">WhatsApp</span>
+                <a 
+                  href="https://wa.me/84964023683" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="font-medium text-[#25D366] hover:underline transition-colors truncate"
+                >
                   (+84) 964 023 683
                 </a>
               </div>
@@ -228,17 +252,6 @@ export const Footer: React.FC<FooterProps> = ({
                   className="font-medium text-white hover:text-[#e63946] transition-colors truncate"
                 >
                   Saime Introverts
-                </a>
-              </div>
-              <div className="flex items-center justify-between gap-2 pt-1 border-t border-white/5">
-                <span className="text-white/60 shrink-0">Messenger</span>
-                <a 
-                  href="https://www.facebook.com/messages/t/1121358051063119" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="font-medium text-[#e63946] hover:underline transition-all truncate"
-                >
-                  messages/t/1121358051063119
                 </a>
               </div>
             </div>
