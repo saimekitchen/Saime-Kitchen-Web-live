@@ -72,16 +72,17 @@ export const ReservationDrawer: React.FC<ReservationDrawerProps> = ({
 📍 144 Ly Thai To, Hoi An | Saime Introverts`;
   };
 
-  const messengerRecipientId = '1121358051063119';
-  const facebookPageId = '61589897489896';
-  const facebookUrl = 'https://www.facebook.com/profile.php?id=61589897489896';
+  const PHONE_NUMBER_VN = '0964023683';
+  const PHONE_NUMBER_INTL = '84964023683';
 
-  // Generates the official Facebook Messenger URL pre-filled with the reservation template ready to send
-  // We use m.me with the page recipient ID and encoded text param which Messenger uses to pre-populate the input box.
-  const getMessengerUrlWithTemplate = (messageText: string) => {
-    // Both 1121358051063119 (direct message thread recipient) and 61589897489896 (page ID) can be targeted
-    const primaryId = messengerRecipientId || facebookPageId;
-    return `https://m.me/${primaryId}?text=${encodeURIComponent(messageText)}`;
+  // Generates the official chat URL:
+  // - If in Vietnam (Vietnamese language), direct to Zalo chat: https://zalo.me/0964023683
+  // - If in English, direct to WhatsApp chat: https://wa.me/84964023683?text=... (pre-filled ready to send)
+  const getDirectChatUrl = (messageText: string) => {
+    if (isVi) {
+      return `https://zalo.me/${PHONE_NUMBER_VN}`;
+    }
+    return `https://wa.me/${PHONE_NUMBER_INTL}?text=${encodeURIComponent(messageText)}`;
   };
 
   const copyToClipboard = async (text: string): Promise<boolean> => {
@@ -130,20 +131,20 @@ export const ReservationDrawer: React.FC<ReservationDrawerProps> = ({
     // 1. Copy formatted reservation template to clipboard
     copyToClipboard(formattedDetail);
 
-    // 2. Generate target Messenger URL containing the prefilled template
-    const messengerTargetUrl = getMessengerUrlWithTemplate(formattedDetail);
+    // 2. Generate target URL (Zalo for Vietnam, WhatsApp for English)
+    const targetChatUrl = getDirectChatUrl(formattedDetail);
 
-    // 3. Immediately redirect / launch Messenger with template ready to be sent
+    // 3. Immediately redirect / launch Zalo or WhatsApp
     try {
       const link = document.createElement('a');
-      link.href = messengerTargetUrl;
+      link.href = targetChatUrl;
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     } catch {
-      window.location.href = messengerTargetUrl;
+      window.location.href = targetChatUrl;
     }
 
     setTimeout(() => {
@@ -223,14 +224,31 @@ export const ReservationDrawer: React.FC<ReservationDrawerProps> = ({
                 {/* Direct Action Buttons */}
                 <div className="space-y-2.5 pt-2">
                   <a
-                    href={getMessengerUrlWithTemplate(getFormattedMessage())}
+                    href={getDirectChatUrl(getFormattedMessage())}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-3.5 px-4 rounded-xl bg-[#0084FF] hover:bg-[#0073e6] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-[#0084FF]/25 active:scale-95"
-                    id="direct-messenger-btn"
+                    className={`w-full py-3.5 px-4 rounded-xl text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95 ${
+                      isVi
+                        ? 'bg-[#0068FF] hover:bg-[#0058db] shadow-[#0068FF]/30'
+                        : 'bg-[#25D366] hover:bg-[#20ba59] shadow-[#25D366]/30'
+                    }`}
+                    id="direct-chat-btn"
                   >
-                    <span>💬</span>
-                    <span>{t.resSendMessengerBtn}</span>
+                    {isVi ? (
+                      <>
+                        <span className="font-extrabold text-[11px] px-1.5 py-0.5 bg-white text-[#0068FF] rounded font-sans leading-none">
+                          Zalo
+                        </span>
+                        <span>{t.resSendActionBtn}</span>
+                      </>
+                    ) : (
+                      <>
+                        <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                          <path d="M12.031 2C6.504 2 2 6.504 2 12.031c0 1.996.586 3.86 1.6 5.438L2.24 22l4.695-1.328a9.986 9.986 0 0 0 5.096 1.36h.005c5.526 0 10.03-4.504 10.03-10.031 0-2.68-1.043-5.2-2.936-7.094A9.96 9.96 0 0 0 12.031 2zm0 18.336h-.004a8.318 8.318 0 0 1-4.24-1.156l-.304-.18-2.783.787.799-2.711-.198-.316a8.274 8.274 0 0 1-1.272-4.729c0-4.59 3.734-8.324 8.328-8.324 2.223 0 4.313.867 5.883 2.438a8.27 8.27 0 0 1 2.434 5.887c0 4.59-3.734 8.324-8.328 8.324zm4.562-6.223c-.25-.125-1.477-.729-1.707-.812-.229-.084-.396-.125-.562.125-.167.25-.646.812-.792.979-.146.167-.292.188-.542.062-.25-.125-1.054-.388-2.008-1.238-.742-.662-1.244-1.48-1.39-1.73-.146-.25-.015-.385.11-.51.112-.112.25-.292.375-.438.125-.146.167-.25.25-.417.083-.167.042-.312-.021-.437-.062-.125-.562-1.354-.77-1.854-.204-.488-.41-.422-.563-.43-.145-.008-.312-.01-.479-.01-.167 0-.438.062-.667.312-.229.25-.875.854-.875 2.083 0 1.229.896 2.417 1.021 2.583.125.167 1.763 2.693 4.27 3.777.597.258 1.063.412 1.427.528.6.191 1.146.164 1.577.1.48-.072 1.477-.604 1.685-1.188.208-.583.208-1.083.146-1.188-.063-.104-.229-.167-.479-.292z"/>
+                        </svg>
+                        <span>{t.resSendActionBtn}</span>
+                      </>
+                    )}
                   </a>
 
                   <div className="grid grid-cols-2 gap-2">
@@ -245,21 +263,19 @@ export const ReservationDrawer: React.FC<ReservationDrawerProps> = ({
                     </button>
 
                     <a
-                      href={facebookUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="tel:+84964023683"
                       className="py-2.5 px-3 rounded-xl bg-white/[0.06] hover:bg-white/10 border border-white/10 text-white text-xs font-medium transition-all flex items-center justify-center gap-1.5"
                     >
-                      <span>🌐</span>
-                      <span className="truncate">{t.footerFacebook}</span>
+                      <span>📞</span>
+                      <span className="truncate">{isVi ? 'Gọi 0964 023 683' : 'Call (+84) 964...'}</span>
                     </a>
                   </div>
                 </div>
 
                 <div className="pt-2 text-[11px] text-white/50 leading-relaxed bg-white/[0.02] p-2.5 rounded-lg border border-white/5 text-left">
                   {isVi
-                    ? '💡 Lưu ý: Nội dung đặt bàn đã được nạp sẵn vào ô soạn tin nhắn Messenger và lưu vào bộ nhớ tạm. Bạn chỉ cần nhấn nút "Gửi" để hoàn tất.'
-                    : '💡 Note: Your reservation details have been automatically pre-filled into the Messenger input box and saved to clipboard. Simply press "Send" to complete.'}
+                    ? '💡 Lưu ý: Mẫu đặt bàn đã được tự động lưu vào bộ nhớ tạm. Trong Zalo, bạn chỉ cần nhấn Dán (Ctrl+V hoặc chạm giữ chọn Dán) vào ô tin nhắn gửi đến 0964 023 683 để xác nhận.'
+                    : '💡 Note: Your reservation details have been automatically pre-filled in WhatsApp and copied to your clipboard. Simply tap Send to confirm with our team.'}
                 </div>
 
                 <button
@@ -425,13 +441,27 @@ export const ReservationDrawer: React.FC<ReservationDrawerProps> = ({
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 rounded-xl bg-[#e63946] hover:bg-[#d62839] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2"
+                    className={`w-full py-3.5 rounded-xl text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2 ${
+                      isVi
+                        ? 'bg-[#0068FF] hover:bg-[#0058db] shadow-[#0068FF]/30'
+                        : 'bg-[#25D366] hover:bg-[#20ba59] shadow-[#25D366]/30'
+                    }`}
                   >
-                    <span>💬</span>
+                    {isVi ? (
+                      <span className="font-extrabold text-[11px] px-1.5 py-0.5 bg-white text-[#0068FF] rounded font-sans leading-none">
+                        Zalo
+                      </span>
+                    ) : (
+                      <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                        <path d="M12.031 2C6.504 2 2 6.504 2 12.031c0 1.996.586 3.86 1.6 5.438L2.24 22l4.695-1.328a9.986 9.986 0 0 0 5.096 1.36h.005c5.526 0 10.03-4.504 10.03-10.031 0-2.68-1.043-5.2-2.936-7.094A9.96 9.96 0 0 0 12.031 2zm0 18.336h-.004a8.318 8.318 0 0 1-4.24-1.156l-.304-.18-2.783.787.799-2.711-.198-.316a8.274 8.274 0 0 1-1.272-4.729c0-4.59 3.734-8.324 8.328-8.324 2.223 0 4.313.867 5.883 2.438a8.27 8.27 0 0 1 2.434 5.887c0 4.59-3.734 8.324-8.328 8.324zm4.562-6.223c-.25-.125-1.477-.729-1.707-.812-.229-.084-.396-.125-.562.125-.167.25-.646.812-.792.979-.146.167-.292.188-.542.062-.25-.125-1.054-.388-2.008-1.238-.742-.662-1.244-1.48-1.39-1.73-.146-.25-.015-.385.11-.51.112-.112.25-.292.375-.438.125-.146.167-.25.25-.417.083-.167.042-.312-.021-.437-.062-.125-.562-1.354-.77-1.854-.204-.488-.41-.422-.563-.43-.145-.008-.312-.01-.479-.01-.167 0-.438.062-.667.312-.229.25-.875.854-.875 2.083 0 1.229.896 2.417 1.021 2.583.125.167 1.763 2.693 4.27 3.777.597.258 1.063.412 1.427.528.6.191 1.146.164 1.577.1.48-.072 1.477-.604 1.685-1.188.208-.583.208-1.083.146-1.188-.063-.104-.229-.167-.479-.292z"/>
+                      </svg>
+                    )}
                     <span>{isSubmitting ? t.resSubmitting : t.resConfirmBtn}</span>
                   </button>
                   <p className="text-[10px] text-white/40 text-center mt-2">
-                    {isVi ? 'Tự động sao chép mẫu đặt bàn & chuyển hướng sang Messenger sẵn sàng để gửi' : 'Copies reservation template & redirects to Messenger ready to send'}
+                    {isVi
+                      ? 'Tự động sao chép mẫu đặt bàn & chuyển hướng sang Zalo Chat (0964 023 683)'
+                      : 'Pre-fills reservation template & opens WhatsApp Chat (+84 964 023 683)'}
                   </p>
                 </div>
               </form>
