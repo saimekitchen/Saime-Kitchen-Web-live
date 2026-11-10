@@ -75,6 +75,15 @@ function saveBase64ToFile(type: 'food' | 'cocktail', id: string, dataUrl: string
 async function startServer() {
   const app = express();
 
+  // Canonical Domain Enforcement: 301 Redirect apex saimekb.com -> www.saimekb.com
+  app.use((req, res, next) => {
+    const host = (req.headers.host || '').toLowerCase().split(':')[0];
+    if (host === 'saimekb.com') {
+      return res.redirect(301, `https://www.saimekb.com${req.originalUrl}`);
+    }
+    next();
+  });
+
   // Allow larger payload for base64 images
   app.use(express.json({ limit: '60mb' }));
   app.use(express.urlencoded({ limit: '60mb', extended: true }));
