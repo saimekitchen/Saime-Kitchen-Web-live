@@ -237,16 +237,17 @@ export function updateRouteMetadata(route: RouteState, lang: Language): void {
   setMeta('meta[name="twitter:image"]', ogImage);
   setMeta('meta[property="og:locale"]', isVi ? 'vi_VN' : 'en_US');
 
-  // Compute canonical and hreflang URLs
-  const origin = (typeof window !== 'undefined' && window.location.origin && !window.location.origin.includes('localhost') && !window.location.origin.includes('run.app'))
-    ? window.location.origin
-    : 'https://saimekb.com';
+  // Compute canonical and hreflang URLs (Strictly unified to authoritative domain https://www.saimekb.com)
+  const canonicalOrigin = 'https://www.saimekb.com';
 
-  const enCanonical = `${origin}${getLocalizedPath(route.pathname, 'en')}`;
-  const viCanonical = `${origin}${getLocalizedPath(route.pathname, 'vi')}`;
+  const enCanonical = `${canonicalOrigin}${getLocalizedPath(route.pathname, 'en')}`;
+  const viCanonical = `${canonicalOrigin}${getLocalizedPath(route.pathname, 'vi')}`;
   const currentCanonical = isVi ? viCanonical : enCanonical;
 
-  // Update canonical
+  // Update og:url to match canonical exactly
+  setMeta('meta[property="og:url"]', currentCanonical);
+
+  // Update canonical link
   let canonicalEl = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
   if (canonicalEl) {
     canonicalEl.setAttribute('href', currentCanonical);
