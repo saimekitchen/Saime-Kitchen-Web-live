@@ -179,25 +179,28 @@ export function updateRouteMetadata(route: RouteState, lang: Language): void {
     if (route.articleSlug) {
       const article = findArticleBySlug(route.articleSlug);
       if (article) {
-        if (article.slug === '5-must-try-cocktail-bars-hoi-an' || article.id === '5-must-try-cocktail-bars-hoi-an') {
+        if (isVi ? article.seoTitleVi : article.seoTitle) {
+          title = (isVi ? article.seoTitleVi : article.seoTitle)!;
+        } else if (article.slug === '5-must-try-cocktail-bars-hoi-an' || article.id === '5-must-try-cocktail-bars-hoi-an') {
           title = isVi
             ? 'Top 5 Quán Cocktail Bar Phải Thử Tại Hội An | Saime'
             : '5 Must-Try Cocktail Bars in Hoi An | Saime Introverts';
-          description = isVi
-            ? article.shortDescriptionVi
-            : article.shortDescription;
         } else {
           title = isVi
             ? 'Top 8 Nhà Hàng Fine Dining & Fusion Tại Hội An | Saime'
             : 'Top 8 Fine Dining & Fusion Restaurants in Hoi An | Saime';
-          description = isVi
-            ? article.shortDescriptionVi
-            : article.shortDescription;
         }
 
-        if (description.length > 155) {
-          description = description.slice(0, 152) + '...';
+        const explicitMetaDesc = isVi ? article.metaDescriptionVi : article.metaDescription;
+        if (explicitMetaDesc) {
+          description = explicitMetaDesc;
+        } else {
+          description = isVi ? article.shortDescriptionVi : article.shortDescription;
+          if (description.length > 155) {
+            description = description.slice(0, 152) + '...';
+          }
         }
+
         if (article.coverImage) {
           ogImage = article.coverImage;
         }

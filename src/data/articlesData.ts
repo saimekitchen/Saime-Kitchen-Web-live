@@ -5,20 +5,23 @@ export interface RestaurantReview {
   rank: number;
   name: string;
   nameVi: string;
-  tagline: string;
-  taglineVi: string;
+  tagline?: string;
+  taglineVi?: string;
   location: string;
   locationVi: string;
-  openingHours: string;
-  openingHoursVi: string;
+  openingHours?: string;
+  openingHoursVi?: string;
   cuisine?: string;
   cuisineVi?: string;
   cocktailStyle?: string;
   cocktailStyleVi?: string;
   mustTry?: string;
   mustTryVi?: string;
-  priceRange: string;
-  priceRangeVi: string;
+  priceRange?: string;
+  priceRangeVi?: string;
+  ticketPrice?: string;
+  ticketPriceVi?: string;
+  ticketLabel?: string;
   atmosphere?: string;
   atmosphereVi?: string;
   image: string;
@@ -27,6 +30,32 @@ export interface RestaurantReview {
   paragraphs: string[];
   paragraphsVi: string[];
   isSaime?: boolean;
+}
+
+export interface EditorialParagraphItem {
+  lead?: string;
+  leadVi?: string;
+  text: string;
+  textVi: string;
+}
+
+export interface EditorialSection {
+  id: string;
+  title: string;
+  titleVi: string;
+  items: EditorialParagraphItem[];
+  isVerdict?: boolean;
+}
+
+export interface VenueInfo {
+  location: string;
+  locationVi: string;
+  openingHours: string;
+  openingHoursVi: string;
+  ticketPrice: string;
+  ticketPriceVi: string;
+  imageCaption?: string;
+  imageCaptionVi?: string;
 }
 
 export interface ArticleItem {
@@ -40,6 +69,10 @@ export interface ArticleItem {
   readTimeVi: string;
   title: string;
   titleVi: string;
+  seoTitle?: string;
+  seoTitleVi?: string;
+  metaDescription?: string;
+  metaDescriptionVi?: string;
   shortDescription: string;
   shortDescriptionVi: string;
   coverImage: string;
@@ -49,6 +82,8 @@ export interface ArticleItem {
   introParagraphs?: string[];
   introParagraphsVi?: string[];
   restaurantsData?: RestaurantReview[];
+  editorialSections?: EditorialSection[];
+  venueInfo?: VenueInfo;
   conclusion?: {
     title: string;
     titleVi: string;
@@ -484,6 +519,719 @@ export const ARTICLES_DATA: ArticleItem[] = [
       textVi:
         'Dù Hội An có nhiều mô hình bar đa dạng—từ rooftop sôi động đến các quán chuyên về dòng rượu ngoại—Saime introverts vẫn khẳng định dấu ấn riêng nhờ tư duy sáng tạo sâu sắc, sự chân thành và trải nghiệm cảm xúc khác biệt. Việc kết hợp kỹ thuật mixology hiện đại với hương vị đặc sản 3 miền và những lá bài câu chuyện tuổi thơ giúp Saime trở thành điểm đến không thể bỏ qua cho bất kỳ ai tìm kiếm một đêm Hội An đáng nhớ.'
     }
+  },
+  {
+    id: 'unique-things-to-do-in-hoi-an',
+    slug: 'unique-things-to-do-in-hoi-an',
+    category: 'Local Experiences',
+    categoryVi: 'Trải Nghiệm Bản Địa',
+    date: 'November 2026',
+    dateVi: 'Tháng 11/2026',
+    readTime: '5 min read',
+    readTimeVi: '5 phút đọc',
+    badge: 'Insider Guide',
+    badgeVi: 'Góc Bản Địa',
+    coverImage:
+      'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Sc9_giztBbe4ytY0KUq8XWG0I8BiW-wi3pbnmeDk4FEKxDEgFtPJORhufTW_oIY5G-_M6AONz75DpShVY-IOUHfny3trcp3wtOB6xt7lq01egTTvIar_LqwRFGtmfDn1cmkzo7ZYj0a3sO=s1360-w1360-h1020-rw',
+    author: 'Saime Editorial Team',
+    title: 'Unique Things to Do in Hoi An Beyond the Usual Tourist Trail',
+    titleVi: 'Những trải nghiệm khác biệt tại Hội An ngoài các tour truyền thống',
+    seoTitle: 'Unique Things to Do in Hoi An Beyond the Usual Tourist Trail',
+    seoTitleVi: 'Những trải nghiệm khác biệt tại Hội An ngoài các tour truyền thống',
+    metaDescription:
+      'Looking for authentic things to do in Hoi An? Skip the standard tours and try dawn street food, custom cocktail crafting at Saime, stained glass art, and local "nhậu" spots.',
+    metaDescriptionVi:
+      'Bạn đã quen với làm đèn lồng hay lớp học nấu ăn? Khám phá ngay 5 hoạt động bản địa đầy sáng tạo tại Hội An: ăn sáng lúc 6h, tự pha cocktail tại Saime, làm kính màu và đi nhậu kiểu người địa phương.',
+    shortDescription:
+      'Looking for authentic things to do in Hoi An? Skip the standard tours and try dawn street food, custom cocktail crafting at Saime, stained glass art, and local "nhậu" spots.',
+    shortDescriptionVi:
+      'Bạn đã quen với làm đèn lồng hay lớp học nấu ăn? Khám phá ngay 5 hoạt động bản địa đầy sáng tạo tại Hội An: ăn sáng lúc 6h, tự pha cocktail tại Saime, làm kính màu và đi nhậu kiểu người địa phương.',
+    introParagraphs: [
+      'When searching for things to do in Hoi An, most travelers are immediately pointed toward lantern-making workshops, standard cooking classes, coffee-making sessions, or riding water buffaloes. While those classics have their charm, Hoi An holds a much quieter, more creative, and deeply local rhythm if you know where to look.',
+      'If you are checking things to do near me and want to experience the Ancient Town like an insider, here are five unforgettable activities to add to your itinerary:'
+    ],
+    introParagraphsVi: [
+      'Khi tìm kiếm những hoạt động thú vị tại Hội An, du khách thường được gợi ý làm đèn lồng, tham gia lớp học nấu ăn, pha cà phê hay cho vịt ăn ở đồng quê. Những trải nghiệm ấy rất vui, nhưng nếu bạn đã quen thuộc và muốn chạm vào một Hội An sâu lắng, sáng tạo và đậm chất đời sống hơn, hãy thử ngay 5 gợi ý dưới đây:'
+    ],
+    restaurantsData: [
+      {
+        id: 'dawn-street-food-coffee',
+        rank: 1,
+        name: 'Wake Up at 6:00 AM for Dawn Street Food & Morning Coffee',
+        nameVi: 'Dạo phố cổ lúc 6h sáng, ăn xôi vỉa hè & uống cà phê cóc',
+        location: 'Xôi Gà Lan - 41 Le Loi, Minh An, Hoi An',
+        locationVi: 'Xôi Gà Lan - 41 Lê Lợi, Minh An, Hội An',
+        image:
+          'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Sc9_giztBbe4ytY0KUq8XWG0I8BiW-wi3pbnmeDk4FEKxDEgFtPJORhufTW_oIY5G-_M6AONz75DpShVY-IOUHfny3trcp3wtOB6xt7lq01egTTvIar_LqwRFGtmfDn1cmkzo7ZYj0a3sO=s1360-w1360-h1020-rw',
+        imageCaption: 'Xôi Gà Lan - Dawn street food and morning rhythm on Le Loi Street',
+        imageCaptionVi: 'Xôi Gà Lan - Hương vị xôi gà sáng sớm giữa lòng phố cổ Hội An',
+        paragraphs: [
+          'Hoi An transforms completely before the tour buses arrive. Step out around 6:00 AM to wander the quiet, golden-lit alleys while locals sweep their doorsteps and buy fresh produce. Follow the locals to Xôi Gà Lan for a steaming bowl of shredded chicken sticky rice served right on the sidewalk, then pull up a tiny plastic stool at a neighborhood coffee stall to watch the town slowly wake up.'
+        ],
+        paragraphsVi: [
+          'Hội An đẹp và bình yên nhất vào khoảnh khắc bình minh, trước khi dòng khách du lịch đổ về. Hãy thử thức dậy lúc 6h sáng, tản bộ qua những con hẻm nhỏ vắng người, ghé gánh Xôi Gà Lan thưởng thức chén xôi nóng hổi đậm đà, rồi ngồi lại một quán cà phê cóc ven đường ngắm nhịp sống chậm rãi của người dân phố Hội.'
+        ]
+      },
+      {
+        id: 'custom-cocktail-saime-introverts',
+        rank: 2,
+        name: 'Create Your Own Signature Cocktail at Saime Introverts',
+        nameVi: 'Tự tay sáng tạo ly cocktail mang dấu ấn riêng tại Saime Introverts',
+        location: 'Saime Introverts - Fusion cocktail & dining, 144 Lý Thái Tổ, Hội An',
+        locationVi: 'Saime Introverts - Fusion cocktail & dining, 144 Lý Thái Tổ, Hội An',
+        image:
+          'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TrXkTIinEYK0LdffcLVUkNza_OFEdRCSrUBGXjbtsY6x2e5kYBktraM75rZgLH9bp6QWkOf8lYUGvktYVp029ycoTn4ifBQXfDuvyMPaC25vxh3jnXhvip60HZ84nQ7do7nah2RxIotRwv=w243-h174-n-k-no-nu',
+        imageCaption: 'Craft your own signature cocktail alongside Saime Introverts bartenders',
+        imageCaptionVi: 'Tự tay pha chế ly cocktail mang dấu ấn riêng tại Saime Introverts',
+        isSaime: true,
+        paragraphs: [
+          'For a cozy, intimate evening away from the bustling riverside crowds, head over to Saime Introverts - Fusion Cocktail & Dining. Known for its soulful Vietnamese fusion dishes and regional story-driven drinks, Saime also invites curious guests to step behind the flavors and craft their own signature cocktail alongside the young, passionate bartenders. Whether you love bold Central Vietnamese spices or subtle herbal notes, it is a personal, hands-on way to bottle your Hoi An memories.'
+        ],
+        paragraphsVi: [
+          'Nếu bạn tìm kiếm một buổi tối ấm cúng, tránh xa sự ồn ào của khu trung tâm, hãy ghé Saime Introverts - Fusion Cocktail & Dining. Không chỉ phục vụ ẩm thực Việt fusion và bộ sưu tập cocktail kể chuyện vùng miền, Saime còn mang đến trải nghiệm tự tay sáng tạo ly cocktail signature của riêng bạn dưới sự hướng dẫn gần gũi từ các bartender trẻ. Một cách thật tinh tế để lưu giữ hương vị Hội An theo cá tính của chính mình.'
+        ]
+      },
+      {
+        id: 'stained-glass-phoenicia-studio',
+        rank: 3,
+        name: 'Craft Your Own Stained Glass Art at Phoenicia Studio',
+        nameVi: 'Tự làm tranh kính màu nghệ thuật tại Phoenicia Studio',
+        location: 'Phoenicia Stained Glass - Workshop & Souvenirs',
+        locationVi: 'Phoenicia Studio - Hội An',
+        image:
+          'https://lh3.googleusercontent.com/grass-cs/AABkmLenAnhisd91Jf0OcjPSvnLFlvRtFjYajKa9KP8c7k5V7zpU2UFqkC0X7ImDaFUszyCxEyFNrshBvw8BQrgTnRB_uTCy57e0sFjiGE_u-dWYd-KuJ08U27FBY9Lc8_jXuAeztD8RENiajqq7=w289-h312-n-k-no',
+        imageCaption: 'Handcrafted stained glass art workshop at Phoenicia Studio',
+        imageCaptionVi: 'Workshop làm tranh kính màu thủ công tại Phoenicia Studio Hội An',
+        paragraphs: [
+          'If you love working with your hands, skip the mass-produced souvenirs and spend an afternoon at Phoenicia Studio. Here, you can learn the delicate art of cutting, foiling, and soldering colorful stained glass to create your own keepsake, from tiny suncatchers to custom pendants. It is a meditative, rewarding workshop tucked inside a peaceful artistic corner of town.'
+        ],
+        paragraphsVi: [
+          'Thay vì mua những món quà lưu niệm làm sẵn, bạn có thể dành một buổi chiều tỉ mẩn cắt, ghép và hàn những mảnh kính màu rực rỡ tại Phoenicia Studio. Dưới sự hướng dẫn tận tình của nghệ nhân, bạn sẽ tự tay hoàn thiện một tác phẩm kính màu độc bản để mang về làm kỷ niệm.'
+        ]
+      },
+      {
+        id: 'outdoor-drawing-imperfect-art-studio',
+        rank: 4,
+        name: 'Join an Outdoor Drawing & Painting Session with Imperfect Art Studio',
+        nameVi: 'Vẽ ký họa ngoài trời cùng Imperfect Art Studio',
+        location: 'Imperfect Art Studio - Hoi An',
+        locationVi: 'Imperfect Art Studio - Hội An',
+        image:
+          'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9T1EIygtGo_E0nEwpYaujtA_-30WzI83N7mG3Zp_AFqJ-R2T_ciPBORIpr8l5_N-xV6qodmxuEC3mh1W-01FZA06UY1lqvLy7YTd9ZxVgSxR9VXy2R7iNswCCzHrqDtbcUrYbf7CKp5Aww=s1360-w1360-h1020-rw',
+        imageCaption: 'Outdoor sketching and watercolor painting in Hoi An with Imperfect Art Studio',
+        imageCaptionVi: 'Trải nghiệm vẽ ký họa phố cổ ngoài trời cùng Imperfect Art Studio',
+        paragraphs: [
+          'Hoi An’s moss-covered walls, ancient tiled roofs, and peaceful riverside paths look like a living watercolor painting. Instead of just snapping photos, join an outdoor sketching or painting session with Imperfect Art Studio. Designed for all skill levels, even complete beginners, this experience encourages you to slow down, observe the town’s textures, and capture Hoi An’s soul on paper.'
+        ],
+        paragraphsVi: [
+          'Những bức tường vàng rêu phong và mái ngói âm dương của Hội An luôn là nguồn cảm hứng bất tận. Tham gia buổi vẽ ký họa ngoài trời cùng Imperfect Art Studio, dù chưa từng cầm cọ, bạn vẫn có thể thong thả ngồi lại một góc phố yên bình, quan sát ánh sáng và tự tay phác họa lại vẻ đẹp phố cổ theo cách riêng.'
+        ]
+      },
+      {
+        id: 'authentic-local-nhau-culture',
+        rank: 5,
+        name: 'Experience Authentic Local "Nhậu" Culture',
+        nameVi: 'Trải nghiệm văn hóa "nhậu" bình dân đúng chất bản địa',
+        location: 'Hương Đồng Restaurant - Hoi An | Nếm Kitchen - Hoi An',
+        locationVi: 'Quán Hương Đồng - Hội An | Nếm Kitchen - Hội An',
+        image:
+          'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TrJT4ajRPefiEsStOqPMVbzOE8XsmDLtH0esSxUptZfeNXFY_aGTcN--kgylFRM0r2Wx3hvxSBANSbskrxAwE20Iyk9DKE_VuMta2UJI6SDYXix6yp2mp0jScAzbYkMJ5fRrxvdG-sl_8K=s1360-w1360-h1020-rw',
+        imageCaption: 'Gathering with friends over cold beer and grilled dishes at a local nhậu spot in Hoi An',
+        imageCaptionVi: 'Không khí quán nhậu bình dân ấm áp, gần gũi đúng chất Hội An',
+        paragraphs: [
+          'To truly understand Vietnamese social life, you have to experience nhậu, the beloved tradition of gathering over cold beers, sharing flavorful small plates, and talking for hours. Skip the tourist-oriented riverside restaurants and head to beloved local favorites like Hương Đồng or Nếm Kitchen. Order a round of grilled dishes, local herbs, and fresh seafood, clink glasses with a hearty "Một, hai, ba, dô!", and soak in the warm hospitality of Hoi An’s everyday dining culture.'
+        ],
+        paragraphsVi: [
+          'Muốn hiểu nhịp sống người Việt, không gì chân thật bằng một buổi ngồi quán nhậu bình dân. Hãy tạm rời xa các nhà hàng du lịch, ghé Hương Đồng hoặc Nếm Kitchen, gọi vài món nướng, hải sản tươi, nhâm nhi ly bia mát lạnh và hòa mình vào không khí rôm rả, hiếu khách của người dân địa phương.'
+        ]
+      }
+    ]
+  },
+  {
+    id: '6-underrated-hoi-an-places-to-visit',
+    slug: '6-underrated-hoi-an-places-to-visit',
+    category: 'Travel & Heritage',
+    categoryVi: 'Khám Phá & Di Sản',
+    date: 'November 2026',
+    dateVi: 'Tháng 11/2026',
+    readTime: '6 min read',
+    readTimeVi: '6 phút đọc',
+    badge: 'Hidden Gems',
+    badgeVi: 'Điểm Đến Mới',
+    coverImage: 'https://hoiantravel.com.vn/wp-content/uploads/2018/02/11.jpg',
+    author: 'Saime Editorial Team',
+    title: '6 Underrated Hoi An Places to Visit Beyond the Ancient Town',
+    titleVi: '6 địa điểm tham quan Hội An độc đáo ngoài khu vực Phố Cổ',
+    seoTitle: '6 Underrated Hoi An Places to Visit Beyond the Ancient Town',
+    seoTitleVi: '6 địa điểm tham quan Hội An độc đáo ngoài khu vực Phố Cổ',
+    metaDescription:
+      'Explore the best Hoi An places to visit outside the Old Town: Kim Bong Carpentry Village, Thanh Ha Pottery, Tam Thanh Mural Village, Cu Lao driftwood art, CSO Gallery, and scenic rice paddies.',
+    metaDescriptionVi:
+      'Khám phá những điểm đến giàu bản sắc quanh Hội An: Làng mộc Kim Bồng, Làng gốm Thanh Hà, Làng bích họa Tam Thanh, cung đường lúa QCasa Qafe, Làng Củi Lũ và CSO Gallery.',
+    shortDescription:
+      'Explore the best Hoi An places to visit outside the Old Town: Kim Bong Carpentry Village, Thanh Ha Pottery, Tam Thanh Mural Village, Cu Lao driftwood art, CSO Gallery, and scenic rice paddies.',
+    shortDescriptionVi:
+      'Khám phá những điểm đến giàu bản sắc quanh Hội An: Làng mộc Kim Bồng, Làng gốm Thanh Hà, Làng bích họa Tam Thanh, cung đường lúa QCasa Qafe, Làng Củi Lũ và CSO Gallery.',
+    introParagraphs: [
+      'While the lantern-lit streets of the Ancient Town capture everyone’s first impression, the true cultural depth of this region lies in its surrounding craft villages, coastal communities, and quiet countryside. If you are looking for inspiring Hoi An places to visit beyond the usual tourist center, here are six remarkable spots full of heritage and creativity:'
+    ],
+    introParagraphsVi: [
+      'Ngoài những dãy nhà cổ tường vàng rêu phong, vùng đất quanh Hội An còn lưu giữ nhiều làng nghề trăm tuổi, không gian nghệ thuật tái chế đầy cảm hứng và những cung đường đồng quê yên ả. Nếu bạn đang tìm kiếm những địa điểm tham quan mới mẻ bên ngoài khu phố cổ, đừng bỏ qua 6 cái tên dưới đây:'
+    ],
+    restaurantsData: [
+      {
+        id: 'kim-bong-carpentry-village',
+        rank: 1,
+        name: 'Kim Bong Carpentry Village (Làng Mộc Kim Bồng)',
+        nameVi: 'Làng mộc Kim Bồng',
+        location: 'Kim Bong Carpentry Village - Cam Kim, Hoi An',
+        locationVi: 'Làng mộc Kim Bồng - Xã Cẩm Kim, Hội An',
+        openingHours: '8:00 AM - 5:00 PM daily',
+        openingHoursVi: '08:00 - 17:00 hằng ngày',
+        ticketPrice: 'Free entry to the village (small fee for boat transfer or workshop experiences)',
+        ticketPriceVi: 'Miễn phí tham quan làng (tự túc phí đò/xe hoặc trải nghiệm khắc gỗ)',
+        image: 'https://hoiantravel.com.vn/wp-content/uploads/2018/02/11.jpg',
+        imageCaption: 'Master woodcarving artisans at Kim Bong Carpentry Village across the Thu Bon River',
+        imageCaptionVi: 'Nghệ nhân chạm khắc gỗ thủ công truyền thống tại Làng mộc Kim Bồng',
+        paragraphs: [
+          'Located just across the Thu Bon River, Kim Bong has been the backbone of Hoi An’s architecture since the 16th century. Its master woodcarvers built the iconic wooden houses, temples, and trading boats that made Hoi An famous. Today, visitors can watch artisans chisel intricate dragon motifs by hand and explore traditional shipbuilding yards.'
+        ],
+        paragraphsVi: [
+          'Nằm bên kia sông Thu Bồn, Kim Bồng hình thành từ thế kỷ 16 và chính là nơi cung cấp đội ngũ nghệ nhân tài hoa xây dựng nên các ngôi nhà cổ, đình chùa và thuyền buôn tại thương cảng Hội An xưa. Đến đây, bạn được tận mắt xem nghệ nhân chạm trổ gỗ thủ công tinh xảo và tham quan xưởng đóng tàu truyền thống.'
+        ]
+      },
+      {
+        id: 'thanh-ha-pottery-village',
+        rank: 2,
+        name: 'Thanh Ha Pottery Village (Làng Gốm Thanh Hà)',
+        nameVi: 'Làng gốm Thanh Hà',
+        location: 'Thanh Ha Pottery Village - Pham Phan, Thanh Ha, Hoi An',
+        locationVi: 'Làng gốm Thanh Hà - Phạm Phán, Thanh Hà, Hội An',
+        openingHours: '8:00 AM - 5:30 PM daily',
+        openingHoursVi: '08:00 - 17:30 hằng ngày',
+        ticketPrice: '~35,000 VND per person (includes a small clay souvenir)',
+        ticketPriceVi: 'Khoảng 35.000 VNĐ/người (đã bao gồm quà tặng tò he đất nung)',
+        image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/31/21/74/23/caption.jpg?w=900&h=500&s=1',
+        imageCaption: '500-year-old reddish-brown Thu Bon clay pottery heritage at Thanh Ha Village',
+        imageCaptionVi: 'Kỹ thuật chuốt gốm bàn xoay đạp chân hơn 500 năm tuổi tại Làng gốm Thanh Hà',
+        paragraphs: [
+          'With over 500 years of history, Thanh Ha once supplied ceramic tiles and household wares to the Nguyen Dynasty imperial court in Hue. The magic here lies in the distinctive reddish-brown clay of the Thu Bon River and the foot-powered potter’s wheels still spun by elderly artisans. You can even try shaping your own clay piece.'
+        ],
+        paragraphsVi: [
+          'Hơn 500 năm tuổi, làng gốm Thanh Hà từng nổi tiếng với những sản phẩm gốm cung tiến triều đình nhà Nguyễn. Điều đặc biệt ở đây là chất đất sét nâu đỏ ven sông Thu Bồn và kỹ thuật chuốt gốm bằng bàn xoay đạp chân của các nghệ nhân cao tuổi. Bạn cũng có thể tự tay thử nặn một món đồ gốm nhỏ mang về.'
+        ]
+      },
+      {
+        id: 'tam-thanh-mural-village',
+        rank: 3,
+        name: 'Tam Thanh Mural Village (Làng Bích Họa Tam Thanh)',
+        nameVi: 'Làng Bích họa Tam Thanh',
+        location: 'Tam Thanh Mural Village - Tam Ky, Quang Nam',
+        locationVi: 'Làng Bích họa Tam Thanh - Tam Kỳ, Quảng Nam',
+        openingHours: 'Open 24/7 (best visited in early morning or late afternoon)',
+        openingHoursVi: 'Tự do cả ngày (đẹp nhất vào sáng sớm hoặc chiều mát)',
+        ticketPrice: 'Free',
+        ticketPriceVi: 'Miễn phí',
+        image: 'https://statics.vinpearl.com/Tam-Thanh-Mural-Village-thumb_1722085083.jpg',
+        imageCaption: 'Vibrant coastal community murals across Tam Thanh fishing village',
+        imageCaptionVi: 'Những bức bích họa sống động về đời sống ngư dân tại Làng Bích họa Tam Thanh',
+        paragraphs: [
+          'About a 45-minute drive south along the coast, this quiet fishing village was transformed in 2016 through a Korean-Vietnamese community art exchange. Over 100 weathered concrete houses were painted with vibrant murals depicting local fishermen, childhood games, and ocean life—breathing new economic and artistic spirit into the coastal community.'
+        ],
+        paragraphsVi: [
+          'Cách Hội An khoảng 45 phút chạy xe về phía Nam, ngôi làng chài bình dị này đã khoác lên mình diện mạo mới từ dự án giao lưu nghệ thuật Việt - Hàn năm 2016. Hơn 100 bức tường nhà dân được vẽ những bức bích họa sống động về đời sống ngư dân, biển cả và ký ức tuổi thơ.'
+        ]
+      },
+      {
+        id: 'hoi-an-rice-paddies-qcasa-qafe',
+        rank: 4,
+        name: 'Hoi An Rice Paddy Roads & QCasa Qafe',
+        nameVi: 'Cung đường lúa Hội An & Cà phê QCasa Qafe',
+        location: 'QCasa Qafe - Cam Chau / Cam An Rice Fields, Hoi An',
+        locationVi: 'QCasa Qafe - Cẩm Châu / Cẩm An, Hội An',
+        openingHours: '7:00 AM - 6:00 PM daily',
+        openingHoursVi: '07:00 - 18:00 hằng ngày',
+        ticketPrice: 'Free entry (drinks from ~35,000 - 65,000 VND)',
+        ticketPriceVi: 'Vào cửa tự do (đồ uống từ 35.000 - 65.000 VNĐ)',
+        image:
+          'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Q28kBai1HmjvELrE6QLPhsfKbvO369LAa7FGlbkaGxXMqwkST2zn6aORN3ch3ZEi1PUvfbCcTqTqUfet3xDBvpqChX1Y5cXTqp__R-frtuLjkI9yoM0U5_pswwno-kwz0Cvrvh8MHk1DeH=s1360-w1360-h1020-rw',
+        imageCaption: 'Serene emerald rice fields and rustic coffee moments at QCasa Qafe',
+        imageCaptionVi: 'Cánh đồng lúa xanh mướt và góc cà phê thư giãn tại QCasa Qafe',
+        paragraphs: [
+          'Winding between the Ancient Town and An Bang Beach are lush emerald rice fields where water buffaloes graze and farmers tend their crops. Cycling or riding a scooter through these narrow country lanes offers pure serenity. Right along the paddy edge sits QCasa Qafe, a rustic, breezy café where you can sip iced Vietnamese coffee while watching the wind ripple across the fields.'
+        ],
+        paragraphsVi: [
+          'Nằm giữa Phố Cổ và biển An Bàng là những cánh đồng lúa xanh mướt trải dài, nơi bạn có thể đạp xe thong dong hít thở hương lúa non. Nép mình ngay bên bờ ruộng là QCasa Qafe - quán cà phê mộc mạc, thoáng đãng để bạn nhâm nhi ly cà phê sữa đá và ngắm hoàng hôn buông xuống cánh đồng.'
+        ]
+      },
+      {
+        id: 'cui-lu-art-space',
+        rank: 5,
+        name: 'Cui Lu Art Space / Driftwood Village (Làng Củi Lũ)',
+        nameVi: 'Làng Củi Lũ (Không gian nghệ thuật điêu khắc gỗ lũa)',
+        location: 'Lang Cui Lu - Cam Ha, Hoi An',
+        locationVi: 'Làng Củi Lũ - Cẩm Hà, Hội An',
+        openingHours: '8:00 AM - 5:30 PM daily',
+        openingHoursVi: '08:00 - 17:30 hằng ngày',
+        ticketPrice: 'Free to visit (workshops available for a fee)',
+        ticketPriceVi: 'Miễn phí tham quan (có thu phí nếu tham gia workshop điêu khắc)',
+        image:
+          'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QOl_R7vJWGr5VqYZCxSVzoUY2i-XrO7eaHQxgpvFBR_b1pRq8Ib9YLl3_noKbrr2Cpw1iwsmwftg-IwD74odTsPQK8zDASRW0aueeMJu73GibDCbDrLtJybFwKa7aDqpvVupYak7SGwOln=s1360-w1360-h1020-rw',
+        imageCaption: 'Sustainable driftwood sculptures at Lang Cui Lu inspired by Champa and Vietnamese folklore',
+        imageCaptionVi: 'Các tác phẩm điêu khắc gỗ lũa mang hơi thở văn hóa Champa và dân gian Việt Nam',
+        paragraphs: [
+          'Every flood season, uprooted tree trunks and driftwood wash down the Thu Bon River from the upstream mountains. Instead of letting this wood go to waste, local artist Le Ngoc Thuan and a team of artisans turned it into Làng Củi Lũ—a sustainable art sanctuary transforming weathered driftwood into expressive sculptures inspired by Champa and Vietnamese folklore.'
+        ],
+        paragraphsVi: [
+          'Sau mỗi mùa mưa lũ, rất nhiều gốc cây, củi mục từ thượng nguồn sông Thu Bồn trôi dạt về hạ lưu. Nghệ nhân Lê Ngọc Thuận cùng cộng sự đã hồi sinh những khúc củi vô tri ấy thành các tác phẩm điêu khắc mang đậm hơi thở văn hóa Champa và dân gian Việt Nam, truyền đi thông điệp sống xanh đầy nhân văn.'
+        ]
+      },
+      {
+        id: 'cso-gallery-hoi-an',
+        rank: 6,
+        name: 'CSO Gallery Hoi An',
+        nameVi: 'CSO Gallery Hội An',
+        location: 'CSO Gallery - 229 Cua Dai, Cam Chau, Hoi An',
+        locationVi: 'CSO Gallery - 229 Cửa Đại, Cẩm Châu, Hội An',
+        openingHours: '8:00 AM - 5:00 PM daily',
+        openingHoursVi: '08:00 - 17:00 hằng ngày',
+        ticketPrice: '~120,000 - 150,000 VND per person',
+        ticketPriceVi: 'Khoảng 120.000 - 150.000 VNĐ/người',
+        image:
+          'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9ToN2msL9QQa-45DyKaYRzTy-GzR6cZ4kBtAEerVq21_54pNg6nYSlcxWoFnlcBkA8NY6ao6QMRBDagP-4xWtV1Hm3tXveLDSEn6cy0MI2hbHXyoaqwKO2E8Eu3GPLIeOLQtKdI=s1360-w1360-h1020-rw',
+        imageCaption: 'Rare Vietnamese historical coins, banknotes, and Truyện Kiều editions at CSO Gallery',
+        imageCaptionVi: 'Không gian trưng bày hơn 20.000 hiện vật tiền cổ và ấn bản Truyện Kiều tại CSO Gallery',
+        paragraphs: [
+          'Hidden away from the Old Town crowds, CSO Gallery is an extraordinary private museum housing over 20,000 rare artifacts. From ancient Vietnamese coins and banknotes dating back centuries to global numismatic collections and classic editions of The Tale of Kieu (Truyện Kiều), it is a treasure trove for history lovers and curious minds.'
+        ],
+        paragraphsVi: [
+          'Nằm yên tĩnh trên đường Cửa Đại, CSO Gallery là không gian trưng bày tư nhân đồ sộ với hơn 20.000 hiện vật quý hiếm: từ bộ sưu tập tiền cổ Việt Nam qua các triều đại, tiền giấy thế giới cho đến hàng trăm ấn bản Truyện Kiều độc đáo. Một điểm dừng chân lý tưởng cho những ai yêu lịch sử và sự chiêm nghiệm.'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'hoi-an-memories-land-review',
+    slug: 'hoi-an-memories-land-review',
+    category: 'Attraction Review',
+    categoryVi: 'Review Điểm Đến',
+    date: 'November 2026',
+    dateVi: 'Tháng 11/2026',
+    readTime: '5 min read',
+    readTimeVi: '5 phút đọc',
+    badge: 'Honest Review',
+    badgeVi: 'Đánh Giá Thực Tế',
+    coverImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeKexei9Xwgoib6PAiHcPN8r7vh0oXDyFccA9wAOleDjZN-hf0ZBcelIOG&s=10',
+    author: 'Saime Editorial Team',
+    title: 'Hoi An Memories Land Review: Is It Worth the Hype?',
+    titleVi: 'Review Hoi An Memories Land (Đảo Ký Ức Hội An): Có thực sự đáng tiền như lời đồn?',
+    seoTitle: 'Hoi An Memories Land Review: Is It Worth the Hype?',
+    seoTitleVi: 'Review Hoi An Memories Land (Đảo Ký Ức Hội An): Có thực sự đáng tiền như lời đồn?',
+    metaDescription:
+      'Wondering if Hoi An Memories Land and the Hoi An Memories Show live up to the hype? Here is an honest look at what to expect, ticket tips, and who will love it most.',
+    metaDescriptionVi:
+      'Đánh giá khách quan về Hoi An Memories Land và show diễn Ký Ức Hội An: điểm cộng, điểm trừ, giá vé và kinh nghiệm sắp xếp lịch trình trọn vẹn nhất.',
+    shortDescription:
+      'Wondering if Hoi An Memories Land and the Hoi An Memories Show live up to the hype? Here is an honest look at what to expect, ticket tips, and who will love it most.',
+    shortDescriptionVi:
+      'Đánh giá khách quan về Hoi An Memories Land và show diễn Ký Ức Hội An: điểm cộng, điểm trừ, giá vé và kinh nghiệm sắp xếp lịch trình trọn vẹn nhất.',
+    introParagraphs: [
+      'If you have spent even ten minutes researching your trip to Central Vietnam, you have likely seen breathtaking photos of Hoi An Memories Land, a massive cultural theme park set on its own island in the Thu Bon River, headlined by the world-famous Hoi An Memories Show.',
+      'With glowing advertisements everywhere, many travelers ask the same honest question: Is Hoi An Memories Land actually worth experiencing, or is it just an overhyped tourist attraction?',
+      'Here is a balanced, realistic breakdown to help you decide.'
+    ],
+    introParagraphsVi: [
+      'Nếu đang lên kế hoạch du lịch Hội An, chắc hẳn bạn đã bắt gặp vô số hình ảnh hoành tráng về Hoi An Memories Land (Đảo Ký Ức Hội An) – công viên văn hóa nằm biệt lập giữa sông Thu Bồn với tâm điểm là vở diễn thực cảnh Ký Ức Hội An.',
+      'Giữa rất nhiều lời quảng cáo có cánh, câu hỏi thực tế nhất của nhiều du khách là: Hoi An Memories Land có thực sự đáng để trải nghiệm như mọi người vẫn khen ngợi?',
+      'Dưới đây là góc nhìn khách quan giúp bạn dễ dàng đưa ra lựa chọn phù hợp với gu du lịch của mình:'
+    ],
+    venueInfo: {
+      location: 'Hoi An Memories Land – Con Hen, 200 Nguyen Tri Phuong, Cam Nam, Hoi An',
+      locationVi: 'Hoi An Memories Land – Cồn Hến, 200 Nguyễn Tri Phương, Cẩm Nam, Hội An',
+      openingHours: '4:00 PM – 10:00 PM (Closed on Tuesdays)',
+      openingHoursVi: '16:00 – 22:00 (Nghỉ thứ Ba hằng tuần)',
+      ticketPrice: 'From ~600,000 VND (Eco seat) to 1,200,000 VND (VIP seat)',
+      ticketPriceVi: 'Từ 600.000 VNĐ (hạng Eco) đến 1.200.000 VNĐ (hạng VIP)',
+      imageCaption: 'Hoi An Memories Land & outdoor river stage at Con Hen Island',
+      imageCaptionVi: 'Sân khấu thực cảnh ngoài trời Ký Ức Hội An tại Đảo Ký Ức (Cồn Hến)'
+    },
+    editorialSections: [
+      {
+        id: 'what-makes-it-impressive',
+        title: 'What Makes It Truly Impressive (The "Worth It" Factor)',
+        titleVi: 'Những điểm thực sự đáng giá',
+        items: [
+          {
+            lead: 'The Scale of the Hoi An Memories Show:',
+            leadVi: 'Sự choáng ngợp của show diễn thực cảnh Ký Ức Hội An:',
+            text: 'Let’s be clear, the main outdoor show is genuinely spectacular. Featuring over 500 performers in traditional áo dài, a 25,000-square-meter outdoor stage set directly on the river, stunning lighting choreography, and live music, it traces 400 years of Hoi An’s history from a quiet agricultural village to a bustling international trading port. Even seasoned travelers who normally skip theme parks are often moved by its visual storytelling.',
+            textVi: 'Không thể phủ nhận đây là một trong những vở diễn ngoài trời quy mô nhất Việt Nam. Với hơn 500 diễn viên, sân khấu rộng 25.000m² kết hợp cùng mặt nước sông Thu Bồn, âm thanh và ánh sáng được dàn dựng công phu, vở diễn tái hiện 400 năm thăng trầm của thương cảng Hội An đầy cảm xúc. Ngay cả những du khách khó tính cũng dễ bị chinh phục bởi tính nghệ thuật của chương trình này.'
+          },
+          {
+            lead: 'Photogenic Architecture & Mini-Shows:',
+            leadVi: 'Không gian check-in & các minishow buổi chiều:',
+            text: 'Before the main performance begins at 8:00 PM, the park opens at 4:00 PM with replicas of traditional Vietnamese, Japanese, and Chinese trading-port streets, alongside lively mini-shows (like historical wedding processions and folk dances) scattered across the island.',
+            textVi: 'Công viên mở cửa từ 16:00 với kiến trúc mô phỏng thương cảng Hội An xưa (khu Việt Nam, Nhật Bản, Trung Hoa) cùng nhiều tiết mục biểu diễn đường phố vui nhộn trước giờ diễn chính.'
+          }
+        ]
+      },
+      {
+        id: 'what-to-keep-in-mind',
+        title: 'What to Keep in Mind (Managing Expectations)',
+        titleVi: 'Một vài lưu ý thực tế để không bị "vỡ mộng"',
+        items: [
+          {
+            lead: 'It Is a Commercial Theme Park:',
+            leadVi: 'Tính chất công viên giải trí:',
+            text: 'Unlike the quiet, weathered authenticity of the real Ancient Town, Hoi An Memories Land is purpose-built for entertainment. If you are strictly looking for raw, untouched local street life, the park may feel polished and theatrical.',
+            textVi: 'Vì là khu phức hợp được xây dựng mới để phục vụ du lịch, không gian ở đây mang tính sân khấu hóa và chỉn chu, sẽ khác với vẻ đẹp rêu phong, tự nhiên của khu Phố Cổ thật. Nếu bạn chỉ thích khám phá đời sống bản địa mộc mạc, nơi này có thể hơi mang màu sắc thương mại.'
+          },
+          {
+            lead: 'Language Barrier in Mini-Shows:',
+            leadVi: 'Chi phí vé:',
+            text: 'Most dialogue in the afternoon mini-shows is in Vietnamese, though the main evening show relies heavily on visual artistry, music, and English subtitles/translations on side screens so international guests can easily follow the storyline.',
+            textVi: 'Mức giá vé khá cao so với mặt bằng chung các điểm tham quan tại Hội An, nên bạn cần cân nhắc ngân sách nếu đi theo nhóm đông người.'
+          }
+        ]
+      },
+      {
+        id: 'the-verdict',
+        title: 'The Verdict: Should You Go?',
+        titleVi: 'Kết luận: Có nên đi không?',
+        isVerdict: true,
+        items: [
+          {
+            text: 'Yes, especially if you love grand theatrical performances, visual arts, and cultural storytelling. Think of it not as a replacement for walking the real Old Town, but as a dramatic, theatrical companion to it.',
+            textVi: 'Câu trả lời là Có, đặc biệt nếu bạn yêu thích nghệ thuật sân khấu, nhiếp ảnh và muốn tìm hiểu lịch sử Hội An qua lăng kính trình diễn hiện đại. Hãy xem đây là một mảnh ghép giải trí buổi tối bên cạnh việc dạo chơi Phố Cổ ban ngày.'
+          },
+          {
+            lead: 'Insider Tip for Your Evening:',
+            leadVi: 'Gợi ý lịch trình hợp lý:',
+            text: 'The park opens at 4:00 PM, and the main show runs from 8:00 PM to 9:00 PM. Instead of rushing straight to the park for dinner, spend your late afternoon enjoying an intimate, story-driven meal and craft cocktails in town (such as at Saime Introverts, just a short 5-minute ride away), then head over to the island around 7:15 PM in time for the main show.',
+            textVi: 'Show diễn chính bắt đầu lúc 20:00 – 21:00. Bạn không nhất thiết phải vào đảo từ sớm để ăn tối trong khu du lịch; thay vào đó, có thể thong thả thưởng thức bữa tối fusion ấm cúng và cocktail bản địa tại Saime Introverts (cách đảo chỉ 5 phút di chuyển), sau đó sang đảo lúc 19:15 để kịp ổn định chỗ ngồi xem trọn vẹn vở diễn.'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: '5-must-visit-hoi-an-museums',
+    slug: '5-must-visit-hoi-an-museums',
+    category: 'Heritage & Museums',
+    categoryVi: 'Di Sản & Bảo Tàng',
+    date: 'November 2026',
+    dateVi: 'Tháng 11/2026',
+    readTime: '6 min read',
+    readTimeVi: '6 phút đọc',
+    badge: 'Cultural Guide',
+    badgeVi: 'Di Sản Phố Cổ',
+    coverImage:
+      'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9S9zB1srNr3yPX58wqE7yl7QOGhLy3bAlIVG6Xsy-7_mg4zxGKCCYGV1CIwKhlaJsBsCWlH3HilKhNMTR0p75851DSGo0PNxkphgvg65FfWx9fJ01Z_N0HjgSGPhPJlc5Zn9mpuOrQox8ZH=s1360-w1360-h1020-rw',
+    author: 'Saime Editorial Team',
+    title: '5 Must-Visit Hoi An Museums to Understand the Ancient Town’s Soul',
+    titleVi: 'Top 5 bảo tàng nổi tiếng tại Hội An giúp bạn hiểu trọn linh hồn Phố Cổ',
+    seoTitle: '5 Must-Visit Hoi An Museums to Understand the Ancient Town’s Soul',
+    seoTitleVi: 'Top 5 bảo tàng nổi tiếng tại Hội An giúp bạn hiểu trọn linh hồn Phố Cổ',
+    metaDescription:
+      'Discover the top 5 Hoi An museums: Museum of History and Culture, Sa Huynh Culture Museum, Museum of Trade Ceramics, Precious Heritage Museum, and Thanh Ha Terracotta Park.',
+    metaDescriptionVi:
+      'Khám phá 5 bảo tàng đặc sắc nhất Hội An: Bảo tàng Lịch sử – Văn hóa, Bảo tàng Văn hóa Sa Huỳnh, Bảo tàng Gốm sứ Mậu dịch, Precious Heritage Museum và Công viên Đất nung Thanh Hà.',
+    shortDescription:
+      'Discover the top 5 Hoi An museums: Museum of History and Culture, Sa Huynh Culture Museum, Museum of Trade Ceramics, Precious Heritage Museum, and Thanh Ha Terracotta Park.',
+    shortDescriptionVi:
+      'Khám phá 5 bảo tàng đặc sắc nhất Hội An: Bảo tàng Lịch sử – Văn hóa, Bảo tàng Văn hóa Sa Huỳnh, Bảo tàng Gốm sứ Mậu dịch, Precious Heritage Museum và Công viên Đất nung Thanh Hà.',
+    introParagraphs: [
+      'To truly appreciate why Hoi An’s yellow walls and wooden shop-houses look the way they do, you have to trace the centuries of maritime trade, ancient civilizations, and diverse ethnic cultures that shaped this port town. Exploring Hoi An museums is the best way to connect the dots behind the architecture and local life.',
+      'Here are the five most fascinating museums in Hoi An, complete with their stories and visitor details:'
+    ],
+    introParagraphsVi: [
+      'Để thực sự hiểu vì sao Hội An lại mang vẻ đẹp giao thoa kiến trúc độc đáo đến vậy, việc ghé thăm các bảo tàng tại đây sẽ giúp bạn chắp nối trọn vẹn dòng chảy lịch sử hàng nghìn năm, từ nền văn minh cổ đại đến thương cảng quốc tế sầm uất bậc nhất Đông Nam Á xưa. Dưới đây là 5 bảo tàng tiêu biểu nhất bạn không nên bỏ lỡ:'
+    ],
+    restaurantsData: [
+      {
+        id: 'hoi-an-museum-history-culture',
+        rank: 1,
+        name: 'Hoi An Museum of History and Culture (Bảo Tàng Lịch Sử – Văn Hóa Hội An)',
+        nameVi: 'Bảo tàng Lịch sử – Văn hóa Hội An',
+        location: 'Hoi An Museum of History and Culture – 10B Tran Hung Dao, Minh An, Hoi An',
+        locationVi: 'Bảo tàng Lịch sử – Văn hóa Hội An – 10B Trần Hưng Đạo, Minh An, Hội An',
+        openingHours: '7:00 AM – 5:00 PM daily (closed on the 10th of each month for maintenance)',
+        openingHoursVi: '07:00 – 17:00 hằng ngày (đóng cửa ngày 10 hằng tháng để bảo trì)',
+        ticketPrice: 'Included in the Hoi An Old Town entrance ticket (120,000 VND for international visitors)',
+        ticketPriceVi: 'Nằm trong vé tham quan Phố Cổ Hội An (80.000 VNĐ/khách Việt Nam, 120.000 VNĐ/khách quốc tế)',
+        image:
+          'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9S9zB1srNr3yPX58wqE7yl7QOGhLy3bAlIVG6Xsy-7_mg4zxGKCCYGV1CIwKhlaJsBsCWlH3HilKhNMTR0p75851DSGo0PNxkphgvg65FfWx9fJ01Z_N0HjgSGPhPJlc5Zn9mpuOrQox8ZH=s1360-w1360-h1020-rw',
+        imageCaption: 'Hoi An Museum of History and Culture inside historic Quan Am Pagoda',
+        imageCaptionVi: 'Bảo tàng Lịch sử – Văn hóa Hội An trong khuôn viên chùa Quan Âm cổ kính',
+        paragraphs: [
+          'Housed inside the historic Quan Am Pagoda, this museum offers a chronological journey through Hoi An’s evolution, from the prehistoric Sa Huynh period and the Champa Kingdom to its golden era as a bustling 17th-century international trading port (Faifo) and its modern revolutionary history. Over 200 original artifacts, maps, and photographs bring the town’s resilience to life.'
+        ],
+        paragraphsVi: [
+          'Tọa lạc trong khuôn viên chùa Quan Âm cổ kính, bảo tàng đưa du khách đi qua từng giai đoạn phát triển của Hội An: từ thời tiền sơ sử Sa Huỳnh, vương quốc Champa, thời kỳ hoàng kim của thương cảng Faifo thế kỷ 17–18 cho đến lịch sử cận đại. Hơn 200 hiện vật gốc bằng gốm, sứ, đồng, sắt cùng nhiều bản đồ cổ phản ánh rõ nét sức sống bền bỉ của vùng đất này.'
+        ]
+      },
+      {
+        id: 'museum-of-sa-huynh-culture',
+        rank: 2,
+        name: 'Museum of Sa Huynh Culture (Bảo Tàng Văn Hóa Sa Huỳnh)',
+        nameVi: 'Bảo tàng Văn hóa Sa Huỳnh',
+        location: 'Museum of Sa Huynh Culture – 149 Tran Phu, Minh An, Hoi An',
+        locationVi: 'Bảo tàng Văn hóa Sa Huỳnh – 149 Trần Phú, Minh An, Hội An',
+        openingHours: '7:00 AM – 9:00 PM daily',
+        openingHoursVi: '07:00 – 21:00 hằng ngày',
+        ticketPrice: 'Included in the Hoi An Old Town entrance ticket (120,000 VND)',
+        ticketPriceVi: 'Nằm trong vé tham quan Phố Cổ Hội An',
+        image:
+          'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9S_frt8H30bN_Mq60-5i1xctOx61nygqtzwoLT1ByOmIiYNkMkWnrOtqgWi4B1Kaz4MAwKEllxBgF0Yt0WnttZAMjyhq48F3HhDpUPK4IcpifsjrhlGkZPJWC2REkN9FXRQd3J7=s1360-w1360-h1020-rw',
+        imageCaption: '2,000-year-old Sa Huynh burial jars and artifacts on Tran Phu Street',
+        imageCaptionVi: 'Bộ sưu tập văn hóa Sa Huỳnh hơn 2.000 năm tuổi trên đường Trần Phú',
+        paragraphs: [
+          'Long before the iconic Japanese Bridge was built, Central Vietnam was home to the ancient Sa Huynh civilization (dating back over 2,000 years). Located inside a beautifully preserved French-colonial-style house on Tran Phu Street, this museum displays Vietnam’s richest collection of Sa Huynh burial jars, agate jewelry, iron tools, and bronze artifacts, proving Hoi An was an active coastal hub millennia ago.'
+        ],
+        paragraphsVi: [
+          'Nằm trong một ngôi nhà cổ mang kiến trúc Pháp trang nhã trên đường Trần Phú, nơi đây lưu giữ bộ sưu tập phong phú bậc nhất Việt Nam về nền văn hóa Sa Huỳnh có niên đại hơn 2.000 năm. Các hiện vật mộ chum, trang sức mã não, công cụ bằng đồng và sắt được khai quật ngay tại Hội An là minh chứng cho sự giao thương sớm của cư dân cổ vùng hạ lưu sông Thu Bồn.'
+        ]
+      },
+      {
+        id: 'museum-of-trade-ceramics',
+        rank: 3,
+        name: 'Museum of Trade Ceramics (Bảo Tàng Gốm Sứ Mậu Dịch Hội An)',
+        nameVi: 'Bảo tàng Gốm sứ Mậu dịch Hội An',
+        location: 'Museum of Trade Ceramics – 80 Tran Phu, Minh An, Hoi An',
+        locationVi: 'Bảo tàng Gốm sứ Mậu dịch Hội An – 80 Trần Phú, Minh An, Hội An',
+        openingHours: '7:00 AM – 9:00 PM daily',
+        openingHoursVi: '07:00 – 21:00 hằng ngày',
+        ticketPrice: 'Included in the Hoi An Old Town entrance ticket (120,000 VND)',
+        ticketPriceVi: 'Nằm trong vé tham quan Phố Cổ Hội An',
+        image:
+          'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9To-uqkZuW32tgpAejUE1TuUkgmJZO_Ey4A-xbJmKSiJwFC7QoSr-J0DQayb61vf3wancoZeUxJCjjY2sdy_g_isHsSfzasnI6kcO8lvqjC2nyd3GKg8WwmZo2T65kqZjess6TF=s1360-w1360-h1020-rw',
+        imageCaption: 'Over 430 Maritime Silk Road ceramics inside a traditional two-story wooden merchant house',
+        imageCaptionVi: 'Hơn 430 hiện vật gốm sứ Con đường tơ lụa trên biển tại 80 Trần Phú',
+        paragraphs: [
+          'Set inside a restored two-story traditional wooden merchant house, this museum tells stories of the "Maritime Silk Road." Between the 15th and 18th centuries, merchant ships from Japan, China, India, and the Middle East docked in Hoi An to trade fine porcelain and stoneware. Over 430 ceramic pieces recovered from shipwrecks and archaeological digs showcase Hoi An’s role as a global crossroads.'
+        ],
+        paragraphsVi: [
+          'Được bài trí trong một ngôi nhà gỗ hai tầng truyền thống, bảo tàng kể câu chuyện về "Con đường tơ lụa trên biển". Từ thế kỷ 15 đến thế kỷ 18, Hội An là điểm trung chuyển gốm sứ nhộn nhịp của thương nhân Nhật Bản, Trung Hoa, Ấn Độ và Trung Đông. Hơn 430 hiện vật gốm sứ trục vớt từ các con tàu đắm và di chỉ khảo cổ cho thấy tầm vóc quốc tế của phố Hội xưa.'
+        ]
+      },
+      {
+        id: 'precious-heritage-art-gallery-museum',
+        rank: 4,
+        name: 'Precious Heritage Art Gallery Museum (Bảo Tàng Di Sản Văn Hóa Vô Giá)',
+        nameVi: 'Bảo tàng Di sản Văn hóa Vô giá (Precious Heritage Museum)',
+        location: 'Precious Heritage Museum – 26 Phan Boi Chau, Cam Chau, Hoi An',
+        locationVi: 'Precious Heritage Museum – 26 Phan Bội Châu, Cẩm Châu, Hội An',
+        openingHours: '8:00 AM – 8:00 PM daily',
+        openingHoursVi: '08:00 – 20:00 hằng ngày',
+        ticketPrice: 'Free admission',
+        ticketPriceVi: 'Miễn phí vào cửa',
+        image:
+          'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TlzqeOXif_Wso_lkR0Y3e9yqu646MgqN2ZeGusxdMt8Pbym5_vQ0d_4QZP8rZsknFqE50Bk_y0JKPDlZLE8Lxr-yDd6s5A4B5OnvV8eH9cg6-nPGDEyQWTJtSdQehqo2LB91UyMQ=s1360-w1360-h1020-rw',
+        imageCaption: 'Portraits and traditional costumes of Vietnam’s 54 ethnic groups by photographer Réhahn',
+        imageCaptionVi: 'Chân dung và trang phục truyền thống của 54 dân tộc anh em tại Precious Heritage Museum',
+        paragraphs: [
+          'Created by French photographer Réhahn after a decade of traveling across Vietnam, this deeply moving museum celebrates the cultural diversity of all 54 ethnic groups in Vietnam. Spread across a serene 19th-century French house, it features over 200 portrait photographs alongside more than 65 authentic traditional costumes, musical instruments, and heirlooms gifted directly by ethnic community leaders.'
+        ],
+        paragraphsVi: [
+          'Là tâm huyết sau hơn một thập kỷ rong ruổi khắp Việt Nam của nhiếp ảnh gia người Pháp Réhahn, bảo tàng tôn vinh bản sắc của đủ 54 dân tộc anh em. Trong không gian nhà cổ Pháp thanh tịnh, hơn 200 bức chân dung đầy cảm xúc được trưng bày cùng hơn 65 bộ trang phục truyền thống nguyên bản và hiện vật quý do chính các già làng, nghệ nhân dân tộc trao tặng.'
+        ]
+      },
+      {
+        id: 'thanh-ha-terracotta-park',
+        rank: 5,
+        name: 'Thanh Ha Terracotta Park (Công Viên Đất Nung Thanh Hà)',
+        nameVi: 'Công viên Đất nung Thanh Hà',
+        location: 'Thanh Ha Terracotta Park – Duy Tan, Thanh Ha, Hoi An',
+        locationVi: 'Công viên Đất nung Thanh Hà – Duy Tân, Thanh Hà, Hội An',
+        openingHours: '8:00 AM – 5:30 PM daily',
+        openingHoursVi: '08:00 – 17:30 hằng ngày',
+        ticketPrice: '~50,000 VND per person',
+        ticketPriceVi: 'Khoảng 50.000 VNĐ/người',
+        image:
+          'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Q1Dvvt-OPd5bLWHQBjtKtAgEayHHdjf6jpZ04yfE1WY5lNMDXQcxINKgVNwPGD2C23MJ03q1m9txmx7hOplX03LErsPqLN96Se9S2Du5Gxdz_CL2iAWu9i5RT_YeRx2xf3ms0B=s1360-w1360-h1020-rw',
+        imageCaption: 'Pottery-kiln architecture and terracotta world landmarks at Thanh Ha Terracotta Park',
+        imageCaptionVi: 'Kiến trúc mô phỏng lò nung gốm và kỳ quan đất nung tại Công viên Đất nung Thanh Hà',
+        paragraphs: [
+          'Located right next to the 500-year-old Thanh Ha Pottery Village, this striking contemporary museum was designed by Vietnamese architect Nguyen Van Nguyen in the shape of traditional pottery kilns. Inside, you will find miniature terracotta replicas of famous global landmarks (like the Taj Mahal and Leaning Tower of Pisa) alongside Vietnamese architectural icons, ancient Champa artifacts, and rotating contemporary ceramic exhibitions.'
+        ],
+        paragraphsVi: [
+          'Nằm ngay cạnh làng gốm Thanh Hà 500 năm tuổi, công trình kiến trúc độc đáo này được thiết kế mô phỏng hình dáng những lò nung gốm truyền thống. Bên trong trưng bày các kỳ quan kiến trúc thế giới và Việt Nam được thu nhỏ bằng đất nung vô cùng tinh xảo, cùng khu triển lãm gốm Champa cổ và gốm nghệ thuật đương đại.'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'scenic-hoi-an-sightseeing',
+    slug: 'scenic-hoi-an-sightseeing',
+    category: 'Sightseeing Routes',
+    categoryVi: 'Lộ Trình Tham Quan',
+    date: 'November 2026',
+    dateVi: 'Tháng 11/2026',
+    readTime: '6 min read',
+    readTimeVi: '6 phút đọc',
+    badge: 'Scenic Route',
+    badgeVi: 'Ngắm Cảnh',
+    coverImage:
+      'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Q28kBai1HmjvELrE6QLPhsfKbvO369LAa7FGlbkaGxXMqwkST2zn6aORN3ch3ZEi1PUvfbCcTqTqUfet3xDBvpqChX1Y5cXTqp__R-frtuLjkI9yoM0U5_pswwno-kwz0Cvrvh8MHk1DeH=s1360-w1360-h1020-rw',
+    author: 'Saime Editorial Team',
+    title: 'Scenic Hoi An Sightseeing: Craft Villages, Art Sanctuaries & Paddy Fields',
+    titleVi: 'Lộ trình ngắm cảnh & khám phá văn hóa Hội An ngoài Phố Cổ',
+    seoTitle: 'Scenic Hoi An Sightseeing: Craft Villages, Art Sanctuaries & Paddy Fields',
+    seoTitleVi: 'Lộ trình ngắm cảnh & khám phá văn hóa Hội An ngoài Phố Cổ',
+    metaDescription:
+      'Plan the ultimate Hoi An sightseeing route beyond the Old Town. Discover picturesque rice fields, riverside craft villages, coastal murals, and hidden art galleries.',
+    metaDescriptionVi:
+      'Gợi ý cung đường tham quan ngắm cảnh tuyệt đẹp quanh Hội An: từ đồng lúa QCasa Qafe, làng nghề ven sông Thu Bồn đến không gian nghệ thuật Làng Củi Lũ và làng bích họa ven biển.',
+    shortDescription:
+      'Plan the ultimate Hoi An sightseeing route beyond the Old Town. Discover picturesque rice fields, riverside craft villages, coastal murals, and hidden art galleries.',
+    shortDescriptionVi:
+      'Gợi ý cung đường tham quan ngắm cảnh tuyệt đẹp quanh Hội An: từ đồng lúa QCasa Qafe, làng nghề ven sông Thu Bồn đến không gian nghệ thuật Làng Củi Lũ và làng bích họa ven biển.',
+    introParagraphs: [
+      'If your idea of great Hoi An sightseeing involves scenic countryside rides, authentic craftsmanship, and quiet artistic corners rather than crowded souvenir streets, you are in for a treat. Stepping just a few kilometers outside the Ancient Town opens up a landscape of riverbanks, emerald rice paddies, and living heritage.',
+      'Here is a curated sightseeing guide to six visual and cultural highlights around Hoi An:'
+    ],
+    introParagraphsVi: [
+      'Nếu bạn yêu thích việc dạo ngắm cảnh quan thiên nhiên thanh bình, tìm hiểu các làng nghề thủ công và khám phá những không gian nghệ thuật ẩn mình, hành trình tham quan Hội An ngoài khu vực Phố Cổ chắc chắn sẽ mang lại nhiều góc nhìn đầy thi vị.'
+    ],
+    restaurantsData: [
+      {
+        id: 'sightseeing-rice-paddy-qcasa-qafe',
+        rank: 1,
+        name: 'Scenic Rice Paddy Roads & QCasa Qafe',
+        nameVi: 'Cung đường lúa Hội An & Cà phê QCasa Qafe',
+        location: 'QCasa Qafe - Hoi An Rice Fields',
+        locationVi: 'QCasa Qafe - Cẩm Châu / Cẩm An, Hội An',
+        openingHours: '7:00 AM - 6:00 PM',
+        openingHoursVi: '07:00 - 18:00',
+        ticketLabel: 'Admission:',
+        ticketPrice: 'Free (drinks ~35,000 - 65,000 VND)',
+        ticketPriceVi: 'Miễn phí vào cửa (đồ uống từ 35.000 - 65.000 VNĐ)',
+        image:
+          'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Q28kBai1HmjvELrE6QLPhsfKbvO369LAa7FGlbkaGxXMqwkST2zn6aORN3ch3ZEi1PUvfbCcTqTqUfet3xDBvpqChX1Y5cXTqp__R-frtuLjkI9yoM0U5_pswwno-kwz0Cvrvh8MHk1DeH=s1360-w1360-h1020-rw',
+        imageCaption: 'Panoramic countryside rice paddies and coffee stop at QCasa Qafe',
+        imageCaptionVi: 'Cánh đồng lúa xanh mướt nối giữa Phố Cổ và biển An Bàng tại QCasa Qafe',
+        paragraphs: [
+          'For the quintessential countryside view of Central Vietnam, take a morning or late-afternoon ride along the winding paths cutting through the Cam Chau and Cam An rice paddies. Depending on the season, you will see mirror-like flooded fields reflecting the sky or golden waves ready for harvest. Stop at QCasa Qafe, a charming rustic café overlooking the fields, to rest your legs and take in the panoramic rural scenery.'
+        ],
+        paragraphsVi: [
+          'Dọc theo các con đường nhỏ nối giữa Phố Cổ và biển An Bàng là những thửa ruộng lúa trải dài tít tắp. Vào buổi sáng sớm hay chiều tà, khung cảnh đồng quê yên bình với đàn cò trắng và làn gió mát rượi sẽ giúp bạn rũ bỏ mọi mệt mỏi. Hãy dừng chân tại QCasa Qafe ngay sát bờ ruộng để thưởng thức một ly cà phê thơm lừng và thu trọn bức tranh đồng quê vào tầm mắt.'
+        ]
+      },
+      {
+        id: 'sightseeing-thanh-ha-pottery',
+        rank: 2,
+        name: 'Thanh Ha Pottery Village',
+        nameVi: 'Làng gốm Thanh Hà',
+        location: 'Thanh Ha Pottery Village - Pham Phan, Hoi An',
+        locationVi: 'Làng gốm Thanh Hà - Phạm Phán, Hội An',
+        openingHours: '8:00 AM - 5:30 PM',
+        openingHoursVi: '08:00 - 17:30',
+        ticketLabel: 'Admission:',
+        ticketPrice: '~35,000 VND',
+        ticketPriceVi: 'Khoảng 35.000 VNĐ/người',
+        image:
+          'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/31/21/74/23/caption.jpg?w=900&h=500&s=1',
+        imageCaption: '500-year-old terracotta lanes and riverside ceramic workshops in Thanh Ha',
+        imageCaptionVi: 'Làng gốm Thanh Hà hơn 500 năm tuổi bên dòng sông Thu Bồn hiền hòa',
+        paragraphs: [
+          'Located right along the Thu Bon River, Thanh Ha offers a picturesque glimpse into 500 years of continuous ceramic tradition. Rows of terracotta bricks, sun-drying clay pots, and narrow village lanes lined with bougainvillea make it a photographer’s dream. Watching elderly artisans shape river clay using traditional foot-spun wheels is a highlight of any sightseeing afternoon.'
+        ],
+        paragraphsVi: [
+          'Nằm nép mình bên dòng sông Thu Bồn hiền hòa, làng gốm hơn 500 năm tuổi này mang vẻ đẹp mộc mạc với những bức tường gạch nung đỏ au, sân phơi gốm dưới nắng và những con ngõ nhỏ rợp bóng hoa giấy. Ngắm nhìn đôi bàn tay khéo léo của các nghệ nhân chuốt gốm bên bàn xoay truyền thống là một trải nghiệm thị giác đầy cuốn hút.'
+        ]
+      },
+      {
+        id: 'sightseeing-kim-bong-carpentry',
+        rank: 3,
+        name: 'Kim Bong Carpentry Village',
+        nameVi: 'Làng mộc Kim Bồng',
+        location: 'Kim Bong Carpentry Village - Cam Kim, Hoi An',
+        locationVi: 'Làng mộc Kim Bồng - Xã Cẩm Kim, Hội An',
+        openingHours: '8:00 AM - 5:00 PM',
+        openingHoursVi: '08:00 - 17:00',
+        ticketLabel: 'Admission:',
+        ticketPrice: 'Free',
+        ticketPriceVi: 'Miễn phí',
+        image: 'https://hoiantravel.com.vn/wp-content/uploads/2018/02/11.jpg',
+        imageCaption: 'Open-air woodcarving workshops and wooden riverboat craftsmanship in Cam Kim',
+        imageCaptionVi: 'Xưởng mộc thủ công và đóng thuyền gỗ truyền thống tại Làng mộc Kim Bồng',
+        paragraphs: [
+          'A short ferry ride across the river brings you to Kim Bong, where Hoi An’s master woodworkers have practiced their craft since the 1500s. Sightseeing here feels like stepping back in time: you can stroll past open-air workshops filled with the scent of jackfruit and ironwood, admire ornate architectural carvings, and see wooden riverboats being repaired along the water’s edge.'
+        ],
+        paragraphsVi: [
+          'Chỉ mất vài phút đi đò qua bên kia sông Thu Bồn, bạn sẽ bước vào không gian yên ả của làng mộc Kim Bồng - cái nôi của những người thợ mộc đã kiến tạo nên kiến trúc cổ kính của Hội An từ thế kỷ 16. Dạo quanh làng, bạn sẽ ngửi thấy hương gỗ mít, gỗ lim thơm dịu và tận mắt chiêm ngưỡng những xưởng đóng thuyền gỗ truyền thống bên bến sông.'
+        ]
+      },
+      {
+        id: 'sightseeing-lang-cui-lu',
+        rank: 4,
+        name: 'Lang Cui Lu (Driftwood Art Village)',
+        nameVi: 'Làng Củi Lũ',
+        location: 'Lang Cui Lu - Cam Ha, Hoi An',
+        locationVi: 'Làng Củi Lũ - Cẩm Hà, Hội An',
+        openingHours: '8:00 AM - 5:30 PM',
+        openingHoursVi: '08:00 - 17:30',
+        ticketLabel: 'Admission:',
+        ticketPrice: 'Free to explore',
+        ticketPriceVi: 'Miễn phí tham quan',
+        image:
+          'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QOl_R7vJWGr5VqYZCxSVzoUY2i-XrO7eaHQxgpvFBR_b1pRq8Ib9YLl3_noKbrr2Cpw1iwsmwftg-IwD74odTsPQK8zDASRW0aueeMJu73GibDCbDrLtJybFwKa7aDqpvVupYak7SGwOln=s1360-w1360-h1020-rw',
+        imageCaption: 'Sculpted driftwood artworks crafted by artisan Le Ngoc Thuan in Cam Ha',
+        imageCaptionVi: 'Các tác phẩm điêu khắc gỗ lũa giàu tính biểu tượng tại Làng Củi Lũ Cẩm Hà',
+        paragraphs: [
+          'Tucked amidst lush greenery in Cam Ha, Làng Củi Lũ turns river flood debris into breathtaking art. Founded by local artisan Le Ngoc Thuan, the space displays towering, intricate wooden sculptures carved from salvaged tree roots and driftwood swept down from the Truong Son mountains—blending environmental storytelling with Champa and Vietnamese aesthetics.'
+        ],
+        paragraphsVi: [
+          'Ẩn mình giữa khu vườn xanh mát tại Cẩm Hà, Làng Củi Lũ gây ấn tượng mạnh với những tác phẩm điêu khắc gỗ lũa quy mô và giàu tính biểu tượng. Nghệ nhân Lê Ngọc Thuận đã tận dụng những gốc cây trôi dạt sau mùa lũ miền Trung để thổi hồn thành các bức tượng mang đậm dấu ấn văn hóa Champa và bản sắc Việt.'
+        ]
+      },
+      {
+        id: 'sightseeing-cso-gallery',
+        rank: 5,
+        name: 'CSO Gallery Hoi An',
+        nameVi: 'CSO Gallery Hội An',
+        location: 'CSO Gallery - 229 Cua Dai, Hoi An',
+        locationVi: 'CSO Gallery - 229 Cửa Đại, Hội An',
+        openingHours: '8:00 AM - 5:00 PM',
+        openingHoursVi: '08:00 - 17:00',
+        ticketLabel: 'Admission:',
+        ticketPrice: '~120,000 - 150,000 VND',
+        ticketPriceVi: 'Khoảng 120.000 - 150.000 VNĐ/người',
+        image:
+          'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9ToN2msL9QQa-45DyKaYRzTy-GzR6cZ4kBtAEerVq21_54pNg6nYSlcxWoFnlcBkA8NY6ao6QMRBDagP-4xWtV1Hm3tXveLDSEn6cy0MI2hbHXyoaqwKO2E8Eu3GPLIeOLQtKdI=s1360-w1360-h1020-rw',
+        imageCaption: 'Rare currency collections and The Tale of Kieu editions inside CSO Gallery',
+        imageCaptionVi: 'Bộ sưu tập tiền cổ và ấn bản Truyện Kiều đồ sộ tại CSO Gallery Hội An',
+        paragraphs: [
+          'For indoor sightseeing that sparks intellectual curiosity, visit CSO Gallery. This beautifully curated museum holds over 20,000 historical items, including rare ancient Vietnamese currency, international banknotes, and an extensive collection of Truyện Kiều (The Tale of Kieu) manuscripts and artworks. Every display room tells a fascinating story of trade, culture, and literature.'
+        ],
+        paragraphsVi: [
+          'Nếu muốn đổi gió với một không gian tham quan trong nhà sang trọng và giàu tri thức, CSO Gallery là lựa chọn tuyệt vời. Bảo tàng trưng bày hơn 20.000 hiện vật độc bản từ tiền cổ Việt Nam, tiền giấy thế giới đến bộ sưu tập các ấn bản Truyện Kiều đồ sộ, mang lại góc nhìn sâu sắc về lịch sử giao thương và văn hóa.'
+        ]
+      },
+      {
+        id: 'sightseeing-tam-thanh-mural-village',
+        rank: 6,
+        name: 'Tam Thanh Mural Village',
+        nameVi: 'Làng Bích họa Tam Thanh',
+        location: 'Tam Thanh Mural Village - Tam Ky, Quang Nam',
+        locationVi: 'Làng Bích họa Tam Thanh - Tam Kỳ, Quảng Nam',
+        openingHours: 'Open 24 hours',
+        openingHoursVi: 'Mở cửa cả ngày',
+        ticketLabel: 'Admission:',
+        ticketPrice: 'Free',
+        ticketPriceVi: 'Miễn phí',
+        image:
+          'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9T6OFDHUJXQ_Hw6tVPS0XvPf6OWShhF1p6-XHEpW0GnWn1ip-tKkK2R-YN0pq9la0f_LO8j21taENzyC_SxwTTG1pdHWbe7Yw-8Sht4AKzTNvaa2JeNditN3P3Nkmbl16UB7IAJdg=s1360-w1360-h1020-rw',
+        imageCaption: 'Colorful coastal street art murals along the sandy alleys of Tam Thanh',
+        imageCaptionVi: 'Làng chài Tam Thanh rực rỡ hơn 100 bức tranh tường ven biển',
+        paragraphs: [
+          'If you are up for a scenic coastal drive south of Hoi An, Tam Thanh Mural Village rewards you with colorful street art right beside a peaceful sandy beach. Created by Korean and Vietnamese artists in 2016, over 100 fishermen’s homes are covered in cheerful paintings celebrating coastal life, turning quiet sandy alleys into an open-air gallery.'
+        ],
+        paragraphsVi: [
+          'Cung đường ven biển chạy về phía Nam Hội An sẽ dẫn bạn tới làng chài Tam Thanh đầy sắc màu. Những ngôi nhà cấp bốn cũ kỹ sát bờ biển được các họa sĩ Việt Nam và Hàn Quốc vẽ lên hơn 100 bức tranh tường rực rỡ, biến những con hẻm nhỏ ven biển thành một phòng triển lãm ngoài trời đầy sức sống.'
+        ]
+      }
+    ]
   }
 ];
 

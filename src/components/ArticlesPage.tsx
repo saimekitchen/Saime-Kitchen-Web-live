@@ -165,6 +165,7 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
                 const cocktailStyle = isVi ? restaurant.cocktailStyleVi : restaurant.cocktailStyle;
                 const mustTry = isVi ? restaurant.mustTryVi : restaurant.mustTry;
                 const priceRange = isVi ? restaurant.priceRangeVi : restaurant.priceRange;
+                const ticketPrice = isVi ? restaurant.ticketPriceVi : restaurant.ticketPrice;
                 const atmosphere = isVi ? restaurant.atmosphereVi : restaurant.atmosphere;
                 const paragraphs = isVi ? restaurant.paragraphsVi : restaurant.paragraphs;
                 const imageCaption = isVi ? restaurant.imageCaptionVi : restaurant.imageCaption;
@@ -177,7 +178,8 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
                   >
                     {/* Continuous Heading */}
                     <h2 className="font-display font-dm-sans text-xl sm:text-2xl font-bold text-white tracking-tight leading-snug">
-                      {restaurant.rank}. {restaurantName} – {tagline}
+                      {restaurant.rank}. {restaurantName}
+                      {tagline ? ` – ${tagline}` : ''}
                     </h2>
 
                     {/* Feature Image shown right after the place title */}
@@ -185,7 +187,7 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
                       <figure className="my-5 overflow-hidden rounded-xl border border-white/10 bg-[#15161b]">
                         <img
                           src={restaurant.image}
-                          alt={`${restaurantName} - ${tagline}`}
+                          alt={tagline ? `${restaurantName} - ${tagline}` : restaurantName}
                           className="w-full h-64 sm:h-80 md:h-96 object-cover"
                           loading="lazy"
                         />
@@ -199,12 +201,16 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
 
                     {/* Simple metadata lines directly in prose */}
                     <div className="text-xs sm:text-sm text-white/70 space-y-1.5 py-1">
-                      <p>
-                        <strong className="text-white/90">{isVi ? 'Địa chỉ:' : 'Location:'}</strong> {location}
-                      </p>
-                      <p>
-                        <strong className="text-white/90">{isVi ? 'Giờ mở cửa:' : 'Opening Hours:'}</strong> {openingHours}
-                      </p>
+                      {location && (
+                        <p>
+                          <strong className="text-white/90">{isVi ? 'Địa chỉ:' : 'Address:'}</strong> {location}
+                        </p>
+                      )}
+                      {openingHours && (
+                        <p>
+                          <strong className="text-white/90">{isVi ? 'Giờ mở cửa:' : 'Opening Hours:'}</strong> {openingHours}
+                        </p>
+                      )}
                       {cuisine && (
                         <p>
                           <strong className="text-white/90">{isVi ? 'Loại hình ẩm thực:' : 'Cuisine:'}</strong> {cuisine}
@@ -215,9 +221,16 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
                           <strong className="text-white/90">{isVi ? 'Phong cách cocktail:' : 'Cocktail Style:'}</strong> {cocktailStyle}
                         </p>
                       )}
-                      <p>
-                        <strong className="text-white/90">{isVi ? 'Mức giá:' : 'Price Range:'}</strong> {priceRange}
-                      </p>
+                      {priceRange && (
+                        <p>
+                          <strong className="text-white/90">{isVi ? 'Mức giá:' : 'Price Range:'}</strong> {priceRange}
+                        </p>
+                      )}
+                      {ticketPrice && (
+                        <p>
+                          <strong className="text-white/90">{isVi ? 'Giá vé:' : (restaurant.ticketLabel || 'Ticket Price:')}</strong> {ticketPrice}
+                        </p>
+                      )}
                       {mustTry && (
                         <p>
                           <strong className="text-white/90">{isVi ? 'Món cocktail nên thử:' : 'Must-Try Cocktails:'}</strong> {mustTry}
@@ -308,6 +321,140 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
                   </div>
                 </section>
               )}
+
+              {/* Back to all articles bottom anchor */}
+              <div className="pt-8 border-t border-white/10 flex items-center justify-between">
+                <a
+                  href={isVi ? '/vn/articles' : '/articles'}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleBackToList();
+                  }}
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-white/70 hover:text-white transition-colors cursor-pointer"
+                >
+                  <ArrowLeft className="w-4 h-4 text-[#e63946]" />
+                  <span>{isVi ? '← Trở về danh sách bài viết' : '← Back to all articles'}</span>
+                </a>
+
+                <button
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                  className="text-xs text-white/50 hover:text-white transition-colors cursor-pointer"
+                >
+                  {isVi ? 'Lên đầu trang ↑' : 'Back to top ↑'}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Editorial Review Article Body (e.g. Hoi An Memories Land Review) */}
+          {selectedArticle.editorialSections && (
+            <div className="space-y-8 sm:space-y-10 text-[15px] sm:text-[17px] text-white/85 leading-[1.8] font-normal">
+              {/* Feature Hero Image */}
+              {selectedArticle.coverImage && (
+                <figure className="overflow-hidden rounded-xl border border-white/10 bg-[#15161b]">
+                  <img
+                    src={selectedArticle.coverImage}
+                    alt={title}
+                    className="w-full h-64 sm:h-80 md:h-96 object-cover"
+                    loading="eager"
+                  />
+                  {selectedArticle.venueInfo && (selectedArticle.venueInfo.imageCaption || selectedArticle.venueInfo.imageCaptionVi) && (
+                    <figcaption className="px-4 py-2 text-xs text-white/50 italic bg-black/40 border-t border-white/5">
+                      {isVi ? selectedArticle.venueInfo.imageCaptionVi : selectedArticle.venueInfo.imageCaption}
+                    </figcaption>
+                  )}
+                </figure>
+              )}
+
+              {/* Introduction Paragraphs */}
+              {((isVi ? selectedArticle.introParagraphsVi : selectedArticle.introParagraphs) || []).length > 0 && (
+                <div className="space-y-5">
+                  {((isVi ? selectedArticle.introParagraphsVi : selectedArticle.introParagraphs) || []).map((para: string, pIdx: number) => (
+                    <p key={pIdx}>{para}</p>
+                  ))}
+                </div>
+              )}
+
+              {/* Venue Quick Info */}
+              {selectedArticle.venueInfo && (
+                <div className="text-xs sm:text-sm text-white/75 space-y-1.5 p-5 rounded-xl bg-white/[0.03] border border-white/10">
+                  <p>
+                    <strong className="text-white/95">{isVi ? 'Địa chỉ:' : 'Location:'}</strong>{' '}
+                    {isVi ? selectedArticle.venueInfo.locationVi : selectedArticle.venueInfo.location}
+                  </p>
+                  <p>
+                    <strong className="text-white/95">{isVi ? 'Giờ mở cửa:' : 'Opening Hours:'}</strong>{' '}
+                    {isVi ? selectedArticle.venueInfo.openingHoursVi : selectedArticle.venueInfo.openingHours}
+                  </p>
+                  <p>
+                    <strong className="text-white/95">{isVi ? 'Giá vé tham khảo:' : 'Ticket Price:'}</strong>{' '}
+                    {isVi ? selectedArticle.venueInfo.ticketPriceVi : selectedArticle.venueInfo.ticketPrice}
+                  </p>
+                </div>
+              )}
+
+              {/* Editorial Sections */}
+              {selectedArticle.editorialSections.map((section) => {
+                const secTitle = isVi ? section.titleVi : section.title;
+                return (
+                  <section
+                    key={section.id}
+                    id={section.id}
+                    className="pt-8 sm:pt-10 border-t border-white/10 space-y-4 scroll-mt-28"
+                  >
+                    <h2 className="font-display font-dm-sans text-xl sm:text-2xl font-bold text-white tracking-tight leading-snug">
+                      {secTitle}
+                    </h2>
+                    <div className="space-y-4">
+                      {section.items.map((item, idx) => {
+                        const lead = isVi ? item.leadVi : item.lead;
+                        const text = isVi ? item.textVi : item.text;
+                        return (
+                          <p key={idx}>
+                            {lead && <strong className="text-white">{lead} </strong>}
+                            {text}
+                          </p>
+                        );
+                      })}
+                    </div>
+
+                    {section.isVerdict && (
+                      <div className="pt-4 flex flex-wrap items-center gap-3 text-xs">
+                        <a
+                          href={isVi ? 'https://zalo.me/0964023683' : 'https://wa.me/84964023683'}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-5 py-2.5 rounded-full bg-[#e63946] hover:bg-[#d62839] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-[#e63946]/30 inline-flex items-center gap-1.5 cursor-pointer no-underline"
+                        >
+                          <span>{isVi ? 'Đặt Bàn Trước Giờ Diễn Qua Zalo' : 'Book Pre-Show Dinner via WhatsApp'}</span>
+                          <ChevronRight className="w-3.5 h-3.5" />
+                        </a>
+                        <a
+                          href={isVi ? '/vn/food' : '/food'}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            onSwitchToFoodPage();
+                          }}
+                          className="text-white/70 hover:text-white hover:underline cursor-pointer px-2 py-1"
+                        >
+                          {isVi ? 'Xem thực đơn Saime Introverts' : 'View Saime food menu'}
+                        </a>
+                        <span className="text-white/30">•</span>
+                        <a
+                          href={isVi ? '/vn/cocktails' : '/cocktails'}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            onSwitchToCocktailPage();
+                          }}
+                          className="text-white/70 hover:text-white hover:underline cursor-pointer px-2 py-1"
+                        >
+                          {isVi ? 'Xem 12 cocktail đặc sản' : 'View 12 signature cocktails'}
+                        </a>
+                      </div>
+                    )}
+                  </section>
+                );
+              })}
 
               {/* Back to all articles bottom anchor */}
               <div className="pt-8 border-t border-white/10 flex items-center justify-between">

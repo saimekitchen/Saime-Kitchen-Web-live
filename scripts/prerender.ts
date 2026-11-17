@@ -78,6 +78,61 @@ const routes: RouteMetadata[] = [
     h1: '5 Must-Try Cocktail Bars in Hoi An for an Unforgettable Nightlife Experience',
     articleSlug: '5-must-try-cocktail-bars-hoi-an',
   },
+  {
+    path: '/articles/unique-things-to-do-in-hoi-an',
+    lang: 'en',
+    title: 'Unique Things to Do in Hoi An Beyond the Usual Tourist Trail',
+    description: 'Looking for authentic things to do in Hoi An? Skip the standard tours and try dawn street food, custom cocktail crafting at Saime, stained glass art, and local "nhậu" spots.',
+    canonical: 'https://www.saimekb.com/articles/unique-things-to-do-in-hoi-an',
+    alternateEn: 'https://www.saimekb.com/articles/unique-things-to-do-in-hoi-an',
+    alternateVi: 'https://www.saimekb.com/vn/articles/unique-things-to-do-in-hoi-an',
+    h1: 'Unique Things to Do in Hoi An Beyond the Usual Tourist Trail',
+    articleSlug: 'unique-things-to-do-in-hoi-an',
+  },
+  {
+    path: '/articles/6-underrated-hoi-an-places-to-visit',
+    lang: 'en',
+    title: '6 Underrated Hoi An Places to Visit Beyond the Ancient Town',
+    description: 'Explore the best Hoi An places to visit outside the Old Town: Kim Bong Carpentry Village, Thanh Ha Pottery, Tam Thanh Mural Village, Cu Lao driftwood art, CSO Gallery, and scenic rice paddies.',
+    canonical: 'https://www.saimekb.com/articles/6-underrated-hoi-an-places-to-visit',
+    alternateEn: 'https://www.saimekb.com/articles/6-underrated-hoi-an-places-to-visit',
+    alternateVi: 'https://www.saimekb.com/vn/articles/6-underrated-hoi-an-places-to-visit',
+    h1: '6 Underrated Hoi An Places to Visit Beyond the Ancient Town',
+    articleSlug: '6-underrated-hoi-an-places-to-visit',
+  },
+  {
+    path: '/articles/hoi-an-memories-land-review',
+    lang: 'en',
+    title: 'Hoi An Memories Land Review: Is It Worth the Hype?',
+    description: 'Wondering if Hoi An Memories Land and the Hoi An Memories Show live up to the hype? Here is an honest look at what to expect, ticket tips, and who will love it most.',
+    canonical: 'https://www.saimekb.com/articles/hoi-an-memories-land-review',
+    alternateEn: 'https://www.saimekb.com/articles/hoi-an-memories-land-review',
+    alternateVi: 'https://www.saimekb.com/vn/articles/hoi-an-memories-land-review',
+    h1: 'Hoi An Memories Land Review: Is It Worth the Hype?',
+    articleSlug: 'hoi-an-memories-land-review',
+  },
+  {
+    path: '/articles/5-must-visit-hoi-an-museums',
+    lang: 'en',
+    title: '5 Must-Visit Hoi An Museums to Understand the Ancient Town’s Soul',
+    description: 'Discover the top 5 Hoi An museums: Museum of History and Culture, Sa Huynh Culture Museum, Museum of Trade Ceramics, Precious Heritage Museum, and Thanh Ha Terracotta Park.',
+    canonical: 'https://www.saimekb.com/articles/5-must-visit-hoi-an-museums',
+    alternateEn: 'https://www.saimekb.com/articles/5-must-visit-hoi-an-museums',
+    alternateVi: 'https://www.saimekb.com/vn/articles/5-must-visit-hoi-an-museums',
+    h1: '5 Must-Visit Hoi An Museums to Understand the Ancient Town’s Soul',
+    articleSlug: '5-must-visit-hoi-an-museums',
+  },
+  {
+    path: '/articles/scenic-hoi-an-sightseeing',
+    lang: 'en',
+    title: 'Scenic Hoi An Sightseeing: Craft Villages, Art Sanctuaries & Paddy Fields',
+    description: 'Plan the ultimate Hoi An sightseeing route beyond the Old Town. Discover picturesque rice fields, riverside craft villages, coastal murals, and hidden art galleries.',
+    canonical: 'https://www.saimekb.com/articles/scenic-hoi-an-sightseeing',
+    alternateEn: 'https://www.saimekb.com/articles/scenic-hoi-an-sightseeing',
+    alternateVi: 'https://www.saimekb.com/vn/articles/scenic-hoi-an-sightseeing',
+    h1: 'Scenic Hoi An Sightseeing: Craft Villages, Art Sanctuaries & Paddy Fields',
+    articleSlug: 'scenic-hoi-an-sightseeing',
+  },
 
   // --- VIETNAMESE ROUTES (/vn/...) ---
   {
@@ -152,6 +207,61 @@ const routes: RouteMetadata[] = [
     h1: 'Top 5 Quán Cocktail Bar Nhất Định Phải Thử Tại Hội An',
     articleSlug: '5-must-try-cocktail-bars-hoi-an',
   },
+  {
+    path: '/vn/articles/unique-things-to-do-in-hoi-an',
+    lang: 'vi',
+    title: 'Những trải nghiệm khác biệt tại Hội An ngoài các tour truyền thống',
+    description: 'Bạn đã quen với làm đèn lồng hay lớp học nấu ăn? Khám phá ngay 5 hoạt động bản địa đầy sáng tạo tại Hội An: ăn sáng lúc 6h, tự pha cocktail tại Saime, làm kính màu và đi nhậu kiểu người địa phương.',
+    canonical: 'https://www.saimekb.com/vn/articles/unique-things-to-do-in-hoi-an',
+    alternateEn: 'https://www.saimekb.com/articles/unique-things-to-do-in-hoi-an',
+    alternateVi: 'https://www.saimekb.com/vn/articles/unique-things-to-do-in-hoi-an',
+    h1: 'Những trải nghiệm khác biệt tại Hội An ngoài các tour truyền thống',
+    articleSlug: 'unique-things-to-do-in-hoi-an',
+  },
+  {
+    path: '/vn/articles/6-underrated-hoi-an-places-to-visit',
+    lang: 'vi',
+    title: '6 địa điểm tham quan Hội An độc đáo ngoài khu vực Phố Cổ',
+    description: 'Khám phá những điểm đến giàu bản sắc quanh Hội An: Làng mộc Kim Bồng, Làng gốm Thanh Hà, Làng bích họa Tam Thanh, cung đường lúa QCasa Qafe, Làng Củi Lũ và CSO Gallery.',
+    canonical: 'https://www.saimekb.com/vn/articles/6-underrated-hoi-an-places-to-visit',
+    alternateEn: 'https://www.saimekb.com/articles/6-underrated-hoi-an-places-to-visit',
+    alternateVi: 'https://www.saimekb.com/vn/articles/6-underrated-hoi-an-places-to-visit',
+    h1: '6 địa điểm tham quan Hội An độc đáo ngoài khu vực Phố Cổ',
+    articleSlug: '6-underrated-hoi-an-places-to-visit',
+  },
+  {
+    path: '/vn/articles/hoi-an-memories-land-review',
+    lang: 'vi',
+    title: 'Review Hoi An Memories Land (Đảo Ký Ức Hội An): Có thực sự đáng tiền như lời đồn?',
+    description: 'Đánh giá khách quan về Hoi An Memories Land và show diễn Ký Ức Hội An: điểm cộng, điểm trừ, giá vé và kinh nghiệm sắp xếp lịch trình trọn vẹn nhất.',
+    canonical: 'https://www.saimekb.com/vn/articles/hoi-an-memories-land-review',
+    alternateEn: 'https://www.saimekb.com/articles/hoi-an-memories-land-review',
+    alternateVi: 'https://www.saimekb.com/vn/articles/hoi-an-memories-land-review',
+    h1: 'Review Hoi An Memories Land (Đảo Ký Ức Hội An): Có thực sự đáng tiền như lời đồn?',
+    articleSlug: 'hoi-an-memories-land-review',
+  },
+  {
+    path: '/vn/articles/5-must-visit-hoi-an-museums',
+    lang: 'vi',
+    title: 'Top 5 bảo tàng nổi tiếng tại Hội An giúp bạn hiểu trọn linh hồn Phố Cổ',
+    description: 'Khám phá 5 bảo tàng đặc sắc nhất Hội An: Bảo tàng Lịch sử – Văn hóa, Bảo tàng Văn hóa Sa Huỳnh, Bảo tàng Gốm sứ Mậu dịch, Precious Heritage Museum và Công viên Đất nung Thanh Hà.',
+    canonical: 'https://www.saimekb.com/vn/articles/5-must-visit-hoi-an-museums',
+    alternateEn: 'https://www.saimekb.com/articles/5-must-visit-hoi-an-museums',
+    alternateVi: 'https://www.saimekb.com/vn/articles/5-must-visit-hoi-an-museums',
+    h1: 'Top 5 bảo tàng nổi tiếng tại Hội An giúp bạn hiểu trọn linh hồn Phố Cổ',
+    articleSlug: '5-must-visit-hoi-an-museums',
+  },
+  {
+    path: '/vn/articles/scenic-hoi-an-sightseeing',
+    lang: 'vi',
+    title: 'Lộ trình ngắm cảnh & khám phá văn hóa Hội An ngoài Phố Cổ',
+    description: 'Gợi ý cung đường tham quan ngắm cảnh tuyệt đẹp quanh Hội An: từ đồng lúa QCasa Qafe, làng nghề ven sông Thu Bồn đến không gian nghệ thuật Làng Củi Lũ và làng bích họa ven biển.',
+    canonical: 'https://www.saimekb.com/vn/articles/scenic-hoi-an-sightseeing',
+    alternateEn: 'https://www.saimekb.com/articles/scenic-hoi-an-sightseeing',
+    alternateVi: 'https://www.saimekb.com/vn/articles/scenic-hoi-an-sightseeing',
+    h1: 'Lộ trình ngắm cảnh & khám phá văn hóa Hội An ngoài Phố Cổ',
+    articleSlug: 'scenic-hoi-an-sightseeing',
+  },
 ];
 
 function generateArticleSemanticHtml(slug: string, isVi: boolean): string {
@@ -164,6 +274,8 @@ function generateArticleSemanticHtml(slug: string, isVi: boolean): string {
   const readTime = isVi ? article.readTimeVi : article.readTime;
   const intros = (isVi ? article.introParagraphsVi : article.introParagraphs) || [];
   const items: RestaurantReview[] = article.restaurantsData || [];
+  const editorialSections = article.editorialSections || [];
+  const venueInfo = article.venueInfo;
   const conclusion = article.conclusion;
 
   let html = `
@@ -175,10 +287,28 @@ function generateArticleSemanticHtml(slug: string, isVi: boolean): string {
             <p>By <span itemprop="author">${article.author}</span> • Saime Introverts Hoi An</p>
           </header>
 
+          ${article.coverImage && editorialSections.length > 0 ? `<figure><img src="${article.coverImage}" alt="${title}" width="800" height="500" loading="eager" /></figure>` : ''}
+
           <section>
             ${intros.map((p) => `<p>${p}</p>`).join('\n            ')}
           </section>
 
+          ${
+            venueInfo
+              ? `
+          <section>
+            <ul>
+              <li><strong>${isVi ? 'Địa chỉ:' : 'Location:'}</strong> ${isVi ? venueInfo.locationVi : venueInfo.location}</li>
+              <li><strong>${isVi ? 'Giờ mở cửa:' : 'Opening Hours:'}</strong> ${isVi ? venueInfo.openingHoursVi : venueInfo.openingHours}</li>
+              <li><strong>${isVi ? 'Giá vé tham khảo:' : 'Ticket Price:'}</strong> ${isVi ? venueInfo.ticketPriceVi : venueInfo.ticketPrice}</li>
+            </ul>
+          </section>`
+              : ''
+          }
+
+          ${
+            items.length > 0
+              ? `
           <section>
             ${items
               .map((item) => {
@@ -187,6 +317,7 @@ function generateArticleSemanticHtml(slug: string, isVi: boolean): string {
                 const location = isVi ? item.locationVi : item.location;
                 const hours = isVi ? item.openingHoursVi : item.openingHours;
                 const price = isVi ? item.priceRangeVi : item.priceRange;
+                const ticketPrice = isVi ? item.ticketPriceVi : item.ticketPrice;
                 const style = isVi ? (item.cocktailStyleVi || item.cuisineVi) : (item.cocktailStyle || item.cuisine);
                 const mustTry = isVi ? item.mustTryVi : item.mustTry;
                 const atmosphere = isVi ? item.atmosphereVi : item.atmosphere;
@@ -194,13 +325,14 @@ function generateArticleSemanticHtml(slug: string, isVi: boolean): string {
 
                 return `
             <article id="${item.id}">
-              <h2>${item.rank}. ${name} – ${tagline}</h2>
-              ${item.image ? `<figure><img src="${item.image}" alt="${name} - ${tagline}" width="800" height="500" loading="lazy" /><figcaption>${name} Hoi An</figcaption></figure>` : ''}
+              <h2>${item.rank}. ${name}${tagline ? ` – ${tagline}` : ''}</h2>
+              ${item.image ? `<figure><img src="${item.image}" alt="${tagline ? `${name} - ${tagline}` : name}" width="800" height="500" loading="lazy" /><figcaption>${name} Hoi An</figcaption></figure>` : ''}
               <ul>
-                <li><strong>${isVi ? 'Địa chỉ:' : 'Location:'}</strong> ${location}</li>
-                <li><strong>${isVi ? 'Giờ mở cửa:' : 'Opening Hours:'}</strong> ${hours}</li>
+                ${location ? `<li><strong>${isVi ? 'Địa chỉ:' : 'Address:'}</strong> ${location}</li>` : ''}
+                ${hours ? `<li><strong>${isVi ? 'Giờ mở cửa:' : 'Opening Hours:'}</strong> ${hours}</li>` : ''}
+                ${ticketPrice ? `<li><strong>${isVi ? 'Giá vé:' : (item.ticketLabel || 'Ticket Price:')}</strong> ${ticketPrice}</li>` : ''}
                 ${style ? `<li><strong>${isVi ? 'Phong cách / Ẩm thực:' : 'Style / Cuisine:'}</strong> ${style}</li>` : ''}
-                <li><strong>${isVi ? 'Mức giá:' : 'Price Range:'}</strong> ${price}</li>
+                ${price ? `<li><strong>${isVi ? 'Mức giá:' : 'Price Range:'}</strong> ${price}</li>` : ''}
                 ${mustTry ? `<li><strong>${isVi ? 'Nên thử:' : 'Must-Try:'}</strong> ${mustTry}</li>` : ''}
                 ${atmosphere ? `<li><strong>${isVi ? 'Không gian:' : 'Atmosphere:'}</strong> ${atmosphere}</li>` : ''}
               </ul>
@@ -208,7 +340,29 @@ function generateArticleSemanticHtml(slug: string, isVi: boolean): string {
             </article>`;
               })
               .join('\n')}
-          </section>
+          </section>`
+              : ''
+          }
+
+          ${
+            editorialSections.length > 0
+              ? editorialSections
+                  .map(
+                    (sec) => `
+          <section id="${sec.id}">
+            <h2>${isVi ? sec.titleVi : sec.title}</h2>
+            ${sec.items
+              .map((it) => {
+                const lead = isVi ? it.leadVi : it.lead;
+                const text = isVi ? it.textVi : it.text;
+                return `<p>${lead ? `<strong>${lead}</strong> ` : ''}${text}</p>`;
+              })
+              .join('\n            ')}
+          </section>`
+                  )
+                  .join('\n')
+              : ''
+          }
 
           ${
             conclusion
@@ -225,6 +379,11 @@ function generateArticleSemanticHtml(slug: string, isVi: boolean): string {
             <ul>
               <li><a href="${isVi ? '/vn/articles/top-8-fine-dining-fusion-hoi-an' : '/articles/top-8-fine-dining-fusion-hoi-an'}">${isVi ? 'Top 8 Nhà Hàng Fine Dining &amp; Fusion Tại Hội An' : 'Top 8 Fine Dining &amp; Fusion Restaurants in Hoi An'}</a></li>
               <li><a href="${isVi ? '/vn/articles/5-must-try-cocktail-bars-hoi-an' : '/articles/5-must-try-cocktail-bars-hoi-an'}">${isVi ? 'Top 5 Quán Cocktail Bar Nhất Định Phải Thử Tại Hội An' : '5 Must-Try Cocktail Bars in Hoi An'}</a></li>
+              <li><a href="${isVi ? '/vn/articles/unique-things-to-do-in-hoi-an' : '/articles/unique-things-to-do-in-hoi-an'}">${isVi ? 'Những trải nghiệm khác biệt tại Hội An ngoài các tour truyền thống' : 'Unique Things to Do in Hoi An Beyond the Usual Tourist Trail'}</a></li>
+              <li><a href="${isVi ? '/vn/articles/6-underrated-hoi-an-places-to-visit' : '/articles/6-underrated-hoi-an-places-to-visit'}">${isVi ? '6 địa điểm tham quan Hội An độc đáo ngoài khu vực Phố Cổ' : '6 Underrated Hoi An Places to Visit Beyond the Ancient Town'}</a></li>
+              <li><a href="${isVi ? '/vn/articles/hoi-an-memories-land-review' : '/articles/hoi-an-memories-land-review'}">${isVi ? 'Review Hoi An Memories Land (Đảo Ký Ức Hội An): Có thực sự đáng tiền như lời đồn?' : 'Hoi An Memories Land Review: Is It Worth the Hype?'}</a></li>
+              <li><a href="${isVi ? '/vn/articles/5-must-visit-hoi-an-museums' : '/articles/5-must-visit-hoi-an-museums'}">${isVi ? 'Top 5 bảo tàng nổi tiếng tại Hội An giúp bạn hiểu trọn linh hồn Phố Cổ' : '5 Must-Visit Hoi An Museums to Understand the Ancient Town’s Soul'}</a></li>
+              <li><a href="${isVi ? '/vn/articles/scenic-hoi-an-sightseeing' : '/articles/scenic-hoi-an-sightseeing'}">${isVi ? 'Lộ trình ngắm cảnh &amp; khám phá văn hóa Hội An ngoài Phố Cổ' : 'Scenic Hoi An Sightseeing: Craft Villages, Art Sanctuaries &amp; Paddy Fields'}</a></li>
               <li><a href="${isVi ? '/vn/food' : '/food'}">${isVi ? 'Thực Đơn Món Ăn Fusion Tuổi Thơ' : 'Food Lab Menu'}</a></li>
               <li><a href="${isVi ? '/vn/cocktails' : '/cocktails'}">${isVi ? '12 Ly Cocktail Đặc Sản Ba Miền' : '12 Regional Cocktails'}</a></li>
               <li><a href="${isVi ? '/articles/' + slug : '/vn/articles/' + slug}">${isVi ? 'English Version' : 'Phiên bản Tiếng Việt'}</a></li>
@@ -253,6 +412,10 @@ function prerender() {
 
     let html = baseHtml;
 
+    const escapeAttr = (val: string) => val.replace(/"/g, '&quot;');
+    const safeAttrTitle = escapeAttr(route.title);
+    const safeAttrDesc = escapeAttr(route.description);
+
     // 1. Replace HTML lang attribute
     html = html.replace(/<html\s+lang=".*?"/, `<html lang="${route.lang}"`);
 
@@ -262,7 +425,7 @@ function prerender() {
     // 3. Replace Meta Description
     html = html.replace(
       /<meta\s+name="description"\s+content=".*?"\s*\/?>/,
-      `<meta name="description" content="${route.description}" />`
+      `<meta name="description" content="${safeAttrDesc}" />`
     );
 
     // 4. Replace Canonical
@@ -274,11 +437,11 @@ function prerender() {
     // 5. Replace OpenGraph Title, Description, and URL
     html = html.replace(
       /<meta\s+property="og:title"\s+content=".*?"\s*\/?>/,
-      `<meta property="og:title" content="${route.title}" />`
+      `<meta property="og:title" content="${safeAttrTitle}" />`
     );
     html = html.replace(
       /<meta\s+property="og:description"\s+content=".*?"\s*\/?>/,
-      `<meta property="og:description" content="${route.description}" />`
+      `<meta property="og:description" content="${safeAttrDesc}" />`
     );
     html = html.replace(
       /<meta\s+property="og:url"\s+content=".*?"\s*\/?>/,
@@ -288,11 +451,11 @@ function prerender() {
     // 6. Replace Twitter Title & Description
     html = html.replace(
       /<meta\s+name="twitter:title"\s+content=".*?"\s*\/?>/,
-      `<meta name="twitter:title" content="${route.title}" />`
+      `<meta name="twitter:title" content="${safeAttrTitle}" />`
     );
     html = html.replace(
       /<meta\s+name="twitter:description"\s+content=".*?"\s*\/?>/,
-      `<meta name="twitter:description" content="${route.description}" />`
+      `<meta name="twitter:description" content="${safeAttrDesc}" />`
     );
 
     // 7. If this is an article page, inject Schema.org Article and BreadcrumbList JSON-LD + Rich Article Semantic HTML!
@@ -317,8 +480,8 @@ function prerender() {
           "headline": "${route.h1.replace(/"/g, '\\"')}",
           "description": "${route.description.replace(/"/g, '\\"')}",
           "image": "${articleCover}",
-          "datePublished": "${route.articleSlug.includes('5-must-try') ? '2026-11-01T08:00:00+07:00' : '2026-10-15T08:00:00+07:00'}",
-          "dateModified": "2026-11-08T00:00:00+07:00",
+          "datePublished": "${route.articleSlug.includes('top-8') ? '2026-10-15T08:00:00+07:00' : route.articleSlug.includes('5-must-try') ? '2026-11-01T08:00:00+07:00' : '2026-11-17T08:00:00+07:00'}",
+          "dateModified": "2026-11-17T00:00:00+07:00",
           "inLanguage": "${route.lang}",
           "author": {
             "@type": "Organization",
