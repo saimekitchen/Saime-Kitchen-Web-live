@@ -322,6 +322,37 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
                 </section>
               )}
 
+              {/* Cross-article internal links for SEO discovery & reader navigation */}
+              <nav
+                aria-label={isVi ? 'Bài viết liên quan khác' : 'More Hoi An Guides'}
+                className="pt-8 border-t border-white/10 space-y-3"
+              >
+                <h3 className="text-xs font-bold uppercase tracking-wider text-white/50">
+                  {isVi ? 'Khám Phá Thêm Cẩm Nang Hội An' : 'More Hoi An Guides & Stories'}
+                </h3>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm">
+                  {ARTICLES_DATA.filter((a) => a.id !== selectedArticle.id).map((other) => {
+                    const otherSlug = other.slug || other.id;
+                    const otherUrl = isVi ? `/vn/articles/${otherSlug}` : `/articles/${otherSlug}`;
+                    const otherTitle = isVi ? other.titleVi : other.title;
+                    return (
+                      <li key={other.id}>
+                        <a
+                          href={otherUrl}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleOpenArticle(otherSlug);
+                          }}
+                          className="block p-3 rounded-xl bg-white/[0.03] border border-white/10 hover:border-[#e63946]/50 text-white/80 hover:text-white transition-all no-underline"
+                        >
+                          <span className="line-clamp-2 font-medium">{otherTitle}</span>
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </nav>
+
               {/* Back to all articles bottom anchor */}
               <div className="pt-8 border-t border-white/10 flex items-center justify-between">
                 <a
@@ -455,6 +486,37 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({
                   </section>
                 );
               })}
+
+              {/* Cross-article internal links for SEO discovery & reader navigation */}
+              <nav
+                aria-label={isVi ? 'Bài viết liên quan khác' : 'More Hoi An Guides'}
+                className="pt-8 border-t border-white/10 space-y-3"
+              >
+                <h3 className="text-xs font-bold uppercase tracking-wider text-white/50">
+                  {isVi ? 'Khám Phá Thêm Cẩm Nang Hội An' : 'More Hoi An Guides & Stories'}
+                </h3>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm">
+                  {ARTICLES_DATA.filter((a) => a.id !== selectedArticle.id).map((other) => {
+                    const otherSlug = other.slug || other.id;
+                    const otherUrl = isVi ? `/vn/articles/${otherSlug}` : `/articles/${otherSlug}`;
+                    const otherTitle = isVi ? other.titleVi : other.title;
+                    return (
+                      <li key={other.id}>
+                        <a
+                          href={otherUrl}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleOpenArticle(otherSlug);
+                          }}
+                          className="block p-3 rounded-xl bg-white/[0.03] border border-white/10 hover:border-[#e63946]/50 text-white/80 hover:text-white transition-all no-underline"
+                        >
+                          <span className="line-clamp-2 font-medium">{otherTitle}</span>
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </nav>
 
               {/* Back to all articles bottom anchor */}
               <div className="pt-8 border-t border-white/10 flex items-center justify-between">
