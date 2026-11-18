@@ -2,6 +2,7 @@ import React from 'react';
 import { ActivePage, Language } from '../types';
 import { translations } from '../utils/i18n';
 import { Logo } from './Logo';
+import { ARTICLES_DATA } from '../data/articlesData';
 
 interface FooterProps {
   onPageChange: (page: ActivePage) => void;
@@ -262,6 +263,37 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
         </div>
 
+
+        {/* Compact Editorial Guides Directory for Seamless Discovery & SEO */}
+        <nav
+          aria-label={currentLang === 'vi' ? 'Danh mục bài viết & cẩm nang' : 'Hoi An Editorial Guides'}
+          className="pt-6 border-t border-white/10 flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] text-white/45"
+        >
+          <a
+            href={currentLang === 'vi' ? '/vn/articles' : '/articles'}
+            onClick={(e) => {
+              e.preventDefault();
+              onPageChange('articles');
+            }}
+            className="text-white/70 hover:text-[#e63946] font-semibold uppercase tracking-wider transition-colors no-underline"
+          >
+            {currentLang === 'vi' ? 'Cẩm Nang Hội An:' : 'Hoi An Guides:'}
+          </a>
+          {ARTICLES_DATA.map((article) => {
+            const slug = article.slug || article.id;
+            const href = currentLang === 'vi' ? `/vn/articles/${slug}` : `/articles/${slug}`;
+            const label = currentLang === 'vi' ? article.titleVi : article.title;
+            return (
+              <a
+                key={article.id}
+                href={href}
+                className="hover:text-white transition-colors no-underline"
+              >
+                {label}
+              </a>
+            );
+          })}
+        </nav>
 
         {/* Bottom Credits & Tagline */}
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/40 text-center sm:text-left">
