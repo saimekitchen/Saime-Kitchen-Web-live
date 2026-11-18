@@ -264,6 +264,45 @@ const routes: RouteMetadata[] = [
   },
 ];
 
+function generateArticlesIndexSemanticHtml(isVi: boolean): string {
+  const heading = isVi ? 'Cẩm Nang Ẩm Thực &amp; Du Lịch Hội An | Saime Introverts' : 'Hoi An Culinary, Nightlife &amp; Travel Guides | Saime Introverts';
+  const intro = isVi
+    ? 'Tổng hợp bài viết chọn lọc về ẩm thực fusion, cocktail bar, bảo tàng, làng nghề và trải nghiệm bản địa tại Hội An.'
+    : 'Curated editorial guides to Hoi An dining, craft cocktail bars, hidden attractions, museums, and scenic countryside routes.';
+
+  return `
+      <main class="sr-only">
+        <section>
+          <h1>${heading}</h1>
+          <p>${intro}</p>
+          <ul>
+            ${ARTICLES_DATA.map((article) => {
+              const slug = article.slug || article.id;
+              const href = isVi ? `/vn/articles/${slug}` : `/articles/${slug}`;
+              const altHref = isVi ? `/articles/${slug}` : `/vn/articles/${slug}`;
+              const title = isVi ? article.titleVi : article.title;
+              const desc = isVi ? article.shortDescriptionVi : article.shortDescription;
+              return `
+            <li>
+              <article>
+                <h2><a href="${href}">${title}</a></h2>
+                <p>${desc}</p>
+                <p><a href="${altHref}">${isVi ? 'English Version' : 'Phiên bản Tiếng Việt'}</a></p>
+              </article>
+            </li>`;
+            }).join('\n')}
+          </ul>
+          <nav aria-label="Primary Menus">
+            <ul>
+              <li><a href="${isVi ? '/vn/food' : '/food'}">${isVi ? 'Thực Đơn Món Ăn Fusion Tuổi Thơ' : 'Food Lab Menu'}</a></li>
+              <li><a href="${isVi ? '/vn/cocktails' : '/cocktails'}">${isVi ? '12 Ly Cocktail Đặc Sản Ba Miền' : '12 Regional Cocktails'}</a></li>
+              <li><a href="${isVi ? '/articles' : '/vn/articles'}">${isVi ? 'All Articles (English)' : 'Tất cả bài viết (Tiếng Việt)'}</a></li>
+            </ul>
+          </nav>
+        </section>
+      </main>`;
+}
+
 function generateArticleSemanticHtml(slug: string, isVi: boolean): string {
   const article = ARTICLES_DATA.find((a) => a.slug === slug || a.id === slug);
   if (!article) return '';
@@ -535,22 +574,37 @@ function prerender() {
       if (articleBodyHtml) {
         html = html.replace(/<main class="sr-only">[\s\S]*?<\/main>/, articleBodyHtml.trim());
       }
+    } else if (route.path === '/articles' || route.path === '/vn/articles') {
+      const indexBodyHtml = generateArticlesIndexSemanticHtml(route.lang === 'vi');
+      html = html.replace(/<main class="sr-only">[\s\S]*?<\/main>/, indexBodyHtml.trim());
     } else {
       // General H1 replacement
       html = html.replace(/<h1[^>]*>.*?<\/h1>/, `<h1>${route.h1}</h1>`);
     }
 
-    // 8. Add hreflang links before </head>
+    // 8. Strip any base hreflang tags from index.html so there are NO duplicate/conflicting hreflangs
+    html = html.replace(/\s*<!--\s*Hreflang Tags for Multilingual SEO\s*-->/g, '');
+    html = html.replace(/\s*<link\s+rel="alternate"\s+hreflang="[^"]*"\s+href="[^"]*"\s*\/?>/g, '');
+
+    // Inject authoritative hreflang links for this exact route before </head>
     const hreflangTags = `
+    <!-- Hreflang Tags for Multilingual SEO -->
     <link rel="alternate" hreflang="en" href="${route.alternateEn}" />
     <link rel="alternate" hreflang="vi" href="${route.alternateVi}" />
     <link rel="alternate" hreflang="x-default" href="${route.alternateEn}" />
   </head>`;
     html = html.replace('</head>', hreflangTags);
 
+    // Write directory index: dist/<route>/index.html
     const outPath = path.resolve(targetDir, 'index.html');
     fs.writeFileSync(outPath, html, 'utf8');
-    console.log(`[Prerender] Generated static route: ${route.path} -> ${outPath}`);
+
+    // Also write flat .html file for Vercel cleanUrls & Express clean-URL lookup without trailing-slash redirects
+    const flatPath = path.resolve(distDir, `${route.path.replace(/^\//, '')}.html`);
+    fs.mkdirSync(path.dirname(flatPath), { recursive: true });
+    fs.writeFileSync(flatPath, html, 'utf8');
+
+    console.log(`[Prerender] Generated static route: ${route.path} -> ${outPath} & ${flatPath}`);
   }
 
   console.log('[Prerender] All routes successfully pre-rendered into dist/');
