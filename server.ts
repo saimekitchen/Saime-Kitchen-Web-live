@@ -203,9 +203,32 @@ async function startServer() {
   // Vite Integration (Dev) vs Static Dist (Prod)
   // -------------------------------------------------------------
   if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.resolve(__dirname, 'dist')));
-    app.get('*', (_req, res) => {
-      res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+    const distDir = path.resolve(__dirname, 'dist');
+
+    // Normalize trailing slashes on non-root paths to avoid canonical duplicates
+    app.use((req, res, next) => {
+      if (req.method === 'GET' && req.path.length > 1 && req.path.endsWith('/')) {
+        const query = req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : '';
+        return res.redirect(301, `${req.path.slice(0, -1)}${query}`);
+      }
+      next();
+    });
+
+    app.use(express.static(distDir, { redirect: false, index: false }));
+
+    app.get('*', (req, res) => {
+      const cleanPath = req.path.replace(/^\/+|\/+$/g, '');
+      if (cleanPath) {
+        const flatHtml = path.resolve(distDir, `${cleanPath}.html`);
+        if (fs.existsSync(flatHtml)) {
+          return res.sendFile(flatHtml);
+        }
+        const dirIndexHtml = path.resolve(distDir, cleanPath, 'index.html');
+        if (fs.existsSync(dirIndexHtml)) {
+          return res.sendFile(dirIndexHtml);
+        }
+      }
+      res.sendFile(path.resolve(distDir, 'index.html'));
     });
   } else {
     const vite = await createViteServer({
